@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 
-import play.api.libs.json.Json
+import broadtranslator.AppWiring
 import play.api.mvc.{Action, Controller}
 
 /**
@@ -12,6 +12,8 @@ import play.api.mvc.{Action, Controller}
 @Singleton
 class TranslatorController @Inject() extends Controller {
 
+  val jsonApi = AppWiring.jsonApi
+
   /**
     * Get the list of available models in JSON
     *
@@ -20,8 +22,7 @@ class TranslatorController @Inject() extends Controller {
     * a path of `/`.
     */
   def getModelList = Action { implicit request =>
-    val json = Json.arr("variantsToPhenotypes", "geneExpressions", "coolModel")
-    Ok(json)
+    Ok(jsonApi.getModelList)
   }
 
 
