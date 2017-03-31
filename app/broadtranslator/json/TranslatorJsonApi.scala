@@ -2,7 +2,7 @@ package broadtranslator.json
 
 import broadtranslator.engine.TranslatorEngine
 import play.api.libs.json.Writes.StringWrites
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsObject, Json}
 
 /**
   * broadtranslator
@@ -10,6 +10,9 @@ import play.api.libs.json.{JsValue, Json}
   */
 class TranslatorJsonApi(engine: TranslatorEngine) {
 
-  def getModelList: JsValue = Json.toJson(engine.getAvailableModelIds.map(_.string))
+  def getModelList: JsObject = {
+    val modelIdStrings = engine.getAvailableModelIds.map(_.string)
+    Json.obj("models" -> modelIdStrings)
+  }
 
 }
