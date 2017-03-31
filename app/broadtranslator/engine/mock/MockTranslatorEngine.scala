@@ -8,5 +8,5 @@ import broadtranslator.engine.api.ModelId
   * Created by oliverr on 3/31/2017.
   */
 class MockTranslatorEngine extends TranslatorEngine {
-  override def getAvailableModelIds: Seq[ModelId] = Seq("ModelOne", "ModelTwo", "ModelRed", "ModelTwo").map(ModelId)
+  override def getAvailableModelIds: Seq[ModelId] = Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId)
 }
