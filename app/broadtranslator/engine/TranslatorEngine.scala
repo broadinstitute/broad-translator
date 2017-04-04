@@ -1,6 +1,6 @@
 package broadtranslator.engine
 
-import broadtranslator.engine.api.{ModelId, VariableGroup}
+import broadtranslator.engine.api.{GroupAndVariables, ModelId, VariableGroup, VariableGroupId}
 
 /**
   * broadtranslator
@@ -11,5 +11,7 @@ trait TranslatorEngine {
   def getAvailableModelIds: Seq[ModelId]
 
   def getModelSignature(modelId: ModelId): Seq[VariableGroup]
+
+  def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupAndVariables
 
 }
