@@ -1,15 +1,13 @@
 package broadtranslator.engine.mock
 
 import broadtranslator.engine.TranslatorEngine
-import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, GroupAndVariables, ModelId, ProbabilityDistribution, VarValueSet, VariableGroup, VariableGroupId, VariableId}
+import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, GroupAndVariables, ModelId, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableGroupId, VariableId}
 
 /**
   * broadtranslator
   * Created by oliverr on 3/31/2017.
   */
 class MockTranslatorEngine extends TranslatorEngine {
-  override def getAvailableModelIds: Seq[ModelId] = Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId)
-
   val applesNames = Seq("Gala", "Granny Smith", "Fuji", "Pink Lady")
   val applesList = VarValueSet.StringList(applesNames)
   val applesGroup = VariableGroupId("apples")
@@ -22,10 +20,13 @@ class MockTranslatorEngine extends TranslatorEngine {
   val bigOrangeVar = VariableId("big orange")
   val smallOrangeVar = VariableId("small orange")
 
-  override def getModelSignature(modelId: ModelId): Seq[VariableGroup] = Seq(
-    VariableGroup(modelId, applesGroup, asConstraints = true, asOutputs = false, applesList),
-    VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
-  )
+  override def getAvailableModelIds: Seq[ModelId] = Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId)
+
+  override def getModelSignature(modelId: ModelId): ModelSignatureResult =
+    ModelSignatureResult(modelId, Map(
+      applesGroup -> VariableGroup(modelId, applesGroup, asConstraints = true, asOutputs = false, applesList),
+      orangesGroup -> VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
+    ))
 
   override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupAndVariables =
     GroupAndVariables(VariableGroup(modelId, groupId, asConstraints = true, asOutputs = false, applesList),
