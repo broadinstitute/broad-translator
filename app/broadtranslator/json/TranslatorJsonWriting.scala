@@ -1,7 +1,8 @@
 package broadtranslator.json
 
-import broadtranslator.engine.api.{EntityId, ModelListResult, ModelSignatureResult, VariableGroup}
-import play.api.libs.json.{JsString, JsValue, Json, Writes}
+import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList, ValueType}
+import broadtranslator.engine.api.{EntityId, ModelListResult, ModelSignatureResult, VarValueSet, VariableGroup}
+import play.api.libs.json.{JsObject, JsString, JsValue, Json, Writes}
 
 /**
   * broadtranslator
@@ -14,15 +15,38 @@ object TranslatorJsonWriting {
   }
 
   implicit val modelListResultWrites: Writes[ModelListResult] = new Writes[ModelListResult] {
-    override def writes(result: ModelListResult): JsValue = Json.obj(
+    override def writes(result: ModelListResult): JsObject = Json.obj(
       "models" -> result.modelIds
     )
   }
 
+  implicit val valueTypeWrites: Writes[ValueType] = new Writes[ValueType] {
+    override def writes(valueType: ValueType): JsString = JsString(valueType.name)
+  }
+
+  implicit val valueSetWrites: Writes[VarValueSet] = new Writes[VarValueSet] {
+    override def writes(valueSet: VarValueSet): JsObject = {
+      val jsonType = Json.obj("type" -> valueSet.valueType)
+      val jsonValues = valueSet match {
+        case StringList(values) => Json.obj("values" -> values)
+        case NumberList(values) => Json.obj("values" -> values)
+        case NumberInterval(min, max) => Json.obj("min" -> min, "max" -> max)
+        case _ => Json.obj()
+      }
+      jsonType ++ jsonValues
+    }
+  }
+
   implicit val variableGroupWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
-    override def writes(group: VariableGroup): JsValue = Json.obj(
-      ???
-    )
+    override def writes(group: VariableGroup): JsObject = {
+      val jsonCore = Json.obj(
+        "id" -> group.id,
+        "asConstraints" -> group.asConstraints,
+        "asOutputs" -> group.asOutputs
+      )
+      val jsonValues = valueSetWrites.writes(group.valueSet).asInstanceOf[JsObject]
+      jsonCore ++ jsonValues
+    }
   }
 
   implicit val modelSignatureResultWrites: Writes[ModelSignatureResult] = new Writes[ModelSignatureResult] {
