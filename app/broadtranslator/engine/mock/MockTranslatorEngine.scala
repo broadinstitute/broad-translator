@@ -1,7 +1,7 @@
 package broadtranslator.engine.mock
 
 import broadtranslator.engine.TranslatorEngine
-import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, GroupAndVariables, ModelId, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableGroupId, VariableId}
+import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, GroupAndVariables, ModelId, ModelListResult, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableGroupId, VariableId}
 
 /**
   * broadtranslator
@@ -20,7 +20,8 @@ class MockTranslatorEngine extends TranslatorEngine {
   val bigOrangeVar = VariableId("big orange")
   val smallOrangeVar = VariableId("small orange")
 
-  override def getAvailableModelIds: Seq[ModelId] = Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId)
+  override def getAvailableModelIds: ModelListResult =
+    ModelListResult(Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId))
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
