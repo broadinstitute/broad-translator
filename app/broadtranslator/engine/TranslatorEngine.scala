@@ -1,6 +1,6 @@
 package broadtranslator.engine
 
-import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, GroupAndVariables, ModelId, ModelListResult, ModelSignatureResult, VariableGroup, VariableGroupId}
+import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, ModelId, ModelListResult, ModelSignatureResult, VariablesByGroupRequest, VariablesByGroupResult}
 
 /**
   * broadtranslator
@@ -11,7 +11,7 @@ trait TranslatorEngine {
 
   def getModelSignature(modelId: ModelId): ModelSignatureResult
 
-  def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupAndVariables
+  def getVariablesByGroup(request: VariablesByGroupRequest): VariablesByGroupResult
 
   def evaluate(request: EvaluateRequest): EvaluateResult
 }
