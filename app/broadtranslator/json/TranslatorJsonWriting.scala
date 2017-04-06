@@ -1,8 +1,8 @@
 package broadtranslator.json
 
 import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList, ValueType}
-import broadtranslator.engine.api.{EntityId, ModelListResult, ModelSignatureResult, VarValueSet, VariableGroup, VariablesByGroupResult}
-import play.api.libs.json.{JsObject, JsString, Json, Writes}
+import broadtranslator.engine.api.{EntityId, EvaluateResult, ModelListResult, ModelSignatureResult, VarValueSet, VariableGroup, VariablesByGroupResult}
+import play.api.libs.json.{JsObject, JsString, JsValue, Json, Writes}
 
 /**
   * broadtranslator
@@ -59,6 +59,10 @@ object TranslatorJsonWriting {
   implicit val variablesByGroupResultWrites: Writes[VariablesByGroupResult] = new Writes[VariablesByGroupResult] {
     override def writes(result: VariablesByGroupResult): JsObject =
       variableGroupWrites.writes(result.group).asInstanceOf[JsObject] ++ Json.obj("variables" -> result.variableIds)
+  }
+
+  implicit val evaluateResultWrites: Writes[EvaluateResult] = new Writes[EvaluateResult] {
+    override def writes(o: EvaluateResult): JsValue = ???
   }
 
 }

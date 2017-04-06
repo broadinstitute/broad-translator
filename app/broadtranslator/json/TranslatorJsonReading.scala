@@ -1,6 +1,6 @@
 package broadtranslator.json
 
-import broadtranslator.engine.api.{ModelId, ModelSignatureRequest, VariableGroupId, VariablesByGroupRequest}
+import broadtranslator.engine.api.{EvaluateRequest, ModelId, ModelSignatureRequest, VariableGroupId, VariablesByGroupRequest}
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json.{JsPath, Reads}
 
@@ -16,4 +16,7 @@ object TranslatorJsonReading {
   implicit val variablesByGroupRequestReads: Reads[VariablesByGroupRequest] =
     ((JsPath \ "model").read[String].map(ModelId) and
       (JsPath \ "group").read[String].map(VariableGroupId)) (VariablesByGroupRequest)
+
+  implicit val evaluateRequestReads: Reads[EvaluateRequest] = ???
+
 }
