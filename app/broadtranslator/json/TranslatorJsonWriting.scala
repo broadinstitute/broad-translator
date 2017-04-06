@@ -1,8 +1,8 @@
 package broadtranslator.json
 
 import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList, ValueType}
-import broadtranslator.engine.api.{EntityId, EvaluateResult, ModelListResult, ModelSignatureResult, VarValueSet, VariableGroup, VariablesByGroupResult}
-import play.api.libs.json.{JsObject, JsString, JsValue, Json, Writes}
+import broadtranslator.engine.api.{EntityId, EvaluateResult, GroupWithProbabilities, ModelListResult, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableWithProbabilities, VariablesByGroupResult}
+import play.api.libs.json.{JsBoolean, JsNumber, JsObject, JsString, JsValue, Json, Writes}
 
 /**
   * broadtranslator
@@ -61,8 +61,48 @@ object TranslatorJsonWriting {
       variableGroupWrites.writes(result.group).asInstanceOf[JsObject] ++ Json.obj("variables" -> result.variableIds)
   }
 
+  implicit val variableWithProbabilitiesWrites: Writes[VariableWithProbabilities] =
+    new Writes[VariableWithProbabilities] {
+      override def writes(varWithProbs: VariableWithProbabilities): JsValue = {
+        val varJson = Json.obj("variable" -> varWithProbs.variableId)
+        val probJson = varWithProbs.probabilityDistribution match {
+          case ProbabilityDistribution.Discrete(probabilities) =>
+            val probsJson = probabilities.map({ case (value, probability) =>
+              val valueJson = value match {
+                case boolean: Boolean => JsBoolean(boolean)
+                case float: Float => JsNumber(float.toDouble)
+                case double: Double => JsNumber(double)
+                case int: Int => JsNumber(int.toDouble)
+                case long: Long => JsNumber(long.toDouble)
+                case short: Short => JsNumber(short.toDouble)
+                case byte: Byte => JsNumber(byte.toDouble)
+              }
+              Json.obj(
+                "value" -> valueJson,
+                "probability" -> probability
+              )
+            })
+            Json.obj("probabilities" -> probsJson)
+          case ProbabilityDistribution.Gaussian(mean, sigma) => Json.obj(
+            "mean" -> mean,
+            "sigma" -> sigma
+          )
+        }
+        varJson ++ probJson
+      }
+    }
+
+  implicit val groupWithProbabilitiesWrites: Writes[GroupWithProbabilities] = new Writes[GroupWithProbabilities] {
+    override def writes(groupWithProbs: GroupWithProbabilities): JsValue = Json.obj(
+      "group" -> groupWithProbs.groupId,
+      "probabilities" -> groupWithProbs.varsWithProbs
+    )
+  }
+
   implicit val evaluateResultWrites: Writes[EvaluateResult] = new Writes[EvaluateResult] {
-    override def writes(o: EvaluateResult): JsValue = ???
+    override def writes(result: EvaluateResult): JsValue = Json.obj(
+      "probabilities" -> result.groupsWithProbs
+    )
   }
 
 }
