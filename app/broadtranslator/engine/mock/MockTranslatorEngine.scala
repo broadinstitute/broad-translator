@@ -1,7 +1,7 @@
 package broadtranslator.engine.mock
 
 import broadtranslator.engine.TranslatorEngine
-import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, ModelId, ModelListResult, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableGroupId, VariableId, VariablesByGroupRequest, VariablesByGroupResult}
+import broadtranslator.engine.api._
 
 /**
   * broadtranslator
@@ -34,10 +34,14 @@ class MockTranslatorEngine extends TranslatorEngine {
       Seq(appleOneVar, appleTwoVar))
 
   override def evaluate(request: EvaluateRequest): EvaluateResult =
-    EvaluateResult(Map(orangesGroup ->
-      Map(
-        bigOrangeVar -> ProbabilityDistribution.Discrete(Map("Navel" -> 0.85, "Clementine" -> 0.15)),
-        smallOrangeVar -> ProbabilityDistribution.Discrete(Map("Navel" -> 0.07, "Clementine" -> 0.93))
-      )
+  EvaluateResult(Seq(
+    GroupWithProbabilities(orangesGroup, Seq(
+      VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
+        "Navel" -> 0.85, "Clementine" -> 0.15
+      ))),
+      VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
+        "Navel" -> 0.07, "Clementine" -> 0.93
+      )))
     ))
+  ))
 }
