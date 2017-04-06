@@ -1,7 +1,7 @@
 package broadtranslator.engine.mock
 
 import broadtranslator.engine.TranslatorEngine
-import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, GroupAndVariables, ModelId, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableGroupId, VariableId}
+import broadtranslator.engine.api._
 
 /**
   * broadtranslator
@@ -20,7 +20,8 @@ class MockTranslatorEngine extends TranslatorEngine {
   val bigOrangeVar = VariableId("big orange")
   val smallOrangeVar = VariableId("small orange")
 
-  override def getAvailableModelIds: Seq[ModelId] = Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId)
+  override def getAvailableModelIds: ModelListResult =
+    ModelListResult(Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId))
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
@@ -28,15 +29,19 @@ class MockTranslatorEngine extends TranslatorEngine {
       orangesGroup -> VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
     ))
 
-  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupAndVariables =
-    GroupAndVariables(VariableGroup(modelId, groupId, asConstraints = true, asOutputs = false, applesList),
+  override def getVariablesByGroup(request: VariablesByGroupRequest): VariablesByGroupResult =
+    VariablesByGroupResult(VariableGroup(request, asConstraints = true, asOutputs = false, applesList),
       Seq(appleOneVar, appleTwoVar))
 
   override def evaluate(request: EvaluateRequest): EvaluateResult =
-    EvaluateResult(Map(orangesGroup ->
-      Map(
-        bigOrangeVar -> ProbabilityDistribution.Discrete(Map("Navel" -> 0.85, "Clementine" -> 0.15)),
-        smallOrangeVar -> ProbabilityDistribution.Discrete(Map("Navel" -> 0.07, "Clementine" -> 0.93))
-      )
+  EvaluateResult(Seq(
+    GroupWithProbabilities(orangesGroup, Seq(
+      VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
+        "Navel" -> 0.85, "Clementine" -> 0.15
+      ))),
+      VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
+        "Navel" -> 0.07, "Clementine" -> 0.93
+      )))
     ))
+  ))
 }

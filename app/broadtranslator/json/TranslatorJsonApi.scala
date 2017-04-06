@@ -1,10 +1,10 @@
 package broadtranslator.json
 
 import broadtranslator.engine.TranslatorEngine
-import broadtranslator.engine.api.ModelSignatureRequest
-import play.api.libs.json.Writes.StringWrites
-import play.api.libs.json.{JsError, JsObject, JsSuccess, Json}
-import broadtranslator.json.TranslatorJsonReading.modelSignatureRequestReads
+import broadtranslator.engine.api._
+import broadtranslator.json.TranslatorJsonReading.{evaluateRequestReads, modelSignatureRequestReads, variablesByGroupRequestReads}
+import broadtranslator.json.TranslatorJsonWriting.{evaluateResultWrites, modelListResultWrites, modelSignatureResultWrites, variablesByGroupResultWrites}
+import play.api.libs.json._
 
 /**
   * broadtranslator
@@ -12,20 +12,23 @@ import broadtranslator.json.TranslatorJsonReading.modelSignatureRequestReads
   */
 class TranslatorJsonApi(engine: TranslatorEngine) {
 
-  def getModelList: JsObject = {
-    val modelIdStrings = engine.getAvailableModelIds.map(_.string)
-    Json.obj("models" -> modelIdStrings)
-  }
+  def getModelList: JsValue = Json.toJson(engine.getAvailableModelIds)
 
-  def getModelSignature(requestJson: JsObject): JsObject = {
-    requestJson.validate[ModelSignatureRequest] match {
-      case success: JsSuccess[ModelSignatureRequest] =>
-        val request = success.get
-        val modelId = request.modelId
-        val x = engine.getModelSignature(modelId)
-        ???
-      case error: JsError =>
-        ???
+  def getModelSignature(request: JsValue): JsValue =
+    callWrapperJson[ModelSignatureRequest, ModelSignatureResult](request,
+      request => engine.getModelSignature(request.modelId))
+
+  def getVariablesByGroup(request: JsValue): JsValue =
+    callWrapperJson[VariablesByGroupRequest, VariablesByGroupResult](request, engine.getVariablesByGroup)
+
+  def evaluate(request: JsValue): JsValue =
+    callWrapperJson[EvaluateRequest, EvaluateResult](request, engine.evaluate)
+
+  def callWrapperJson[Q, A](request: JsValue, fun: Q => A)
+                           (implicit reads: Reads[Q], writes: Writes[A]): JsValue = {
+    request.validate[Q] match {
+      case success: JsSuccess[Q] => Json.toJson(fun(success.get))
+      case error: JsError => JsError.toJson(error)
     }
   }
 

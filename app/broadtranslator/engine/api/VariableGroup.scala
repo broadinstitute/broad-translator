@@ -9,3 +9,9 @@ case class VariableGroup(modelId: ModelId, id: VariableGroupId, asConstraints: B
 
 }
 
+object VariableGroup {
+  def apply(request: VariablesByGroupRequest, asConstraints: Boolean, asOutputs: Boolean,
+            valueSet: VarValueSet): VariableGroup
+  = VariableGroup(request.modelId, request.groupId, asConstraints, asOutputs, valueSet)
+}
+
