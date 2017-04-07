@@ -3,7 +3,9 @@ package controllers
 import javax.inject.{Inject, Singleton}
 
 import broadtranslator.AppWiring
-import play.api.mvc.{Action, Controller}
+import broadtranslator.json.TranslatorJsonApi
+import play.api.libs.json.JsValue
+import play.api.mvc.{Action, AnyContent, Controller}
 
 /**
   * broadtranslator
@@ -12,7 +14,7 @@ import play.api.mvc.{Action, Controller}
 @Singleton
 class TranslatorController @Inject() extends Controller {
 
-  val jsonApi = AppWiring.jsonApi
+  val jsonApi: TranslatorJsonApi = AppWiring.jsonApi
 
   /**
     * Get the list of available models in JSON
@@ -21,8 +23,20 @@ class TranslatorController @Inject() extends Controller {
     * will be called when the application receives a `GET` request with
     * a path of `/`.
     */
-  def getModelList = Action { implicit request =>
+  def getModelList: Action[AnyContent] = Action { implicit request =>
     Ok(jsonApi.getModelList)
+  }
+
+  def getModelSignature: Action[JsValue] = Action(parse.json) { implicit request =>
+    Ok(jsonApi.getModelSignature(request.body))
+  }
+
+  def getVariablesByGroup: Action[JsValue] = Action(parse.json) { implicit request =>
+    Ok(jsonApi.getVariablesByGroup(request.body))
+  }
+
+  def evaluate: Action[JsValue] = Action(parse.json) { implicit request =>
+    Ok(jsonApi.evaluate(request.body))
   }
 
 
