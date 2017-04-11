@@ -3,6 +3,7 @@ package broadtranslator.json
 import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList, ValueType}
 import broadtranslator.engine.api.{EntityId, EvaluateResult, GroupWithProbabilities, ModelListResult, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableWithProbabilities, VariablesByGroupResult}
 import play.api.libs.json.{JsBoolean, JsNumber, JsObject, JsString, JsValue, Json, Writes}
+import util.MatchNumber
 
 /**
   * broadtranslator
@@ -69,13 +70,7 @@ object TranslatorJsonWriting {
           case ProbabilityDistribution.Discrete(probabilities) =>
             val probsJson = probabilities.map({ case (value, probability) =>
               val valueJson = value match {
-                case boolean: Boolean => JsBoolean(boolean)
-                case float: Float => JsNumber(float.toDouble)
-                case double: Double => JsNumber(double)
-                case int: Int => JsNumber(int.toDouble)
-                case long: Long => JsNumber(long.toDouble)
-                case short: Short => JsNumber(short.toDouble)
-                case byte: Byte => JsNumber(byte.toDouble)
+                case MatchNumber.AsDouble(double) => JsNumber(double)
               }
               Json.obj(
                 "value" -> valueJson,
