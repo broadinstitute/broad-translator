@@ -3,6 +3,8 @@ package broadtranslator
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.mock.MockTranslatorEngine
 import broadtranslator.json.TranslatorJsonApi
+import broadtranslator.json.smart.TranslatorSmartApi
+import util.rdf.TranslatorRdfContext
 
 /**
   * broadtranslator
@@ -10,7 +12,8 @@ import broadtranslator.json.TranslatorJsonApi
   */
 object AppWiring {
 
-  val engine : TranslatorEngine = new MockTranslatorEngine
+  val engine: TranslatorEngine = new MockTranslatorEngine
   val jsonApi = new TranslatorJsonApi(engine)
+  val smartApi = new TranslatorSmartApi(engine, TranslatorRdfContext.getModelIri)
 
 }

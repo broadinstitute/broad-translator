@@ -1,7 +1,10 @@
 package broadtranslator.engine.mock
 
+import java.net.URI
+
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api._
+import broadtranslator.engine.api.smart.SmartSpecs
 
 /**
   * broadtranslator
@@ -23,6 +26,9 @@ class MockTranslatorEngine extends TranslatorEngine {
   override def getAvailableModelIds: ModelListResult =
     ModelListResult(Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId))
 
+  override def getSmartSpecs(modelId: ModelId): SmartSpecs =
+    SmartSpecs(modelId.string, new URI("http://www.broadinstitute.org/translator"))
+
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
       applesGroup -> VariableGroup(modelId, applesGroup, asConstraints = true, asOutputs = false, applesList),
@@ -34,14 +40,15 @@ class MockTranslatorEngine extends TranslatorEngine {
       Seq(appleOneVar, appleTwoVar))
 
   override def evaluate(request: EvaluateRequest): EvaluateResult =
-  EvaluateResult(Seq(
-    GroupWithProbabilities(orangesGroup, Seq(
-      VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
-        "Navel" -> 0.85, "Clementine" -> 0.15
-      ))),
-      VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
-        "Navel" -> 0.07, "Clementine" -> 0.93
-      )))
+    EvaluateResult(Seq(
+      GroupWithProbabilities(orangesGroup, Seq(
+        VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
+          "Navel" -> 0.85, "Clementine" -> 0.15
+        ))),
+        VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
+          "Navel" -> 0.07, "Clementine" -> 0.93
+        )))
+      ))
     ))
-  ))
+
 }
