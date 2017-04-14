@@ -8,7 +8,13 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.11.10"
 
 libraryDependencies += filters
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % Test
+libraryDependencies ++= Seq(
+  // https://mvnrepository.com/artifact/org.eclipse.rdf4j/rdf4j-rio-jsonld
+  "org.eclipse.rdf4j" % "rdf4j-repository-sail" % "2.2",
+  "org.eclipse.rdf4j" % "rdf4j-sail-memory" % "2.2",
+  "org.eclipse.rdf4j" % "rdf4j-rio-jsonld" % "2.2",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % Test
+)
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "org.broadinstitute.controllers._"

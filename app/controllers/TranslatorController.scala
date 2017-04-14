@@ -4,6 +4,7 @@ import javax.inject.{Inject, Singleton}
 
 import broadtranslator.AppWiring
 import broadtranslator.json.TranslatorJsonApi
+import broadtranslator.json.smart.TranslatorSmartApi
 import play.api.libs.json.JsValue
 import play.api.mvc.{Action, AnyContent, Controller}
 
@@ -15,6 +16,7 @@ import play.api.mvc.{Action, AnyContent, Controller}
 class TranslatorController @Inject() extends Controller {
 
   val jsonApi: TranslatorJsonApi = AppWiring.jsonApi
+  val smartApi : TranslatorSmartApi = AppWiring.smartApi
 
   /**
     * Get the list of available models in JSON
