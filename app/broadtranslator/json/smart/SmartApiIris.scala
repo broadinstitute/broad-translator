@@ -14,5 +14,6 @@ object SmartApiIris {
   def newIRI(name: String): IRI = Rdf4jUtils.valueFactory.createIRI(baseIriString, name)
 
   val name: IRI = newIRI("name")
+  val accessPoint: IRI = newIRI("accessPoint")
 
 }

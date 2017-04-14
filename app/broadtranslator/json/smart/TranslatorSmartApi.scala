@@ -3,8 +3,8 @@ package broadtranslator.json.smart
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api.ModelId
 import org.eclipse.rdf4j.model.IRI
-import org.eclipse.rdf4j.repository.Repository
 import org.eclipse.rdf4j.model.vocabulary.XMLSchema
+import org.eclipse.rdf4j.repository.Repository
 import util.rdf.Rdf4jUtils
 
 /**
@@ -19,6 +19,8 @@ class TranslatorSmartApi(engine: TranslatorEngine, modelIriMaker: ModelId => IRI
     val conn = repository.getConnection
     val modelIri = modelIriMaker(modelId)
     conn.add(modelIri, SmartApiIris.name, Rdf4jUtils.valueFactory.createLiteral(apiSpecs.name, XMLSchema.STRING))
+    conn.add(modelIri, SmartApiIris.accessPoint,
+      Rdf4jUtils.valueFactory.createLiteral(apiSpecs.accessPoint.toString, XMLSchema.ANYURI))
     repository
   }
 

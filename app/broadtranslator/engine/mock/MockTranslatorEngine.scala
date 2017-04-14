@@ -1,5 +1,7 @@
 package broadtranslator.engine.mock
 
+import java.net.URI
+
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api._
 import broadtranslator.engine.api.smart.SmartSpecs
@@ -24,7 +26,8 @@ class MockTranslatorEngine extends TranslatorEngine {
   override def getAvailableModelIds: ModelListResult =
     ModelListResult(Seq("ModelOne", "ModelTwo", "ModelRed", "ModelBlue").map(ModelId))
 
-  override def getSmartSpecs(modelId: ModelId): SmartSpecs = SmartSpecs(modelId.string)
+  override def getSmartSpecs(modelId: ModelId): SmartSpecs =
+    SmartSpecs(modelId.string, new URI("http://www.broadinstitute.org/translator"))
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
