@@ -1,5 +1,7 @@
 package util.rdf
 
+import java.net.URLEncoder
+
 import broadtranslator.engine.api.ModelId
 import org.eclipse.rdf4j.model.IRI
 
@@ -11,6 +13,8 @@ object TranslatorRdfContext {
 
   val projectBaseIriString = "http://www.broadinstitute.org/translator/"
 
-  def getModelIri(modelId: ModelId): IRI = Rdf4jUtils.valueFactory.createIRI(projectBaseIriString, modelId.string)
+  def getModelIri(modelId: ModelId): IRI = {
+    Rdf4jUtils.valueFactory.createIRI(projectBaseIriString, URLEncoder.encode(modelId.string, "UTF-8"))
+  }
 
 }

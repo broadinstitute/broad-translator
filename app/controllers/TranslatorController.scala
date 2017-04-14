@@ -3,10 +3,13 @@ package controllers
 import javax.inject.{Inject, Singleton}
 
 import broadtranslator.AppWiring
+import broadtranslator.engine.api.ModelId
 import broadtranslator.json.TranslatorJsonApi
 import broadtranslator.json.smart.TranslatorSmartApi
+import org.eclipse.rdf4j.rio.Rio
 import play.api.libs.json.JsValue
 import play.api.mvc.{Action, AnyContent, Controller}
+import util.rdf.Rdf4jUtils
 
 /**
   * broadtranslator
@@ -39,6 +42,12 @@ class TranslatorController @Inject() extends Controller {
 
   def evaluate: Action[JsValue] = Action(parse.json) { implicit request =>
     Ok(jsonApi.evaluate(request.body))
+  }
+
+  def smart: Action[AnyContent] = Action { implicit request =>
+    val repo = smartApi.getSmartApi(ModelId("Green Model"))
+    val jsonLdString = Rdf4jUtils.getContentAsString(repo)
+    Ok(jsonLdString).as("application/ld+json")
   }
 
 

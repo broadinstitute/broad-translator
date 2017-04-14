@@ -12,5 +12,9 @@ POST    /getModelSignature          controllers.TranslatorController.getModelSig
 POST    /getVariablesByGroup        controllers.TranslatorController.getVariablesByGroup
 POST    /evaluate                   controllers.TranslatorController.evaluate
 
+# smartAPI
+
+GET     /smart                      controllers.TranslatorController.smart
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

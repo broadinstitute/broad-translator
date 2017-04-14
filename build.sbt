@@ -13,6 +13,7 @@ libraryDependencies ++= Seq(
   "org.eclipse.rdf4j" % "rdf4j-repository-sail" % "2.2",
   "org.eclipse.rdf4j" % "rdf4j-sail-memory" % "2.2",
   "org.eclipse.rdf4j" % "rdf4j-rio-jsonld" % "2.2",
+  "com.github.jsonld-java" % "jsonld-java" % "0.8.3",
   "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % Test
 )
 

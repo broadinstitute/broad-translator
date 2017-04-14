@@ -1,9 +1,12 @@
 package util.rdf
 
+import java.io.ByteArrayOutputStream
+
 import org.eclipse.rdf4j.model.ValueFactory
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory
 import org.eclipse.rdf4j.repository.Repository
 import org.eclipse.rdf4j.repository.sail.SailRepository
+import org.eclipse.rdf4j.rio.{RDFFormat, Rio}
 import org.eclipse.rdf4j.sail.memory.MemoryStore
 
 /**
@@ -18,6 +21,13 @@ object Rdf4jUtils {
     val repository = new SailRepository(new MemoryStore())
     repository.initialize()
     repository
+  }
+
+  def getContentAsString(repository: Repository, format: RDFFormat = RDFFormat.JSONLD) : String = {
+    val out = new ByteArrayOutputStream
+    val writer = Rio.createWriter(format, out)
+    repository.getConnection.export(writer)
+    out.toString("UTF-8")
   }
 
 }
