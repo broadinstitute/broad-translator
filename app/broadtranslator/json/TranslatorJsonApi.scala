@@ -2,9 +2,9 @@ package broadtranslator.json
 
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api._
-import broadtranslator.json.TranslatorJsonReading.{evaluateRequestReads, modelSignatureRequestReads, variablesByGroupRequestReads}
+import broadtranslator.json.TranslatorJsonReading.{evaluateRequestReads, variablesByGroupRequestReads}
 import broadtranslator.json.TranslatorJsonWriting.{evaluateResultWrites, modelListResultWrites, modelSignatureResultWrites, variablesByGroupResultWrites}
-import play.api.libs.json._
+import play.api.libs.json.{JsError, JsSuccess, JsValue, Json, Reads, Writes}
 
 /**
   * broadtranslator
@@ -14,9 +14,7 @@ class TranslatorJsonApi(engine: TranslatorEngine) {
 
   def getModelList: JsValue = Json.toJson(engine.getAvailableModelIds)
 
-  def getModelSignature(request: JsValue): JsValue =
-    callWrapperJson[ModelSignatureRequest, ModelSignatureResult](request,
-      request => engine.getModelSignature(request.modelId))
+  def getModelSignature(modelId: ModelId): JsValue = Json.toJson(engine.getModelSignature(modelId))
 
   def getVariablesByGroup(request: JsValue): JsValue =
     callWrapperJson[VariablesByGroupRequest, VariablesByGroupResult](request, engine.getVariablesByGroup)

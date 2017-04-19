@@ -6,7 +6,6 @@ import broadtranslator.AppWiring
 import broadtranslator.engine.api.ModelId
 import broadtranslator.json.TranslatorJsonApi
 import broadtranslator.json.smart.TranslatorSmartApi
-import org.eclipse.rdf4j.rio.Rio
 import play.api.libs.json.JsValue
 import play.api.mvc.{Action, AnyContent, Controller}
 import util.rdf.Rdf4jUtils
@@ -19,7 +18,7 @@ import util.rdf.Rdf4jUtils
 class TranslatorController @Inject() extends Controller {
 
   val jsonApi: TranslatorJsonApi = AppWiring.jsonApi
-  val smartApi : TranslatorSmartApi = AppWiring.smartApi
+  val smartApi: TranslatorSmartApi = AppWiring.smartApi
 
   /**
     * Get the list of available models in JSON
@@ -32,8 +31,8 @@ class TranslatorController @Inject() extends Controller {
     Ok(jsonApi.getModelList)
   }
 
-  def getModelSignature: Action[JsValue] = Action(parse.json) { implicit request =>
-    Ok(jsonApi.getModelSignature(request.body))
+  def getModelSignature(modelId: String): Action[AnyContent] = Action { implicit request =>
+    Ok(jsonApi.getModelSignature(ModelId(modelId)))
   }
 
   def getVariablesByGroup: Action[JsValue] = Action(parse.json) { implicit request =>

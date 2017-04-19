@@ -7,9 +7,9 @@
 GET     /                           controllers.HomeController.index
 
 # Translator REST API
-GET     /getModelList               controllers.TranslatorController.getModelList
-POST    /getModelSignature          controllers.TranslatorController.getModelSignature
-POST    /getVariablesByGroup        controllers.TranslatorController.getVariablesByGroup
+GET     /modelList                  controllers.TranslatorController.getModelList
+GET     /:model/signature           controllers.TranslatorController.getModelSignature(model)
+POST    /variablesByGroup           controllers.TranslatorController.getVariablesByGroup
 POST    /evaluate                   controllers.TranslatorController.evaluate
 
 # smartAPI
