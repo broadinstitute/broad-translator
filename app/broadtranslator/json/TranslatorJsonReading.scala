@@ -14,12 +14,6 @@ object TranslatorJsonReading {
   implicit val variableIdReads: Reads[VariableId] = implicitly[Reads[String]].map(VariableId)
   implicit val groupIdReads: Reads[VariableGroupId] = implicitly[Reads[String]].map(VariableGroupId)
 
-  implicit val modelSignatureRequestReads: Reads[ModelSignatureRequest] =
-    (JsPath \ "model").read[ModelId].map(ModelSignatureRequest)
-
-  implicit val variablesByGroupRequestReads: Reads[VariablesByGroupRequest] =
-    ((JsPath \ "model").read[ModelId] and (JsPath \ "group").read[VariableGroupId]) (VariablesByGroupRequest)
-
   implicit val outputGroupReads: Reads[OutputGroup] = (
     (JsPath \ "group").read[VariableGroupId] and (JsPath \ "variables").read[Seq[VariableId]])(OutputGroup)
 

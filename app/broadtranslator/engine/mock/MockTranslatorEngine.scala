@@ -35,8 +35,8 @@ class MockTranslatorEngine extends TranslatorEngine {
       orangesGroup -> VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
     ))
 
-  override def getVariablesByGroup(request: VariablesByGroupRequest): VariablesByGroupResult =
-    VariablesByGroupResult(VariableGroup(request, asConstraints = true, asOutputs = false, applesList),
+  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): VariablesByGroupResult =
+    VariablesByGroupResult(VariableGroup(modelId, groupId, asConstraints = true, asOutputs = false, applesList),
       Seq(appleOneVar, appleTwoVar))
 
   override def evaluate(request: EvaluateRequest): EvaluateResult =
