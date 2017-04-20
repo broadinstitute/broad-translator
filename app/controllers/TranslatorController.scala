@@ -3,11 +3,12 @@ package controllers
 import javax.inject.{Inject, Singleton}
 
 import broadtranslator.AppWiring
-import broadtranslator.engine.api.ModelId
+import broadtranslator.engine.api.{ModelId, VariableGroupId}
 import broadtranslator.json.TranslatorJsonApi
 import broadtranslator.json.smart.TranslatorSmartApi
 import play.api.libs.json.JsValue
 import play.api.mvc.{Action, AnyContent, Controller}
+import util.HttpContentTypes
 import util.rdf.Rdf4jUtils
 
 /**
@@ -35,8 +36,8 @@ class TranslatorController @Inject() extends Controller {
     Ok(jsonApi.getModelSignature(ModelId(modelId)))
   }
 
-  def getVariablesByGroup: Action[JsValue] = Action(parse.json) { implicit request =>
-    Ok(jsonApi.getVariablesByGroup(request.body))
+  def getVariablesByGroup(modelId: String, groupId: String): Action[AnyContent] = Action { implicit request =>
+    Ok(jsonApi.getVariablesByGroup(ModelId(modelId), VariableGroupId(groupId)))
   }
 
   def evaluate: Action[JsValue] = Action(parse.json) { implicit request =>
@@ -46,7 +47,7 @@ class TranslatorController @Inject() extends Controller {
   def smart(modelId: String): Action[AnyContent] = Action { implicit request =>
     val repo = smartApi.getSmartApi(ModelId(modelId))
     val jsonLdString = Rdf4jUtils.getContentAsString(repo)
-    Ok(jsonLdString).as("application/ld+json")
+    Ok(jsonLdString).as(HttpContentTypes.json) // Switch to JSON-LD
   }
 
 
