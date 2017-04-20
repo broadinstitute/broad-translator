@@ -2,7 +2,7 @@ package broadtranslator.json
 
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api._
-import broadtranslator.json.TranslatorJsonReading.{evaluateRequestReads, variablesByGroupRequestReads}
+import broadtranslator.json.TranslatorJsonReading.evaluateRequestReads
 import broadtranslator.json.TranslatorJsonWriting.{evaluateResultWrites, modelListResultWrites, modelSignatureResultWrites, variablesByGroupResultWrites}
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json, Reads, Writes}
 
