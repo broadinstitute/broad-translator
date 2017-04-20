@@ -43,8 +43,8 @@ class TranslatorController @Inject() extends Controller {
     Ok(jsonApi.evaluate(request.body))
   }
 
-  def smart: Action[AnyContent] = Action { implicit request =>
-    val repo = smartApi.getSmartApi(ModelId("Green Model"))
+  def smart(modelId: String): Action[AnyContent] = Action { implicit request =>
+    val repo = smartApi.getSmartApi(ModelId(modelId))
     val jsonLdString = Rdf4jUtils.getContentAsString(repo)
     Ok(jsonLdString).as("application/ld+json")
   }
