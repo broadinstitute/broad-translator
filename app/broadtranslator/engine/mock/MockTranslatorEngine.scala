@@ -1,6 +1,9 @@
 package broadtranslator.engine.mock
 
 import java.net.URI
+import java.io.File
+import java.io.PrintWriter
+import java.io.FileWriter
 
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api._
@@ -39,16 +42,43 @@ class MockTranslatorEngine extends TranslatorEngine {
     VariablesByGroupResult(VariableGroup(modelId, groupId, asConstraints = true, asOutputs = false, applesList),
       Seq(appleOneVar, appleTwoVar))
 
-  override def evaluate(request: EvaluateRequest): EvaluateResult =
+  override def evaluate(request: EvaluateRequest): EvaluateResult ={
+    exportRequest(request, new File("/tmp/translatorRequest.txt"))
     EvaluateResult(Seq(
       GroupWithProbabilities(orangesGroup, Seq(
         VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
-          "Navel" -> 0.85, "Clementine" -> 0.15
+          1 -> 0.85, 2 -> 0.15
         ))),
         VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
-          "Navel" -> 0.07, "Clementine" -> 0.93
+          1 -> 0.07, 2 -> 0.93
         )))
       ))
     ))
-
+  }
+  
+  private def exportRequest(request: EvaluateRequest, file: File): Unit = {
+    val out = new PrintWriter(new FileWriter(file))
+    out.println("io\tvariableGroup\tvariableName\tvariableValue\tprobability")
+    for (
+      group <- request.constraints;
+      variableGroup = group.groupId.string;
+      variable <- group.variablesAndConstraints;
+      variableName = variable.variableId.string;
+      value = variable.constraint match {
+        case VariableConstraint.Equals(value) => value
+      };
+      probability = 0.18
+    ) {
+      out.println("input\t" + variableGroup + "\t" + variableName + "\t" + value + "\t" + probability)
+    }
+    for (
+      group <- request.outputs;
+      variableGroup = group.groupId.string;
+      variable <- group.variableIds;
+      variableName = variable.string
+    ) {
+      out.println("output\t" + variableGroup + "\t" + variableName + "\t\t")
+    }
+    out.close()
+  }
 }
