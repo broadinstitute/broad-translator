@@ -28,7 +28,9 @@ object TranslatorJsonReading {
 
   implicit val probabilityDistributionReads: Reads[ProbabilityDistribution] = ??? // TODO
 
-  implicit val variableWithProbabilitiesReads: Reads[VariableWithProbabilities] = ??? // TODO
+  implicit val variableWithProbabilitiesReads: Reads[VariableWithProbabilities] =
+    ((JsPath \"variableId").read[VariableId] and
+      (JsPath \"probabilities").read[ProbabilityDistribution])(VariableWithProbabilities)
 
   implicit val groupWithProbabilitiesReads: Reads[GroupWithProbabilities] =
     ((JsPath \ "variableGroupId").read[VariableGroupId] and
