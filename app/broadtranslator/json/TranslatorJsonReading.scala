@@ -26,6 +26,14 @@ object TranslatorJsonReading {
     }
   }
 
+  implicit val probabilityDistributionReads: Reads[ProbabilityDistribution] = ??? // TODO
+
+  implicit val variableWithProbabilitiesReads: Reads[VariableWithProbabilities] = ??? // TODO
+
+  implicit val groupWithProbabilitiesReads: Reads[GroupWithProbabilities] =
+    ((JsPath \ "variableGroupId").read[VariableGroupId] and
+      (JsPath \ "probabilities").read[Seq[VariableWithProbabilities]])(GroupWithProbabilities)
+
   implicit val variableAndConstraintReads: Reads[VariableAndConstraint] =
     ((JsPath \ "variable").read[VariableId] and
       (JsPath \ "value").read[VariableConstraint])(VariableAndConstraint)
@@ -37,6 +45,6 @@ object TranslatorJsonReading {
   implicit val evaluateRequestReads: Reads[EvaluateRequest] =
     ((JsPath \ "model").read[ModelId] and
       (JsPath \ "outputs").read[Seq[OutputGroup]] and
-      (JsPath \ "constraints").read[Seq[ConstraintGroup]]) (EvaluateRequest)
+      (JsPath \ "priors").read[Seq[GroupWithProbabilities]]) (EvaluateRequest)
 
 }
