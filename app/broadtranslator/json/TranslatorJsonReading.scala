@@ -26,6 +26,8 @@ object TranslatorJsonReading {
     }
   }
 
+  implicit val valueProbabilityReads: Reads[ValueProbability] = ??? // TODO
+
   implicit val probabilityDistributionReads: Reads[ProbabilityDistribution] = ??? // TODO
 
   implicit val variableWithProbabilitiesReads: Reads[VariableWithProbabilities] =
