@@ -16,4 +16,9 @@ object ProbabilityDistribution {
 
   case class Gaussian(mean: Double, sigma: Double) extends Typed[Double]
 
+  def apply(probabilities: Iterable[ValueProbability]): Discrete[String] = {
+    val probsMap = probabilities.map(valueProbability => (valueProbability.value, valueProbability.probability)).toMap
+    Discrete(probsMap)
+  }
+
 }

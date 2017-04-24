@@ -7,3 +7,9 @@ package broadtranslator.engine.api
 case class VariableWithProbabilities(variableId: VariableId, probabilityDistribution: ProbabilityDistribution) {
 
 }
+
+object VariableWithProbabilities {
+  def apply(variableId: VariableId, probabilities: Seq[ValueProbability]): VariableWithProbabilities =
+    VariableWithProbabilities(variableId, ProbabilityDistribution(probabilities))
+
+}
