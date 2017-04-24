@@ -15,7 +15,7 @@ object TranslatorJsonReading {
   implicit val groupIdReads: Reads[VariableGroupId] = implicitly[Reads[String]].map(VariableGroupId)
 
   implicit val outputGroupReads: Reads[OutputGroup] = (
-    (JsPath \ "group").read[VariableGroupId] and (JsPath \ "variables").read[Seq[VariableId]])(OutputGroup)
+    (JsPath \ "group").read[VariableGroupId] and (JsPath \ "variables").read[Seq[VariableId]]) (OutputGroup)
 
   implicit val constraintReads: Reads[VariableConstraint] = new Reads[VariableConstraint] {
     override def reads(json: JsValue): JsResult[VariableConstraint] = json match {
@@ -26,17 +26,28 @@ object TranslatorJsonReading {
     }
   }
 
+  implicit val valueProbabilityReads: Reads[ValueProbability] =
+    ((JsPath \ "value").read[String] and (JsPath \ "probability").read[Double])(ValueProbability)
+
+  implicit val variableWithProbabilitiesReads: Reads[VariableWithProbabilities] =
+    ((JsPath \ "variableId").read[VariableId] and
+      (JsPath \ "distribution").read[Seq[ValueProbability]]) (VariableWithProbabilities(_, _))
+
+  implicit val groupWithProbabilitiesReads: Reads[GroupWithProbabilities] =
+    ((JsPath \ "variableGroupId").read[VariableGroupId] and
+      (JsPath \ "probabilities").read[Seq[VariableWithProbabilities]]) (GroupWithProbabilities)
+
   implicit val variableAndConstraintReads: Reads[VariableAndConstraint] =
     ((JsPath \ "variable").read[VariableId] and
-      (JsPath \ "value").read[VariableConstraint])(VariableAndConstraint)
+      (JsPath \ "value").read[VariableConstraint]) (VariableAndConstraint)
 
   implicit val constraintGroupReads: Reads[ConstraintGroup] = (
     (JsPath \ "group").read[VariableGroupId] and
-      (JsPath \ "constraints").read[Seq[VariableAndConstraint]])(ConstraintGroup)
+      (JsPath \ "constraints").read[Seq[VariableAndConstraint]]) (ConstraintGroup)
 
   implicit val evaluateRequestReads: Reads[EvaluateRequest] =
     ((JsPath \ "model").read[ModelId] and
       (JsPath \ "outputs").read[Seq[OutputGroup]] and
-      (JsPath \ "constraints").read[Seq[ConstraintGroup]]) (EvaluateRequest)
+      (JsPath \ "priors").read[Seq[GroupWithProbabilities]]) (EvaluateRequest)
 
 }
