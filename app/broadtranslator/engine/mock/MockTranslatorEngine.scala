@@ -1,9 +1,14 @@
 package broadtranslator.engine.mock
 
+import scala.sys.process._
+import scala.collection.mutable.{Map => MMap}
+
 import java.net.URI
 import java.io.File
 import java.io.PrintWriter
 import java.io.FileWriter
+import java.io.FileReader
+import java.io.BufferedReader
 
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api._
@@ -42,19 +47,16 @@ class MockTranslatorEngine extends TranslatorEngine {
     VariablesByGroupResult(VariableGroup(modelId, groupId, asConstraints = true, asOutputs = false, applesList),
       Seq(appleOneVar, appleTwoVar))
 
-  override def evaluate(request: EvaluateRequest): EvaluateResult ={
-    exportRequest(request, new File("/tmp/translatorRequest.txt"))
-    EvaluateResult(Seq(
-      GroupWithProbabilities(orangesGroup, Seq(
-        VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
-          1 -> 0.85, 2 -> 0.15
-        ))),
-        VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
-          1 -> 0.07, 2 -> 0.93
-        )))
-      ))
-    ))
+  override def evaluate(request: EvaluateRequest): EvaluateResult = {
+    val inputFile = File.createTempFile("translatorRequest", ".txt")
+    val outputFile = File.createTempFile("translatorResponse", ".txt")
+    exportRequest(request, inputFile)
+    executeModelCall(request.modelId.string, inputFile, outputFile)
+    val response = importResponse(outputFile)
+    outputFile.deleteOnExit()
+    return response
   }
+  
   
   private def exportRequest(request: EvaluateRequest, file: File): Unit = {
     val out = new PrintWriter(new FileWriter(file))
@@ -80,5 +82,75 @@ class MockTranslatorEngine extends TranslatorEngine {
       out.println("output\t" + variableGroup + "\t" + variableName + "\t\t")
     }
     out.close()
+  }
+
+  private def executeModelCall(modelId: String, input: File, output: File): Unit = {
+    val cmd = "Rscript models/"+modelId+"/main.R "+input+" "+output
+    println(cmd)
+    cmd.!
+  }
+  
+  private def importResponse(file: File): EvaluateResult = {
+    val response: MMap[String, MMap[String, MMap[Int, Double]]] = loadResponse(file)(_.toInt)
+    println(response)
+    return createEvaluateResult(response)
+  }
+  
+  private def loadResponse[T](file: File)(implicit f: String => T): MMap[String,MMap[String,MMap[T,Double]]] = {
+    val input = new BufferedReader(new FileReader(file))
+    val header = parseHeader(input.readLine())
+    val groups = MMap[String, MMap[String, MMap[T, Double]]]()
+    var line = input.readLine()
+    while (line != null) {
+      val row = line.split("\t")
+      if (row(header("io")) == "output") {
+        val groupName = row(header("variableGroup"))
+        val variableName = row(header("variableName"))
+        val value = row(header("variableValue"))
+        val probability = row(header("probability")).toDouble
+        if (!groups.contains(groupName)) groups(groupName) = MMap()
+        val group = groups(groupName)
+        if (!group.contains(variableName)) group(variableName) = MMap()
+        val variable = group(variableName)
+        variable(value) = probability
+      }
+      line = input.readLine()
+    }
+    input.close()
+    return groups
+  }
+ 
+  private def parseHeader(header: String): Map[String,Int] = {
+    val map = MMap[String, Int]()
+    var i = 0;
+    for (columnName <- header.split("\t")) {
+      map.put(columnName, i)
+      i = i + 1
+    }
+    return map.toMap
+  }
+  
+  private def createEvaluateResult[T](response: MMap[String,MMap[String,MMap[T,Double]]]): EvaluateResult = {
+
+    var groupList = List[GroupWithProbabilities]()
+    for ((groupName, group) <- response) {
+      val variableList = for ((variableName, variable) <- group) yield VariableWithProbabilities(VariableId(variableName), ProbabilityDistribution.Discrete(variable.toMap))
+      groupList = GroupWithProbabilities(VariableGroupId(groupName), variableList.toSeq) :: groupList
+    }
+    println(groupList)
+    return EvaluateResult(groupList)
+  }
+  
+  def evaluateMock(request: EvaluateRequest): EvaluateResult ={
+    EvaluateResult(Seq(
+      GroupWithProbabilities(orangesGroup, Seq(
+        VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
+          1 -> 0.85, 2 -> 0.15
+        ))),
+        VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
+          1 -> 0.07, 2 -> 0.93
+        )))
+      ))
+    ))
   }
 }
