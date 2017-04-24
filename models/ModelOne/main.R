@@ -9,7 +9,7 @@ if (length(args)>=2){
   inputFile = args[1]
   outputFile = args[2]
 
-  input <- read.table(inputFile,sep="\t", header=TRUE)
+  input <- read.table(inputFile,sep="\t", header=TRUE,stringsAsFactors=FALSE)
   
   for (i in 1:length(input$io)){
     if (input$io[i] == "output"){

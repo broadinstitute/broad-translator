@@ -1,0 +1,8 @@
+io	variableGroup	variableName	uri	allowedVariableValues
+input	apples	Gala	http://www.apple.com/gala	red;yellow;green
+input	apples	Granny Smith	http://www.apple.com/granny_smith	red;yellow;green
+input	apples	Fuji	http://www.apple.com/fuji	red;yellow;green
+input	apples	Pink Lady	http://www.apple.com/pink_lady	red;yellow;green
+output	oranges	Navel	http://www.orange.com/navel	0;1
+output	oranges	Clementine	http://www.orange.com/clementine	0;1
+output	oranges	Tangerine	http://www.orange.com/tangerine	0;1

@@ -1,7 +1,7 @@
 package broadtranslator.engine.mock
 
 import scala.sys.process._
-import scala.collection.mutable.{Map => MMap}
+import scala.collection.mutable.{Map => MMap, Set => MSet}
 
 import java.net.URI
 import java.io.File
@@ -37,7 +37,7 @@ class MockTranslatorEngine extends TranslatorEngine {
   override def getSmartSpecs(modelId: ModelId): SmartSpecs =
     SmartSpecs(modelId.string, new URI("http://www.broadinstitute.org/translator"))
 
-  override def getModelSignature(modelId: ModelId): ModelSignatureResult =
+  def getModelSignatureMock(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
       applesGroup -> VariableGroup(modelId, applesGroup, asConstraints = true, asOutputs = false, applesList),
       orangesGroup -> VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
@@ -47,6 +47,58 @@ class MockTranslatorEngine extends TranslatorEngine {
     VariablesByGroupResult(VariableGroup(modelId, groupId, asConstraints = true, asOutputs = false, applesList),
       Seq(appleOneVar, appleTwoVar))
 
+      
+  def evaluateMock(request: EvaluateRequest): EvaluateResult ={
+    EvaluateResult(Seq(
+      GroupWithProbabilities(orangesGroup, Seq(
+        VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
+          1 -> 0.85, 2 -> 0.15
+        ))),
+        VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
+          1 -> 0.07, 2 -> 0.93
+        )))
+      ))
+    ))
+  }
+  
+  
+  override def getModelSignature(modelId: ModelId): ModelSignatureResult = {
+    val signature = loadSignature(modelId.string)
+    println(signature)
+    ModelSignatureResult(modelId, Map(
+      applesGroup -> VariableGroup(modelId, applesGroup, asConstraints = true, asOutputs = false, applesList),
+      orangesGroup -> VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
+    ))
+  }
+    
+  private def loadSignature(modelId: String): (MMap[String,MSet[String]], MMap[String,MMap[String,(String, String)]]) = {
+    val file = new File("models/"+modelId+"/modelSignature.txt")
+    val input = new BufferedReader(new FileReader(file))
+    val header = parseHeader(input.readLine()) 
+    val ioMap = MMap[String,MSet[String]]()
+    val varMap = MMap[String,MMap[String,(String, String)]]()
+    var line = input.readLine()
+    while (line != null) {
+      val row = line.split("\t")
+      val io = row(header("io"))
+      val groupName = row(header("variableGroup"))
+      val variableName = row(header("variableName"))
+      val uri = row(header("uri"))
+      val values = row(header("allowedVariableValues"))
+
+      if (!ioMap.contains(groupName)) ioMap(groupName) = MSet()
+      ioMap(groupName) add io
+      
+      if (!varMap.contains(groupName)) varMap(groupName) = MMap()
+      val group = varMap(groupName)
+      group(variableName) = (uri, values)
+      
+      line = input.readLine()
+    }
+    input.close()
+    (ioMap, varMap)
+  }
+    
   override def evaluate(request: EvaluateRequest): EvaluateResult = {
     val inputFile = File.createTempFile("translatorRequest", ".txt")
     val outputFile = File.createTempFile("translatorResponse", ".txt")
@@ -141,16 +193,5 @@ class MockTranslatorEngine extends TranslatorEngine {
     return EvaluateResult(groupList)
   }
   
-  def evaluateMock(request: EvaluateRequest): EvaluateResult ={
-    EvaluateResult(Seq(
-      GroupWithProbabilities(orangesGroup, Seq(
-        VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
-          1 -> 0.85, 2 -> 0.15
-        ))),
-        VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
-          1 -> 0.07, 2 -> 0.93
-        )))
-      ))
-    ))
-  }
+
 }
