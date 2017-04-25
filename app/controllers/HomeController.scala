@@ -12,6 +12,7 @@ import play.api.mvc._
 @Singleton
 class HomeController @Inject()(configuration: Configuration) extends Controller {
 
+  val logger = Logger(getClass)
   /**
     * Create an Action to render an HTML page.
     *
@@ -20,6 +21,7 @@ class HomeController @Inject()(configuration: Configuration) extends Controller 
     * a path of `/`.
     */
   def index = Action { implicit request =>
+    logger.info("Received request for home page.")
     Ok(views.html.index(configuration.getString("example.greeting").getOrElse("Howdy!")))
   }
 }
