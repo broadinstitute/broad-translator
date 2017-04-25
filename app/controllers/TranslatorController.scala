@@ -6,8 +6,9 @@ import broadtranslator.AppWiring
 import broadtranslator.engine.api.{ModelId, VariableGroupId}
 import broadtranslator.json.TranslatorJsonApi
 import broadtranslator.json.smart.TranslatorSmartApi
+import play.api.Logger
 import play.api.libs.json.JsValue
-import play.api.mvc.{Action, AnyContent, Controller}
+import play.api.mvc.{Action, AnyContent, Controller, Request}
 import util.HttpContentTypes
 import util.rdf.Rdf4jUtils
 
@@ -18,8 +19,14 @@ import util.rdf.Rdf4jUtils
 @Singleton
 class TranslatorController @Inject() extends Controller {
 
+  val logger = Logger(getClass)
+
   val jsonApi: TranslatorJsonApi = AppWiring.jsonApi
   val smartApi: TranslatorSmartApi = AppWiring.smartApi
+
+  def logRequest(implicit request: Request[_]): Unit = {
+    logger.info(request.toString())
+  }
 
   /**
     * Get the list of available models in JSON
@@ -29,22 +36,27 @@ class TranslatorController @Inject() extends Controller {
     * a path of `/`.
     */
   def getModelList: Action[AnyContent] = Action { implicit request =>
+    logRequest
     Ok(jsonApi.getModelList)
   }
 
   def getModelSignature(modelId: String): Action[AnyContent] = Action { implicit request =>
+    logRequest
     Ok(jsonApi.getModelSignature(ModelId(modelId)))
   }
 
   def getVariablesByGroup(modelId: String, groupId: String): Action[AnyContent] = Action { implicit request =>
+    logRequest
     Ok(jsonApi.getVariablesByGroup(ModelId(modelId), VariableGroupId(groupId)))
   }
 
   def evaluate: Action[JsValue] = Action(parse.json) { implicit request =>
+    logRequest
     Ok(jsonApi.evaluate(request.body))
   }
 
   def smart(modelId: String): Action[AnyContent] = Action { implicit request =>
+    logRequest
     val repo = smartApi.getSmartApi(ModelId(modelId))
     val jsonLdString = Rdf4jUtils.getContentAsString(repo)
     Ok(jsonLdString).as(HttpContentTypes.json) // Switch to JSON-LD
