@@ -114,16 +114,17 @@ class MockTranslatorEngine extends TranslatorEngine {
     val out = new PrintWriter(new FileWriter(file))
     out.println("io\tvariableGroup\tvariableName\tvariableValue\tprobability")
     for (
-      group <- request.constraints;
+      group <- request.priors;
       variableGroup = group.groupId.string;
-      variable <- group.variablesAndConstraints;
-      variableName = variable.variableId.string;
-      value = variable.constraint match {
-        case VariableConstraint.Equals(value) => value
-      };
-      probability = 0.18
+      variable <- group.varsWithProbs;
+      variableName = variable.variableId.string
     ) {
-      out.println("input\t" + variableGroup + "\t" + variableName + "\t" + value + "\t" + probability)
+      variable.probabilityDistribution match {
+        case ProbabilityDistribution.Discrete(distribution) => for ((value, probability) <- distribution) {
+          out.println("input\t" + variableGroup + "\t" + variableName + "\t" + value + "\t" + probability)
+        }
+        case _ =>
+      }
     }
     for (
       group <- request.outputs;
