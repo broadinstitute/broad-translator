@@ -65,18 +65,16 @@ class MockTranslatorEngine extends TranslatorEngine {
   override def getModelSignature(modelId: ModelId): ModelSignatureResult = {
     val signature = loadSignature(modelId.string)
     println(signature)
-    ModelSignatureResult(modelId, Map(
-      applesGroup -> VariableGroup(modelId, applesGroup, asConstraints = true, asOutputs = false, applesList),
-      orangesGroup -> VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
-    ))
+    val response = createSignatureResult(modelId.string, signature._1, signature._2)
+    return response
   }
     
-  private def loadSignature(modelId: String): (MMap[String,MSet[String]], MMap[String,MMap[String,(String, String)]]) = {
+  private def loadSignature(modelId: String): (MMap[String,MSet[String]], MMap[String,MMap[String,(String, String, String)]]) = {
     val file = new File("models/"+modelId+"/modelSignature.txt")
     val input = new BufferedReader(new FileReader(file))
     val header = parseHeader(input.readLine()) 
     val ioMap = MMap[String,MSet[String]]()
-    val varMap = MMap[String,MMap[String,(String, String)]]()
+    val varMap = MMap[String,MMap[String,(String, String, String)]]()
     var line = input.readLine()
     while (line != null) {
       val row = line.split("\t")
@@ -84,6 +82,7 @@ class MockTranslatorEngine extends TranslatorEngine {
       val groupName = row(header("variableGroup"))
       val variableName = row(header("variableName"))
       val uri = row(header("uri"))
+      val valueType = row(header("valueType"))
       val values = row(header("allowedVariableValues"))
 
       if (!ioMap.contains(groupName)) ioMap(groupName) = MSet()
@@ -91,12 +90,39 @@ class MockTranslatorEngine extends TranslatorEngine {
       
       if (!varMap.contains(groupName)) varMap(groupName) = MMap()
       val group = varMap(groupName)
-      group(variableName) = (uri, values)
+      group(variableName) = (uri, valueType, values)
       
       line = input.readLine()
     }
     input.close()
     (ioMap, varMap)
+  }
+  
+  private def createSignatureResult(modelId: String, ioMap: MMap[String,MSet[String]], varMap: MMap[String,MMap[String,(String, String, String)]]): ModelSignatureResult = {
+    val groups = for ((groupId, io) <- ioMap) yield ( VariableGroupId(groupId) -> variableMap(modelId, groupId, ioMap(groupId), varMap(groupId)))
+    return ModelSignatureResult(ModelId(modelId), groups.toMap)
+  }
+  
+  private def variableMap(modelId: String, groupId: String, ioSet: MSet[String], variables: MMap[String,(String, String, String)]): VariableGroup = {
+    val asInput = ioSet.contains("input") || ioSet.contains("input; output")
+    val asOutput = ioSet.contains("output") || ioSet.contains("input; output")
+    val uriSet = (for ((variable, (uri, valueType, values)) <- variables) yield uri).toSet
+    val uri = if (uriSet.size == 1) Some(uriSet.toSeq(0)) else None
+    val typeSet = (for ((variable, (uri, valueType, values)) <- variables) yield valueType).toSet
+    val valueType = if (typeSet.size == 1) Some(typeSet.toSeq(0)) else None
+    val valuesSet = (for ((variable, (uri, valueType, values)) <- variables) yield values).toSet
+    val valuesString = if (valuesSet.size == 1) Some(valuesSet.toSeq(0)) else None
+    println(modelId+" "+groupId+": "+uri + " "+ valueType + " "+ valuesString)
+    val valueSet: VarValueSet = valuesString match {
+      case None => VarValueSet.AnyString
+      case Some(string) => valueType match {
+        case None => VarValueSet.StringList(string.split(";"))
+        case Some("Number") => VarValueSet.NumberList(string.split(";").map(_.toDouble))
+        case Some("Boolean") => VarValueSet.Boolean
+        case _ => VarValueSet.StringList(string.split(";"))
+      }
+    }
+    return VariableGroup(ModelId(modelId), VariableGroupId(groupId), asInput, asOutput, valueSet)
   }
     
   override def evaluate(request: EvaluateRequest): EvaluateResult = {
