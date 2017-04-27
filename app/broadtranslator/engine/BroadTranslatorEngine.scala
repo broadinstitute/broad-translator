@@ -21,6 +21,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
   
   
   private val logger = Logger(getClass)
+  private val processLoger = ProcessLogger(out => logger.info("[R]: "+out), err => logger.error("[R]: "+err))
   
   private val modelFolder = "models"
 
@@ -45,13 +46,13 @@ class BroadTranslatorEngine extends TranslatorEngine {
     
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult = {
-    val (ioMap, varMap) = loadModelSignature(modelId.string)
+    val (ioMap, varMap) = loadModelSignature(modelId)
     val response = createSignatureResult(modelId.string, ioMap, varMap)
     return response
   }
 
   override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): VariablesByGroupResult = {
-    val (ioMap, varMap) = loadModelSignature(modelId.string)
+    val (ioMap, varMap) = loadModelSignature(modelId)
     val group = createVariableMap(modelId.string, groupId.string, ioMap(groupId.string), varMap(groupId.string))
     val variables = for ((variable, properties) <- varMap(groupId.string)) yield VariableId(variable)
     return VariablesByGroupResult(group, variables.toSeq)
@@ -60,17 +61,32 @@ class BroadTranslatorEngine extends TranslatorEngine {
   override def evaluate(request: EvaluateRequest): EvaluateResult = {
     val inputFile = File.createTempFile("translatorRequest", ".txt")
     val outputFile = File.createTempFile("translatorResponse", ".txt")
-    exportRequest(request, inputFile)
-    executeModelCall(request.modelId, inputFile, outputFile)
-    val response = importResponse(request.modelId, outputFile)
-    outputFile.deleteOnExit()
-    return response
+    var success = false
+    try {
+      exportRequest(request, inputFile)
+      executeModelCall(request.modelId, inputFile, outputFile)
+      val response = importResponse(request.modelId, outputFile)
+      success = true
+      return response
+    }
+    finally {
+      if (success) {
+        inputFile.delete()
+        outputFile.delete()
+
+      }
+      else {
+        inputFile.deleteOnExit()
+        outputFile.deleteOnExit()
+      }
+    }
+    
   }
   
   
-  private def loadModelSignature(modelId: String): (MMap[String,MSet[String]], MMap[String,MMap[String,VariableSignature]]) = {
-    val file = File(modelFolder+"/"+modelId+"/modelSignature.txt")
-    logger.info("loading model signature for "+modelId+" from "+file)
+  private def loadModelSignature(modelId: ModelId): (MMap[String,MSet[String]], MMap[String,MMap[String,VariableSignature]]) = {
+    val file = File(modelFolder+"/"+modelId.string+"/modelSignature.txt")
+    logger.info("loading model signature for "+modelId.string+" from "+file)
     val input = new BufferedReader(new FileReader(file))
     val header = parseHeader(input.readLine()) 
     val ioMap = MMap[String,MSet[String]]()
@@ -165,14 +181,19 @@ class BroadTranslatorEngine extends TranslatorEngine {
 
 
   private def executeModelCall(modelId: ModelId, input: File, output: File): Unit = {
-    val cmd = "Rscript " + modelFolder + "/" + modelId.string + "/main.R " + input + " " + output
+    val cmd = "Rscript main.R " + input + " " + output
     logger.info("executing model: " + cmd)
-    cmd.! //TODO capture stdout+stderr to logger
+    val exitCode = Process(cmd, File(File(modelFolder), modelId.string)).!(processLoger)
+    logger.info("executing model: exit code = "+exitCode)
+    if (exitCode != 0) {
+      logger.error("Failed to execute model "+modelId)
+      throw new java.io.IOException("Failed to execute model "+modelId.string)
+    }
   }
   
   
   private def importResponse(modelId: ModelId, file: File): EvaluateResult = {
-    val (ioMap, varMap) = loadModelSignature(modelId.string)
+    val (ioMap, varMap) = loadModelSignature(modelId)
     val response: MMap[String, MMap[String, MMap[String, Double]]] = loadResponse(file)
     return createEvaluateResult(response, varMap)
   }
