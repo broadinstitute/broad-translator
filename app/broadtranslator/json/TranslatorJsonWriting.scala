@@ -70,7 +70,11 @@ object TranslatorJsonWriting {
           case ProbabilityDistribution.Discrete(probabilities) =>
             val probsJson = probabilities.map({ case (value, probability) =>
               val valueJson = value match {
-                case MatchNumber.AsDouble(double) => JsNumber(double)
+                case string: String => JsString(string)
+                case double: Double => JsNumber(double)
+                case true => JsNumber(1)
+                case false => JsNumber(0)
+                case other => JsString(other.toString)
               }
               Json.obj(
                 "value" -> valueJson,
