@@ -130,8 +130,8 @@ class BroadTranslatorEngine extends TranslatorEngine {
 
   
   private def createVariableMap(modelId: String, groupId: String, ioSet: MSet[String], variables: MMap[String, VariableSignature]): VariableGroup = {
-    val asInput = ioSet.contains("input") || ioSet.contains("input; output")
-    val asOutput = ioSet.contains("output") || ioSet.contains("input; output")
+    val asInput = ioSet.contains("input") || ioSet.contains("input;output")
+    val asOutput = ioSet.contains("output") || ioSet.contains("input;output")
     val uriSet = variables.values.map(_.uri).toSet
     val uri = if (uriSet.size == 1) Some(uriSet.toSeq(0)) else None
     val typeSet = variables.values.map(_.valueType).toSet
