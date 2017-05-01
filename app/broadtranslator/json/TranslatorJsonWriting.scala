@@ -40,10 +40,11 @@ object TranslatorJsonWriting {
 
   implicit val variableGroupWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
     override def writes(group: VariableGroup): JsObject = {
-      val jsonCore = Json.obj(
-        "id" -> group.id,
-        "asConstraints" -> group.asConstraints,
-        "asOutputs" -> group.asOutputs
+      val jsonCore = JsObject(List(
+        "id" -> JsString(group.id.string))++
+        group.authorityURL.map(_.uri).map("authorityURL" -> JsString(_))++
+        List("asConstraints" -> JsBoolean(group.asConstraints),
+        "asOutputs" -> JsBoolean(group.asOutputs))
       )
       val jsonValues = valueSetWrites.writes(group.valueSet).asInstanceOf[JsObject]
       jsonCore ++ jsonValues
