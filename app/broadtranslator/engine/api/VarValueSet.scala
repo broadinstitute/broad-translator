@@ -1,6 +1,5 @@
 package broadtranslator.engine.api
 
-import broadtranslator.engine.api.VarValueSet.ValueType
 
 /**
   * broadtranslator
@@ -18,11 +17,7 @@ object VarValueSet {
     def valuesOpt: Option[Seq[T]]
   }
 
-  case class ValueType(name: String)
 
-  val stringType = ValueType("String")
-  val numberType = ValueType("Number")
-  val booleanType = ValueType("Boolean")
 
   trait ValuesList[T] extends Typed[T] {
     def values: Seq[T]
@@ -35,7 +30,7 @@ object VarValueSet {
   }
 
   trait StringValues extends Typed[String] {
-    override val valueType: ValueType = stringType
+    override val valueType: ValueType = StringType
   }
 
   object AnyString extends StringValues with NotAValuesList[String]
@@ -43,7 +38,7 @@ object VarValueSet {
   case class StringList(values: Seq[String]) extends StringValues with ValuesList[String]
 
   trait NumberValues extends Typed[Double] {
-    override val valueType: ValueType = numberType
+    override val valueType: ValueType = NumberType
   }
 
   case class NumberList(values: Seq[Double]) extends NumberValues with ValuesList[Double]
@@ -51,7 +46,7 @@ object VarValueSet {
   case class NumberInterval(min: Double, max: Double) extends NumberValues with NotAValuesList[Double]
 
   object Boolean extends Typed[Boolean] {
-    override def valueType: ValueType = booleanType
+    override def valueType: ValueType = BooleanType
 
     override def valuesOpt: Option[Seq[Boolean]] = Some(Seq(false, true))
   }

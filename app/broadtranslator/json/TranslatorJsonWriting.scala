@@ -1,7 +1,7 @@
 package broadtranslator.json
 
-import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList, ValueType}
-import broadtranslator.engine.api.{EntityId, EvaluateResult, GroupWithProbabilities, ModelListResult, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableWithProbabilities, VariablesByGroupResult}
+import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList}
+import broadtranslator.engine.api.{EntityId, EvaluateResult, GroupWithProbabilities, ModelListResult, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableWithProbabilities, VariablesByGroupResult, ValueType}
 import play.api.libs.json.{JsBoolean, JsNumber, JsObject, JsString, JsValue, Json, Writes}
 import util.MatchNumber
 

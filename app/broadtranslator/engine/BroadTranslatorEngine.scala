@@ -14,7 +14,7 @@ import broadtranslator.engine.api._
 import broadtranslator.engine.api.smart.SmartSpecs
 
 import play.api.Logger
-import broadtranslator.engine.api.VarValueSet.ValueType
+
 
 
 class BroadTranslatorEngine extends TranslatorEngine {
@@ -99,9 +99,9 @@ class BroadTranslatorEngine extends TranslatorEngine {
       val variableName = row(header("variableName"))
       val uri = row(header("uri"))
       val valueType = row(header("valueType")) match {
-        case "Number" => VarValueSet.numberType
-        case "Boolean" => VarValueSet.booleanType
-        case "String" => VarValueSet.stringType
+        case "Number" => NumberType
+        case "Boolean" => BooleanType
+        case "String" => StringType
         case wrongType => {
           logger.error("incorrect value type "+wrongType+" (model="+modelId+", group="+groupName+", variable="+variableName)
           throw new IllegalArgumentException("incorrect value type "+wrongType+" (model="+modelId+", group="+groupName+", variable="+variableName)
@@ -143,8 +143,8 @@ class BroadTranslatorEngine extends TranslatorEngine {
       case None => VarValueSet.AnyString
       case Some(string) => valueType match {
         case None            => VarValueSet.StringList(string.split(";"))
-        case Some(VarValueSet.numberType)  => VarValueSet.NumberList(string.split(";").map(_.toDouble))
-        case Some(VarValueSet.booleanType) => VarValueSet.Boolean
+        case Some(NumberType)  => VarValueSet.NumberList(string.split(";").map(_.toDouble))
+        case Some(BooleanType) => VarValueSet.Boolean
         case _               => VarValueSet.StringList(string.split(";"))
       }
     }
@@ -237,9 +237,9 @@ class BroadTranslatorEngine extends TranslatorEngine {
   
   private def createDistribution(distribution: MMap[String, Double], valueType: ValueType): ProbabilityDistribution = ProbabilityDistribution.Discrete(
     valueType match {
-      case VarValueSet.numberType  => distribution.map(mapKey(_.toDouble)).toMap
-      case VarValueSet.booleanType => distribution.map(mapKey(_.toBoolean)).toMap
-      case VarValueSet.stringType  => distribution.toMap
+      case NumberType  => distribution.map(mapKey(_.toDouble)).toMap
+      case BooleanType => distribution.map(mapKey(_.toBoolean)).toMap
+      case StringType  => distribution.toMap
     })
 
     
