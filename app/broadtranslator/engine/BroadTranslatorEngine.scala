@@ -148,7 +148,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
         case _               => VarValueSet.StringList(string.split(";"))
       }
     }
-    return VariableGroup(ModelId(modelId), VariableGroupId(groupId), asInput, asOutput, valueSet)
+    return VariableGroup(ModelId(modelId), VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, valueSet)
   }
     
   

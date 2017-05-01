@@ -31,12 +31,12 @@ class MockTranslatorEngine extends TranslatorEngine {
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
-      applesGroup -> VariableGroup(modelId, applesGroup, asConstraints = true, asOutputs = false, applesList),
-      orangesGroup -> VariableGroup(modelId, orangesGroup, asConstraints = false, asOutputs = true, orangesList)
+      applesGroup -> VariableGroup(modelId, applesGroup, None, asConstraints = true, asOutputs = false, applesList),
+      orangesGroup -> VariableGroup(modelId, orangesGroup, None, asConstraints = false, asOutputs = true, orangesList)
     ))
 
   override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): VariablesByGroupResult =
-    VariablesByGroupResult(VariableGroup(modelId, groupId, asConstraints = true, asOutputs = false, applesList),
+    VariablesByGroupResult(VariableGroup(modelId, groupId, None, asConstraints = true, asOutputs = false, applesList),
       Seq(appleOneVar, appleTwoVar))
 
   override def evaluate(request: EvaluateRequest): EvaluateResult =
