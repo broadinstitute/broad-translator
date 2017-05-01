@@ -1,7 +1,7 @@
 package broadtranslator.json
 
 import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList}
-import broadtranslator.engine.api.{EntityId, EvaluateResult, GroupWithProbabilities, ModelListResult, ModelSignatureResult, ProbabilityDistribution, VarValueSet, VariableGroup, VariableWithProbabilities, VariablesByGroupResult, ValueType}
+import broadtranslator.engine.api._
 import play.api.libs.json.{JsBoolean, JsNumber, JsObject, JsString, JsValue, Json, Writes}
 import util.MatchNumber
 
@@ -10,6 +10,12 @@ import util.MatchNumber
   * Created by oliverr on 4/5/2017.
   */
 object TranslatorJsonWriting {
+  
+  val EMPTY = Json.obj()
+  
+  private def filterOptions(fields: (String, Json.JsValueWrapper)*): Seq[(String, Json.JsValueWrapper)] = {
+    fields.filter {case (key, value) => value != Json.toJsFieldJsValueWrapper(EMPTY) }
+  }
 
   implicit val entityIdWrites: Writes[EntityId] = new Writes[EntityId] {
     override def writes(entityId: EntityId): JsString = JsString(entityId.string)
@@ -21,13 +27,25 @@ object TranslatorJsonWriting {
     )
   }
 
-  implicit val valueTypeWrites: Writes[ValueType] = new Writes[ValueType] {
-    override def writes(valueType: ValueType): JsString = JsString(valueType.name)
+  implicit val valueTypeWrites: Writes[Option[ValueType]] = new Writes[Option[ValueType]] {
+    override def writes(valueType: Option[ValueType]): JsValue = valueType match {
+      case None => EMPTY
+      case Some(valueType) => JsString(valueType.name)
+    }
   }
 
+  implicit val valueListWrites: Writes[Option[ValueList]] = new Writes[Option[ValueList]] {
+    override def writes(valueList: Option[ValueList]): JsObject = valueList match {
+      case None                => EMPTY
+      case Some(ValueList.StringList(values)) => Json.obj("values" -> values)
+      case Some(ValueList.NumberList(values)) => Json.obj("values" -> values)
+      case Some(unmatched)             => println("value list not matched: "+unmatched); EMPTY
+    }
+  }
+  
   implicit val valueSetWrites: Writes[VarValueSet] = new Writes[VarValueSet] {
     override def writes(valueSet: VarValueSet): JsObject = {
-      val jsonType = Json.obj("type" -> valueSet.valueType)
+      val jsonType = Json.obj("type" -> Some(valueSet.valueType))
       val jsonValues = valueSet match {
         case StringList(values) => Json.obj("values" -> values)
         case NumberList(values) => Json.obj("values" -> values)
@@ -40,12 +58,12 @@ object TranslatorJsonWriting {
 
   implicit val variableGroupWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
     override def writes(group: VariableGroup): JsObject = {
-      val jsonCore = JsObject(List(
-        "id" -> JsString(group.id.string))++
-        group.authorityURL.map(_.uri).map("authorityURL" -> JsString(_))++
-        List("asConstraints" -> JsBoolean(group.asConstraints),
-        "asOutputs" -> JsBoolean(group.asOutputs))
-      )
+      val jsonCore = Json.obj(filterOptions(
+        "id" -> group.id,
+        "authorityURL" -> group.authorityURL,
+        "asConstraints" -> group.asConstraints,
+        "asOutputs" -> group.asOutputs
+      ): _*)
       val jsonValues = valueSetWrites.writes(group.valueSet).asInstanceOf[JsObject]
       jsonCore ++ jsonValues
     }
@@ -60,9 +78,29 @@ object TranslatorJsonWriting {
 
   implicit val variablesByGroupResultWrites: Writes[VariablesByGroupResult] = new Writes[VariablesByGroupResult] {
     override def writes(result: VariablesByGroupResult): JsObject =
-      variableGroupWrites.writes(result.group).asInstanceOf[JsObject] ++ Json.obj("variables" -> result.variableIds)
+      Json.obj(
+        "modelId" -> result.modelId,
+        "variableGroupId" -> result.groupId,
+        "variables" -> result.variables)
   }
-
+  
+  implicit val uriWrites: Writes[Option[VariableURI]] = new Writes[Option[VariableURI]] {
+    override def writes(result: Option[VariableURI]): JsValue = result match {
+      case None => EMPTY
+      case Some(uri) => JsString(uri.uri)
+    }
+  }
+  
+  implicit val variableSignatureWrites: Writes[VariableSignature] = new Writes[VariableSignature] {
+    override def writes(result: VariableSignature): JsObject ={
+      Json.obj(filterOptions(
+        "variableId" -> result.variableId,
+        "uri" -> result.uri,
+        "type" -> result.valueType,
+        "values" -> result.values
+      ): _*)
+  }
+}
   implicit val variableWithProbabilitiesWrites: Writes[VariableWithProbabilities] =
     new Writes[VariableWithProbabilities] {
       override def writes(varWithProbs: VariableWithProbabilities): JsValue = {
