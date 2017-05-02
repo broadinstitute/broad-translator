@@ -14,14 +14,14 @@ import broadtranslator.engine.api._
 import broadtranslator.engine.api.smart.SmartSpecs
 
 import play.api.Logger
-import broadtranslator.engine.api.VarValueSet.ValueType
+
 
 
 class BroadTranslatorEngine extends TranslatorEngine {
   
   
   private val logger = Logger(getClass)
-  private val processLoger = ProcessLogger(out => logger.info("[R]: "+out), err => logger.error("[R]: "+err))
+  private val processLoger = ProcessLogger(out => logger.info("[R]: " + out), err => logger.error("[R]: " + err))
   
   private val modelFolder = "models"
 
@@ -32,16 +32,18 @@ class BroadTranslatorEngine extends TranslatorEngine {
     def createTempFile(prefix: String, suffix: String) = java.io.File.createTempFile(prefix, suffix)
   }
   
+
   override def getSmartSpecs(modelId: ModelId): SmartSpecs =
     SmartSpecs(modelId.string, new URI("http://www.broadinstitute.org/translator"))
 
-  override def getAvailableModelIds: ModelListResult = {
+
+    override def getAvailableModelIds: ModelListResult = {
     val models = for (
       folder <- File(modelFolder).list();
       if File(File(File(modelFolder), folder), "main.R").exists;
       if File(File(File(modelFolder), folder), "modelSignature.txt").exists
     ) yield folder
-    ModelListResult(models.map(ModelId(_)))
+    ModelListResult(models.sorted.map(ModelId(_)))
   }
     
 
@@ -51,13 +53,19 @@ class BroadTranslatorEngine extends TranslatorEngine {
     return response
   }
 
+
   override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): VariablesByGroupResult = {
     val (ioMap, varMap) = loadModelSignature(modelId)
     val group = createVariableMap(modelId.string, groupId.string, ioMap(groupId.string), varMap(groupId.string))
-    val variables = for ((variable, properties) <- varMap(groupId.string)) yield VariableId(variable)
-    return VariablesByGroupResult(group, variables.toSeq)
+    val uriMap = uniqueValueMap(varMap(groupId.string).values.map(_.uri))(VariableURI(_))
+    val typeMap = uniqueValueMap(varMap(groupId.string).values.map(_.valueType))
+    val valuesMap = uniqueValueMap(varMap(groupId.string).values.map(_.values))
+    val variables = for ((variable, properties) <- varMap(groupId.string)) yield 
+      VariableSignature(VariableId(variable), uriMap(properties.uri), typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
+    return VariablesByGroupResult(modelId, groupId, variables.toSeq.sorted)
   }
     
+  
   override def evaluate(request: EvaluateRequest): EvaluateResult = {
     val inputFile = File.createTempFile("translatorRequest", ".txt")
     val outputFile = File.createTempFile("translatorResponse", ".txt")
@@ -83,14 +91,14 @@ class BroadTranslatorEngine extends TranslatorEngine {
     
   }
   
-  
-  private def loadModelSignature(modelId: ModelId): (MMap[String,MSet[String]], MMap[String,MMap[String,VariableSignature]]) = {
+
+  private def loadModelSignature(modelId: ModelId): (MMap[String,MSet[String]], MMap[String,MMap[String,VariableSig]]) = {
     val file = File(modelFolder+"/"+modelId.string+"/modelSignature.txt")
     logger.info("loading model signature for "+modelId.string+" from "+file)
     val input = new BufferedReader(new FileReader(file))
     val header = parseHeader(input.readLine()) 
     val ioMap = MMap[String,MSet[String]]()
-    val varMap = MMap[String,MMap[String,VariableSignature]]()
+    val varMap = MMap[String,MMap[String,VariableSig]]()
     var line = input.readLine()
     while (line != null) {
       val row = line.split("\t")
@@ -99,9 +107,9 @@ class BroadTranslatorEngine extends TranslatorEngine {
       val variableName = row(header("variableName"))
       val uri = row(header("uri"))
       val valueType = row(header("valueType")) match {
-        case "Number" => VarValueSet.numberType
-        case "Boolean" => VarValueSet.booleanType
-        case "String" => VarValueSet.stringType
+        case "Number" => NumberType
+        case "Boolean" => BooleanType
+        case "String" => StringType
         case wrongType => {
           logger.error("incorrect value type "+wrongType+" (model="+modelId+", group="+groupName+", variable="+variableName)
           throw new IllegalArgumentException("incorrect value type "+wrongType+" (model="+modelId+", group="+groupName+", variable="+variableName)
@@ -114,7 +122,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
       
       if (!varMap.contains(groupName)) varMap(groupName) = MMap()
       val group = varMap(groupName)
-      group(variableName) = VariableSignature(uri, valueType, values)
+      group(variableName) = VariableSig(uri, valueType, values)
       
       line = input.readLine()
     }
@@ -123,13 +131,13 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
   
   
-  private def createSignatureResult(modelId: String, ioMap: MMap[String,MSet[String]], varMap: MMap[String,MMap[String,VariableSignature]]): ModelSignatureResult = {
+  private def createSignatureResult(modelId: String, ioMap: MMap[String,MSet[String]], varMap: MMap[String,MMap[String,VariableSig]]): ModelSignatureResult = {
     val groups = for ((groupId, io) <- ioMap) yield ( VariableGroupId(groupId) -> createVariableMap(modelId, groupId, ioMap(groupId), varMap(groupId)))
     return ModelSignatureResult(ModelId(modelId), groups.toMap)
   }
 
   
-  private def createVariableMap(modelId: String, groupId: String, ioSet: MSet[String], variables: MMap[String, VariableSignature]): VariableGroup = {
+  private def createVariableMap(modelId: String, groupId: String, ioSet: MSet[String], variables: MMap[String, VariableSig]): GroupSignature = {
     val asInput = ioSet.contains("input") || ioSet.contains("input;output")
     val asOutput = ioSet.contains("output") || ioSet.contains("input;output")
     val uriSet = variables.values.map(_.uri).toSet
@@ -139,19 +147,37 @@ class BroadTranslatorEngine extends TranslatorEngine {
     val valuesSet = variables.values.map(_.values).toSet
     val valuesString = if (valuesSet.size == 1) Some(valuesSet.toSeq(0)) else None
     logger.info("Homogenious variable properties (model=" + modelId + " group=" + groupId + "): URI=" + uri + " type=" + valueType + " values=" + valuesString)
-    val valueSet: VarValueSet = valuesString match {
-      case None => VarValueSet.AnyString
-      case Some(string) => valueType match {
-        case None            => VarValueSet.StringList(string.split(";"))
-        case Some(VarValueSet.numberType)  => VarValueSet.NumberList(string.split(";").map(_.toDouble))
-        case Some(VarValueSet.booleanType) => VarValueSet.Boolean
-        case _               => VarValueSet.StringList(string.split(";"))
+    val values: Option[ValueList] = valueType match {
+      case None => None
+      case Some(valueType) => valuesString.map(valueList(valueType))
+    }
+    return GroupSignature(ModelId(modelId), VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, valueType, values)
+  }
+
+  
+  private def valueList(valueType: ValueType)(sourceList: String): ValueList = valueType match {
+    case NumberType => ValueList.NumberList(sourceList.split(";").map(_.toDouble))
+    case BooleanType => ValueList.NumberList(List(0,1))
+    case StringType => ValueList.StringList(sourceList.split(";"))
+  }
+  
+  
+  /* Create a property mapping function for individual variables:
+   *   - if values are unique, map to None since property is defined on group level
+   *   - if values are not unique, map to actual property
+   */
+  private def uniqueValueMap[S,T](src: Iterable[S])(implicit f: S => T): S => Option[T] = src.toSet.size match {
+    case 1 => { (x: S) => None }
+    case _ => { (x: S) =>
+      x match {
+        case null => None
+        case ""   => None
+        case _    => Some(f(x))
       }
     }
-    return VariableGroup(ModelId(modelId), VariableGroupId(groupId), asInput, asOutput, valueSet)
   }
-    
   
+
   private def exportRequest(request: EvaluateRequest, file: File): Unit = {
     val out = new PrintWriter(new FileWriter(file))
     out.println("io\tvariableGroup\tvariableName\tvariableValue\tprobability")
@@ -224,12 +250,12 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
  
   
-  private def createEvaluateResult(response: MMap[String,MMap[String,MMap[String,Double]]], signature: MMap[String,MMap[String,VariableSignature]]): EvaluateResult = {
+  private def createEvaluateResult(response: MMap[String,MMap[String,MMap[String,Double]]], signature: MMap[String,MMap[String,VariableSig]]): EvaluateResult = {
     var groupList = List[GroupWithProbabilities]()
     for ((groupName, group) <- response) {
       val variableList = for ((variableName, distribution) <- group) yield 
         VariableWithProbabilities(VariableId(variableName), createDistribution(distribution, signature(groupName)(variableName).valueType))
-      groupList = GroupWithProbabilities(VariableGroupId(groupName), variableList.toSeq) :: groupList
+      groupList = GroupWithProbabilities(VariableGroupId(groupName), variableList.toSeq.sorted) :: groupList
     }
     return EvaluateResult(groupList)
   }
@@ -237,9 +263,9 @@ class BroadTranslatorEngine extends TranslatorEngine {
   
   private def createDistribution(distribution: MMap[String, Double], valueType: ValueType): ProbabilityDistribution = ProbabilityDistribution.Discrete(
     valueType match {
-      case VarValueSet.numberType  => distribution.map(mapKey(_.toDouble)).toMap
-      case VarValueSet.booleanType => distribution.map(mapKey(_.toBoolean)).toMap
-      case VarValueSet.stringType  => distribution.toMap
+      case NumberType  => distribution.map(mapKey(_.toDouble)).toMap
+      case BooleanType => distribution.map(mapKey(_.toBoolean)).toMap
+      case StringType  => distribution.toMap
     })
 
     
@@ -256,6 +282,6 @@ class BroadTranslatorEngine extends TranslatorEngine {
     return map.toMap
   }
   
-  private case class VariableSignature(uri: String, valueType: ValueType, values: String)
+  private case class VariableSig(uri: String, valueType: ValueType, values: String)
   
 }

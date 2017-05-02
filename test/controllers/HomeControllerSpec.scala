@@ -3,6 +3,7 @@ package controllers
 import org.scalatestplus.play._
 import play.api.test._
 import play.api.test.Helpers._
+import play.api.Configuration
 
 /**
  * Add your spec here.
@@ -15,7 +16,7 @@ class HomeControllerSpec extends PlaySpec with OneAppPerTest {
   "HomeController GET" should {
 
     "render the index page from a new instance of controller" in {
-      val controller = new HomeController
+      val controller = new HomeController(Configuration.empty) // TODO set up proper configuration
       val home = controller.index().apply(FakeRequest())
 
       status(home) mustBe OK

@@ -1,7 +1,7 @@
 io	variableGroup	variableName	uri	valueType	allowedVariableValues
 input	apples	Gala	http://www.apple.com/gala	String	red;yellow;green
-input	apples	Granny Smith	http://www.apple.com/granny_smith	String	red;yellow;green
-input	apples	Fuji	http://www.apple.com/fuji	String	red;yellow;green
+input	apples	Granny Smith	http://www.apple.com/granny_smith	Boolean	0;1
+input	apples	Fuji	http://www.apple.com/fuji	Number	0;1;2;3;4;5
 input	apples	Pink Lady	http://www.apple.com/pink_lady	String	red;yellow;green
 output	oranges	Navel	http://www.orange.com/navel	String	seedless;natural
 output	oranges	Clementine	http://www.orange.com/clementine	String	seedless;natural
