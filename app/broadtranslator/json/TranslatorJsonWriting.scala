@@ -58,7 +58,7 @@ object TranslatorJsonWriting {
   implicit val modelSignatureResultWrites: Writes[ModelSignatureResult] = new Writes[ModelSignatureResult] {
     override def writes(result: ModelSignatureResult): JsObject = Json.obj(
       "model" -> result.modelId,
-      "groups" -> result.groups.values
+      "groups" -> result.groups.keys.map(_.string).toSeq.sorted.map(str => result.groups(VariableGroupId(str)))
     )
   }
 

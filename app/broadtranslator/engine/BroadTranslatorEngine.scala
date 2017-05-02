@@ -43,7 +43,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
       if File(File(File(modelFolder), folder), "main.R").exists;
       if File(File(File(modelFolder), folder), "modelSignature.txt").exists
     ) yield folder
-    ModelListResult(models.map(ModelId(_)))
+    ModelListResult(models.sorted.map(ModelId(_)))
   }
     
 
@@ -62,7 +62,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
     val valuesMap = uniqueValueMap(varMap(groupId.string).values.map(_.values))
     val variables = for ((variable, properties) <- varMap(groupId.string)) yield 
       VariableSignature(VariableId(variable), uriMap(properties.uri), typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
-    return VariablesByGroupResult(modelId, groupId, variables.toSeq)
+    return VariablesByGroupResult(modelId, groupId, variables.toSeq.sorted)
   }
     
   
@@ -255,7 +255,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
     for ((groupName, group) <- response) {
       val variableList = for ((variableName, distribution) <- group) yield 
         VariableWithProbabilities(VariableId(variableName), createDistribution(distribution, signature(groupName)(variableName).valueType))
-      groupList = GroupWithProbabilities(VariableGroupId(groupName), variableList.toSeq) :: groupList
+      groupList = GroupWithProbabilities(VariableGroupId(groupName), variableList.toSeq.sorted) :: groupList
     }
     return EvaluateResult(groupList)
   }
