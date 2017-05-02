@@ -1,6 +1,5 @@
 package broadtranslator.json
 
-import broadtranslator.engine.api.VarValueSet.{NumberInterval, NumberList, StringList}
 import broadtranslator.engine.api._
 import play.api.libs.json.{JsBoolean, JsNumber, JsObject, JsString, JsValue, Json, Writes}
 import util.MatchNumber
@@ -43,30 +42,17 @@ object TranslatorJsonWriting {
     }
   }
   
-  implicit val valueSetWrites: Writes[VarValueSet] = new Writes[VarValueSet] {
-    override def writes(valueSet: VarValueSet): JsObject = {
-      val jsonType = Json.obj("type" -> Some(valueSet.valueType))
-      val jsonValues = valueSet match {
-        case StringList(values) => Json.obj("values" -> values)
-        case NumberList(values) => Json.obj("values" -> values)
-        case NumberInterval(min, max) => Json.obj("min" -> min, "max" -> max)
-        case _ => Json.obj()
-      }
-      jsonType ++ jsonValues
-    }
-  }
 
-  implicit val variableGroupWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
-    override def writes(group: VariableGroup): JsObject = {
-      val jsonCore = Json.obj(filterOptions(
-        "id" -> group.id,
+  implicit val variableGroupWrites: Writes[GroupSignature] = new Writes[GroupSignature] {
+    override def writes(group: GroupSignature): JsObject = 
+      Json.obj(filterOptions(
+        "id" -> group.groupId,
         "authorityURL" -> group.authorityURL,
         "asConstraints" -> group.asConstraints,
-        "asOutputs" -> group.asOutputs
+        "asOutputs" -> group.asOutputs,
+        "type" -> group.valueType,
+        "values" -> group.values
       ): _*)
-      val jsonValues = valueSetWrites.writes(group.valueSet).asInstanceOf[JsObject]
-      jsonCore ++ jsonValues
-    }
   }
 
   implicit val modelSignatureResultWrites: Writes[ModelSignatureResult] = new Writes[ModelSignatureResult] {

@@ -12,13 +12,13 @@ import broadtranslator.engine.api.smart.SmartSpecs
   */
 class MockTranslatorEngine extends TranslatorEngine {
   val applesNames = Seq("Gala", "Granny Smith", "Fuji", "Pink Lady")
-  val applesList = VarValueSet.StringList(applesNames)
+  val applesList = ValueList.StringList(applesNames)
   val applesGroup = VariableGroupId("apples")
   val appleOneVar = VariableId("apple one")
   val appleTwoVar = VariableId("apple two")
 
   val orangesNames = Seq("Navel", "Clementine")
-  val orangesList = VarValueSet.StringList(orangesNames)
+  val orangesList = ValueList.StringList(orangesNames)
   val orangesGroup = VariableGroupId("oranges")
   val bigOrangeVar = VariableId("big orange")
   val smallOrangeVar = VariableId("small orange")
@@ -31,8 +31,8 @@ class MockTranslatorEngine extends TranslatorEngine {
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
-      applesGroup -> VariableGroup(modelId, applesGroup, None, asConstraints = true, asOutputs = false, applesList),
-      orangesGroup -> VariableGroup(modelId, orangesGroup, None, asConstraints = false, asOutputs = true, orangesList)
+      applesGroup -> GroupSignature(modelId, applesGroup, None, asConstraints = true, asOutputs = false, Some(StringType), Some(applesList)),
+      orangesGroup -> GroupSignature(modelId, orangesGroup, None, asConstraints = false, asOutputs = true, Some(StringType), Some(orangesList))
     ))
 
   override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): VariablesByGroupResult =

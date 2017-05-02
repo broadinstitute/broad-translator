@@ -137,7 +137,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
 
   
-  private def createVariableMap(modelId: String, groupId: String, ioSet: MSet[String], variables: MMap[String, VariableSig]): VariableGroup = {
+  private def createVariableMap(modelId: String, groupId: String, ioSet: MSet[String], variables: MMap[String, VariableSig]): GroupSignature = {
     val asInput = ioSet.contains("input") || ioSet.contains("input;output")
     val asOutput = ioSet.contains("output") || ioSet.contains("input;output")
     val uriSet = variables.values.map(_.uri).toSet
@@ -147,18 +147,13 @@ class BroadTranslatorEngine extends TranslatorEngine {
     val valuesSet = variables.values.map(_.values).toSet
     val valuesString = if (valuesSet.size == 1) Some(valuesSet.toSeq(0)) else None
     logger.info("Homogenious variable properties (model=" + modelId + " group=" + groupId + "): URI=" + uri + " type=" + valueType + " values=" + valuesString)
-    val valueSet: VarValueSet = valuesString match {
-      case None => VarValueSet.AnyString
-      case Some(string) => valueType match {
-        case None            => VarValueSet.StringList(string.split(";"))
-        case Some(NumberType)  => VarValueSet.NumberList(string.split(";").map(_.toDouble))
-        case Some(BooleanType) => VarValueSet.Boolean
-        case _               => VarValueSet.StringList(string.split(";"))
-      }
+    val values: Option[ValueList] = valueType match {
+      case None => None
+      case Some(valueType) => valuesString.map(valueList(valueType))
     }
-    return VariableGroup(ModelId(modelId), VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, valueSet)
+    return GroupSignature(ModelId(modelId), VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, valueType, values)
   }
-    
+
   
   private def valueList(valueType: ValueType)(sourceList: String): ValueList = valueType match {
     case NumberType => ValueList.NumberList(sourceList.split(";").map(_.toDouble))
