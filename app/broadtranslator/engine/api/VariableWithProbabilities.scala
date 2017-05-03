@@ -1,11 +1,12 @@
 package broadtranslator.engine.api
 
 /**
-  * LoamStream - Language for Omics Analysis Management
-  * Created by oruebenacker on 4/6/17.
-  */
-case class VariableWithProbabilities(variableId: VariableId, probabilityDistribution: ProbabilityDistribution) {
-
+ * Created by oruebenacker on 4/6/17.
+ */
+case class VariableWithProbabilities(variableId: VariableId, probabilityDistribution: ProbabilityDistribution)
+    extends AnyRef with Ordered[VariableWithProbabilities] {
+  
+  def compare(that: VariableWithProbabilities) = this.variableId.string.compare(that.variableId.string)
 }
 
 object VariableWithProbabilities {
