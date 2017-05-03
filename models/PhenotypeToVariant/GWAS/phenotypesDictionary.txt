@@ -1,0 +1,5 @@
+BIP	bipolar disorder
+CAD	coronary artery disease
+MDD	major depressive disorder
+SCZ	schizophrenia
+T2D	type-2 diabetes
