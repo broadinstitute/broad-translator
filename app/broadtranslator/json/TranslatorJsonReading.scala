@@ -26,8 +26,17 @@ object TranslatorJsonReading {
     }
   }
 
+  implicit val variableValueReads: Reads[VariableValue] = new Reads[VariableValue] {
+    override def reads(json: JsValue): JsResult[VariableValue] = json match {
+      case JsBoolean(boolean) => JsSuccess(VariableValue.BooleanValue(boolean))
+      case JsNumber(number) => JsSuccess(VariableValue.NumberValue(number.toDouble))
+      case JsString(string) => JsSuccess(VariableValue.StringValue(string))
+      case _ => JsError(s"Expected Boolean, Number or String, but got $json.")
+    }
+  }
+
   implicit val valueProbabilityReads: Reads[ValueProbability] =
-    ((JsPath \ "value").read[String] and (JsPath \ "probability").read[Double])(ValueProbability)
+    ((JsPath \ "value").read[VariableValue] and (JsPath \ "probability").read[Double])(ValueProbability)
 
   implicit val variableWithProbabilitiesReads: Reads[VariableWithProbabilities] =
     ((JsPath \ "variableId").read[VariableId] and
