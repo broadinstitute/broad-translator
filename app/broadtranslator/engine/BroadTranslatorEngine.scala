@@ -24,7 +24,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
   private val processLoger = ProcessLogger(out => logger.info("[R]: " + out), err => logger.error("[R]: " + err))
   
   private val modelFolder = "models"
-
+  private val commandTXT = "command.txt"
   
   private object File {
     def apply(filename: String) = new File(filename)
@@ -40,7 +40,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
     override def getAvailableModelIds: ModelListResult = {
     val models = for (
       folder <- File(modelFolder).list();
-      if File(File(File(modelFolder), folder), "main.R").exists;
+      if File(File(File(modelFolder), folder), commandTXT).exists;
       if File(File(File(modelFolder), folder), "modelSignature.txt").exists
     ) yield folder
     ModelListResult(models.sorted.map(ModelId(_)))
@@ -207,9 +207,12 @@ class BroadTranslatorEngine extends TranslatorEngine {
 
 
   private def executeModelCall(modelId: ModelId, input: File, output: File): Unit = {
-    val cmd = "Rscript main.R " + input + " " + output
+    val folder = File(File(modelFolder), modelId.string)
+    val command = new BufferedReader(new FileReader(File(folder, commandTXT)))
+    val cmd = command.readLine()+" " + input + " " + output
+    command.close()
     logger.info("executing model: " + cmd)
-    val exitCode = Process(cmd, File(File(modelFolder), modelId.string)).!(processLoger)
+    val exitCode = Process(cmd, folder).!(processLoger)
     logger.info("executing model: exit code = "+exitCode)
     if (exitCode != 0) {
       logger.error("Failed to execute model "+modelId)
