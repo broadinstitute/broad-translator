@@ -59,6 +59,8 @@ while(<IN>) {
 
 	next if /^#/;
 	chomp($line = $_);
+	$line=~s/\t$//;
+	$line=~s/\t$//;
 	@data = split /\t/, $line;
 
 	if($data[0] eq "input" && $data[1] eq "Phenotype") {
