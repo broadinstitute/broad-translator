@@ -1,9 +1,9 @@
 modelName	io	variableGroup	variableName	uri	valueType	allowedVariableValues
-PhenotypeToVariant	input	Phenotype	bipolar disorder	https://ncit.nci.nih.gov/ncitbrowser/ConceptReport.jsp?dictionary=NCI_Thesaurus&code=C34423	Number	1
-PhenotypeToVariant	input	Phenotype	coronary artery disease	https://ncit.nci.nih.gov/ncitbrowser/ConceptReport.jsp?dictionary=NCI_Thesaurus&code=C26732	Number	1
-PhenotypeToVariant	input	Phenotype	major depressive disorder	https://ncit.nci.nih.gov/ncitbrowser/ConceptReport.jsp?dictionary=NCI_Thesaurus&code=C34796	Number	1
-PhenotypeToVariant	input	Phenotype	schizophrenia	https://ncit.nci.nih.gov/ncitbrowser/ConceptReport.jsp?dictionary=NCI_Thesaurus&code=C3362	Number	1
-PhenotypeToVariant	input	Phenotype	type-2 diabetes	https://ncit.nci.nih.gov/ncitbrowser/ConceptReport.jsp?dictionary=NCI_Thesaurus&code=C26747	Number	1
+PhenotypeToVariant	input	Phenotype	bipolar disorder	http://disease-ontology.org/term/DOID:3312	Number	1
+PhenotypeToVariant	input	Phenotype	coronary artery disease	http://disease-ontology.org/term/DOID:3393	Number	1
+PhenotypeToVariant	input	Phenotype	major depressive disorder	http://disease-ontology.org/term/DOID:1470	Number	1
+PhenotypeToVariant	input	Phenotype	schizophrenia	http://disease-ontology.org/term/DOID:5419	Number	1
+PhenotypeToVariant	input	Phenotype	type-2 diabetes	http://disease-ontology.org/term/DOID:9352	Number	1
 PhenotypeToVariant	output	Variant	1_2232532_G_A	http://myvariant.info/v1/variant/chr1:g.2232532G>A	Number	1
 PhenotypeToVariant	output	Variant	1_2234251_A_G	http://myvariant.info/v1/variant/chr1:g.2234251A>G	Number	1
 PhenotypeToVariant	output	Variant	1_2236697_A_G	http://myvariant.info/v1/variant/chr1:g.2236697A>G	Number	1
