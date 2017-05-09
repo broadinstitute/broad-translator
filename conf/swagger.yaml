@@ -116,28 +116,31 @@ paths:
       responses:
         '200':
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                variableGroupId:
-                  type: string
-                modelVariable:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      variableID:
-                        type: string
-                      posteriorDistribution:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            variableValue:
-                              type: string
-                            posteriorProbability:
-                              type: number
+            type: object
+            properties:
+              posteriorProbabilities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    variableGroupId:
+                      type: string
+                    modelVariable:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          variableID:
+                            type: string
+                          posteriorDistribution:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                variableValue:
+                                  type: string
+                                posteriorProbability:
+                                  type: number
           description: Successful response
       parameters:
         - name: model
