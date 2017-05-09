@@ -51,10 +51,10 @@ object TranslatorJsonWriting {
       Json.obj(filterOptions(
         "variableGroupID" -> group.groupId,
         "authorityURL" -> group.authorityURL,
-        "asInput" -> group.asConstraints,
-        "asOutput" -> group.asOutputs,
+        "asInput" -> group.asInput,
+        "asOutput" -> group.asOutput,
         "groupType" -> group.valueType,
-        "groupValue" -> group.values
+        "groupValue" -> group.groupValue
       ): _*)
   }
 
