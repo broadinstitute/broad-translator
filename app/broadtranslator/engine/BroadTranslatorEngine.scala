@@ -54,15 +54,15 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
 
 
-  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): VariablesByGroupResult = {
+  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult = {
     val (ioMap, varMap) = loadModelSignature(modelId)
     val group = createVariableMap(modelId.string, groupId.string, ioMap(groupId.string), varMap(groupId.string))
     val uriMap = uniqueValueMap(varMap(groupId.string).values.map(_.uri))(VariableURI(_))
     val typeMap = uniqueValueMap(varMap(groupId.string).values.map(_.valueType))
     val valuesMap = uniqueValueMap(varMap(groupId.string).values.map(_.values))
     val variables = for ((variable, properties) <- varMap(groupId.string)) yield 
-      VariableSignature(VariableId(variable), uriMap(properties.uri), typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
-    return VariablesByGroupResult(modelId, groupId, variables.toSeq.sorted)
+      ModelVariableSignature(VariableId(variable), uriMap(properties.uri), typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
+    return GroupSignatureResult(modelId, groupId, variables.toSeq.sorted)
   }
     
   

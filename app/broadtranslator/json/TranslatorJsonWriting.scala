@@ -65,8 +65,8 @@ object TranslatorJsonWriting {
     )
   }
 
-  implicit val variablesByGroupResultWrites: Writes[VariablesByGroupResult] = new Writes[VariablesByGroupResult] {
-    override def writes(result: VariablesByGroupResult): JsObject =
+  implicit val variablesByGroupResultWrites: Writes[GroupSignatureResult] = new Writes[GroupSignatureResult] {
+    override def writes(result: GroupSignatureResult): JsObject =
       Json.obj(
         "modelID" -> result.modelId,
         "variableGroupID" -> result.groupId,
@@ -80,13 +80,13 @@ object TranslatorJsonWriting {
     }
   }
   
-  implicit val variableSignatureWrites: Writes[VariableSignature] = new Writes[VariableSignature] {
-    override def writes(result: VariableSignature): JsObject ={
+  implicit val variableSignatureWrites: Writes[ModelVariableSignature] = new Writes[ModelVariableSignature] {
+    override def writes(result: ModelVariableSignature): JsObject ={
       Json.obj(filterOptions(
         "variableID" -> result.variableId,
-        "authorityURI" -> result.uri,
-        "variableType" -> result.valueType,
-        "variableValue" -> result.values
+        "authorityURI" -> result.authorityURI,
+        "variableType" -> result.variableType,
+        "variableValue" -> result.variableValue
       ): _*)
   }
 }
