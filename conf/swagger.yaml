@@ -3,12 +3,12 @@ info:
   title: Broad probabilistic graphical models translator
   contact:
     responsibleOrganization: Broad Institute - CBTS
-    url: 'https://translator.ncats.io/broad-translator/'
+    url: 'https://translator.ncats.io/broad-pgm-translator/'
     email: translator@broadinstitute.org
     responsibleDeveloper: Vlado Dancik and Oliver Ruebenacker
   version: 0.0.1
 host: translator.ncats.io
-basePath: /broad-translator
+basePath: /broad-pgm-translator
 schemes:
   - https
 produces:
