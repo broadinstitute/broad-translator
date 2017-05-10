@@ -19,6 +19,7 @@ input_pert <- query %>% filter(io == "input" & variableGroup == "GeneKnockdown" 
 input_meas <- query %>% filter(io == "input" & variableGroup == "GeneExpression" & probability > 0)
 output_template <- query %>% filter(io == "output") %>% mutate()
 
+### run query (lw)
 ## prepare evidence list
 evd <- list()
 if(nrow(input_pert) > 0){
@@ -30,9 +31,7 @@ if(nrow(input_meas) > 0){
     evd[[input_meas$variableName[i]]] <- input_meas$variableValue[i]
   }
 }
-
-## run query
-query_dist <- cpdist(pgm, nodes = output_template$variableName, evidence = evd, method = "lw")
+query_dist <- cpdist(pgm, nodes = output_template$variableName, evidence = evd, method = "lw", n = 1e6, query.nodes = unique(query$variableName))
 
 ## query
 output <- output_template[0,]
