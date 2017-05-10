@@ -25,8 +25,10 @@ if(nrow(input_pert) > 0){
   evd[['gene_knockdown']] <- input_pert$variableValue
 }
 
-for(i in 1:nrow(input_meas)){
-  evd[[input_meas$variableName[i]]] <- input_meas$variableValue[i]
+if(nrow(input_meas) > 0){
+  for(i in 1:nrow(input_meas)){
+    evd[[input_meas$variableName[i]]] <- input_meas$variableValue[i]
+  }
 }
 
 ## run query
