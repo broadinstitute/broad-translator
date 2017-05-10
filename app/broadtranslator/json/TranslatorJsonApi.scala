@@ -20,7 +20,7 @@ class TranslatorJsonApi(engine: TranslatorEngine) {
     Json.toJson(engine.getVariablesByGroup(modelId, groupId))
 
   def evaluate(request: JsValue): JsValue =
-    callWrapperJson[EvaluateRequest, EvaluateResult](request, engine.evaluate)
+    callWrapperJson[EvaluateModelRequest, EvaluateModelResult](request, engine.evaluate)
 
   def callWrapperJson[Q, A](request: JsValue, fun: Q => A)
                            (implicit reads: Reads[Q], writes: Writes[A]): JsValue = {

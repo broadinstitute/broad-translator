@@ -8,10 +8,10 @@ case class GroupSignature(
     modelId: ModelId, 
     groupId: VariableGroupId, 
     authorityURL: Option[VariableURI],
-    asConstraints: Boolean, 
-    asOutputs: Boolean, 
+    asInput: Boolean, 
+    asOutput: Boolean, 
     valueType: Option[ValueType],
-    values: Option[ValueList]) {
+    groupValue: Option[ValueList]) {
 
 }
 

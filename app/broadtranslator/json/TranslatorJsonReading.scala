@@ -29,17 +29,17 @@ object TranslatorJsonReading {
   implicit val valueProbabilityReads: Reads[ValueProbability] =
     ((JsPath \ "variableValue").read[VariableValue] and (JsPath \ "priorProbability").read[Double])(ValueProbability)
 
-  implicit val variableWithProbabilitiesReads: Reads[VariableWithProbabilities] =
+  implicit val variableWithProbabilitiesReads: Reads[ModelVariable] =
     ((JsPath \ "variableID").read[VariableId] and
-      (JsPath \ "priorDistribution").read[Seq[ValueProbability]]) (VariableWithProbabilities(_, _))
+      (JsPath \ "priorDistribution").read[Seq[ValueProbability]]) (ModelVariable(_, _))
 
-  implicit val groupWithProbabilitiesReads: Reads[GroupWithProbabilities] =
+  implicit val groupWithProbabilitiesReads: Reads[VariableGroup] =
     ((JsPath \ "variableGroupID").read[VariableGroupId] and
-      (JsPath \ "modelVariable").read[Seq[VariableWithProbabilities]]) (GroupWithProbabilities)
+      (JsPath \ "modelVariable").read[Seq[ModelVariable]]) (VariableGroup)
 
-  implicit val evaluateRequestReads: Reads[EvaluateRequest] =
+  implicit val evaluateRequestReads: Reads[EvaluateModelRequest] =
     ((JsPath \ "modelID").read[ModelId] and
-      (JsPath \ "modelOutput").read[Seq[OutputGroup]] and
-      (JsPath \ "modelInput").read[Seq[GroupWithProbabilities]]) (EvaluateRequest)
+      (JsPath \ "modelInput").read[Seq[VariableGroup]]and
+      (JsPath \ "modelOutput").read[Seq[OutputGroup]] ) (EvaluateModelRequest)
 
 }

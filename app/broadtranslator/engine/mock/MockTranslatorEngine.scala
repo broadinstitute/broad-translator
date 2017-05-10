@@ -31,20 +31,20 @@ class MockTranslatorEngine extends TranslatorEngine {
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
-      applesGroup -> GroupSignature(modelId, applesGroup, None, asConstraints = true, asOutputs = false, Some(StringType), Some(applesList)),
-      orangesGroup -> GroupSignature(modelId, orangesGroup, None, asConstraints = false, asOutputs = true, Some(StringType), Some(orangesList))
+      applesGroup -> GroupSignature(modelId, applesGroup, None, asInput = true, asOutput = false, Some(StringType), Some(applesList)),
+      orangesGroup -> GroupSignature(modelId, orangesGroup, None, asInput = false, asOutput = true, Some(StringType), Some(orangesList))
     ))
 
-  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): VariablesByGroupResult =
-    VariablesByGroupResult(modelId, groupId, Seq(new VariableSignature(appleOneVar), new VariableSignature(appleTwoVar)))
+  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult =
+    GroupSignatureResult(modelId, groupId, Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar)))
 
-  override def evaluate(request: EvaluateRequest): EvaluateResult =
-    EvaluateResult(Seq(
-      GroupWithProbabilities(orangesGroup, Seq(
-        VariableWithProbabilities(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
+  override def evaluate(request: EvaluateModelRequest): EvaluateModelResult =
+    EvaluateModelResult(Seq(
+      VariableGroup(orangesGroup, Seq(
+        ModelVariable(bigOrangeVar, ProbabilityDistribution.Discrete(Map(
           "Navel" -> 0.85, "Clementine" -> 0.15
         ))),
-        VariableWithProbabilities(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
+        ModelVariable(smallOrangeVar, ProbabilityDistribution.Discrete(Map(
           "Navel" -> 0.07, "Clementine" -> 0.93
         )))
       ))
