@@ -1,7 +1,7 @@
 package broadtranslator.engine
 
 import broadtranslator.engine.api.smart.SmartSpecs
-import broadtranslator.engine.api.{EvaluateRequest, EvaluateResult, ModelId, ModelListResult, ModelSignatureResult, VariableGroupId, GroupSignatureResult}
+import broadtranslator.engine.api.{EvaluateModelRequest, EvaluateModelResult, ModelId, ModelListResult, ModelSignatureResult, VariableGroupId, GroupSignatureResult}
 
 /**
   * broadtranslator
@@ -16,5 +16,5 @@ trait TranslatorEngine {
 
   def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult
 
-  def evaluate(request: EvaluateRequest): EvaluateResult
+  def evaluate(request: EvaluateModelRequest): EvaluateModelResult
 }

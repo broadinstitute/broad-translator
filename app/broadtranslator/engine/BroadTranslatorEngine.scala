@@ -66,7 +66,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
     
   
-  override def evaluate(request: EvaluateRequest): EvaluateResult = {
+  override def evaluate(request: EvaluateModelRequest): EvaluateModelResult = {
     val inputFile = File.createTempFile("translatorRequest", ".txt")
     val outputFile = File.createTempFile("translatorResponse", ".txt")
     var success = false
@@ -178,13 +178,13 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
   
 
-  private def exportRequest(request: EvaluateRequest, file: File): Unit = {
+  private def exportRequest(request: EvaluateModelRequest, file: File): Unit = {
     val out = new PrintWriter(new FileWriter(file))
     out.println("io\tvariableGroup\tvariableName\tvariableValue\tprobability")
     for (
-      group <- request.priors;
+      group <- request.modelInput;
       variableGroup = group.groupId.string;
-      variable <- group.varsWithProbs;
+      variable <- group.modelVariable;
       variableName = variable.variableId.string
     ) {
       variable.probabilityDistribution match {
@@ -195,9 +195,9 @@ class BroadTranslatorEngine extends TranslatorEngine {
       }
     }
     for (
-      group <- request.outputs;
+      group <- request.modelOutput;
       variableGroup = group.groupId.string;
-      variable <- group.variableIds;
+      variable <- group.variableId;
       variableName = variable.string
     ) {
       out.println("output\t" + variableGroup + "\t" + variableName + "\t\t")
@@ -221,7 +221,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
   
   
-  private def importResponse(modelId: ModelId, file: File): EvaluateResult = {
+  private def importResponse(modelId: ModelId, file: File): EvaluateModelResult = {
     val (ioMap, varMap) = loadModelSignature(modelId)
     val response: MMap[String, MMap[String, MMap[String, Double]]] = loadResponse(file)
     return createEvaluateResult(response, varMap)
@@ -253,14 +253,14 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
  
   
-  private def createEvaluateResult(response: MMap[String,MMap[String,MMap[String,Double]]], signature: MMap[String,MMap[String,VariableSig]]): EvaluateResult = {
-    var groupList = List[GroupWithProbabilities]()
+  private def createEvaluateResult(response: MMap[String,MMap[String,MMap[String,Double]]], signature: MMap[String,MMap[String,VariableSig]]): EvaluateModelResult = {
+    var groupList = List[VariableGroup]()
     for ((groupName, group) <- response) {
       val variableList = for ((variableName, distribution) <- group) yield 
-        VariableWithProbabilities(VariableId(variableName), createDistribution(distribution, signature(groupName)(variableName).valueType))
-      groupList = GroupWithProbabilities(VariableGroupId(groupName), variableList.toSeq.sorted) :: groupList
+        ModelVariable(VariableId(variableName), createDistribution(distribution, signature(groupName)(variableName).valueType))
+      groupList = VariableGroup(VariableGroupId(groupName), variableList.toSeq.sorted) :: groupList
     }
-    return EvaluateResult(groupList)
+    return EvaluateModelResult(groupList)
   }
 
   
