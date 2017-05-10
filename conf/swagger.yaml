@@ -62,7 +62,7 @@ paths:
           schema:
             type: object
             properties:
-              variableGroupId:
+              variableGroupID:
                 type: string
               modelVariable:
                 type: array
@@ -123,7 +123,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    variableGroupId:
+                    variableGroupID:
                       type: string
                     modelVariable:
                       type: array
@@ -156,7 +156,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    variableGroupId:
+                    variableGroupID:
                       type: string
                     modelVariable: 
                       type: array
@@ -179,7 +179,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    variableGroupId:
+                    variableGroupID:
                       type: string
                     variableID:
                       type: array
