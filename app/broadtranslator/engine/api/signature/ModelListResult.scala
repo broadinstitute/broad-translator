@@ -1,4 +1,7 @@
-package broadtranslator.engine.api
+package broadtranslator.engine.api.signature
+
+import broadtranslator.engine.api.id.ModelId
+
 
 /**
   * broadtranslator

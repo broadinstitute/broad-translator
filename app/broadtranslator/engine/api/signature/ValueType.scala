@@ -1,4 +1,4 @@
-package broadtranslator.engine.api
+package broadtranslator.engine.api.signature
 
 sealed abstract class ValueType(val name: String)
 

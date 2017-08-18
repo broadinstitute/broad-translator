@@ -1,6 +1,7 @@
 package broadtranslator.json
 
-import broadtranslator.engine.api._
+import broadtranslator.engine.api.id._
+import broadtranslator.engine.api.evaluate._
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json._
 

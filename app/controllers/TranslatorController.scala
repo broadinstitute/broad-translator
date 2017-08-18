@@ -3,7 +3,7 @@ package controllers
 import javax.inject.{Inject, Singleton}
 
 import broadtranslator.AppWiring
-import broadtranslator.engine.api.{ModelId, VariableGroupId}
+import broadtranslator.engine.api.id.{ModelId, VariableGroupId}
 import broadtranslator.json.TranslatorJsonApi
 import broadtranslator.json.smart.TranslatorSmartApi
 import play.api.Logger

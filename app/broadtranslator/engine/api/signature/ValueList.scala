@@ -1,4 +1,4 @@
-package broadtranslator.engine.api
+package broadtranslator.engine.api.signature
 
 trait ValueList {
   def values: Seq[Any]

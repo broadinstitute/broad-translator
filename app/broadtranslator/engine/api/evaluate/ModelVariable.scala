@@ -1,4 +1,6 @@
-package broadtranslator.engine.api
+package broadtranslator.engine.api.evaluate
+
+import broadtranslator.engine.api.id.VariableId
 
 /**
  * Created by oruebenacker on 4/6/17.

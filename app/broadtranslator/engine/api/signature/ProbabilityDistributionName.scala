@@ -1,4 +1,4 @@
-package broadtranslator.engine.api
+package broadtranslator.engine.api.signature
 
 case class ProbabilityDistributionName(name: String) {
 

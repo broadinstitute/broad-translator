@@ -1,4 +1,4 @@
-package broadtranslator.engine.api
+package broadtranslator.engine.api.signature
 
 object VariableURI {
   def apply(uri: Option[String]): Option[VariableURI] = uri.map(VariableURI(_))

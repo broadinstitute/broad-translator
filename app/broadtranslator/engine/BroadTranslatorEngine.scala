@@ -10,7 +10,9 @@ import java.io.FileWriter
 import java.io.FileReader
 import java.io.BufferedReader
 
-import broadtranslator.engine.api._
+import broadtranslator.engine.api.id._
+import broadtranslator.engine.api.signature._
+import broadtranslator.engine.api.evaluate._
 import broadtranslator.engine.api.smart.SmartSpecs
 
 import play.api.Logger

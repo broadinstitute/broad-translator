@@ -1,4 +1,4 @@
-package broadtranslator.engine.api
+package broadtranslator.engine.api.evaluate
 
 import play.api.libs.json.JsError
 

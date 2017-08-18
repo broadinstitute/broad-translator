@@ -1,7 +1,8 @@
 package broadtranslator.json
 
 import broadtranslator.engine.TranslatorEngine
-import broadtranslator.engine.api._
+import broadtranslator.engine.api.evaluate.{EvaluateModelRequest,EvaluateModelResult}
+import broadtranslator.engine.api.id.{ModelId, VariableGroupId}
 import broadtranslator.json.TranslatorJsonReading.evaluateRequestReads
 import broadtranslator.json.TranslatorJsonWriting.{evaluateResultWrites, modelListResultWrites, modelSignatureResultWrites, variablesByGroupResultWrites}
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json, Reads, Writes}
