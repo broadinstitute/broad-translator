@@ -36,6 +36,13 @@ object TranslatorJsonWriting {
     }
   }
 
+  implicit val probabilityDistributionNameWrites: Writes[Option[ProbabilityDistributionName]] = new Writes[Option[ProbabilityDistributionName]] {
+    override def writes(name: Option[ProbabilityDistributionName]): JsValue = name match {
+      case None => EMPTY
+      case Some(probabilityDistributionName) => JsString(probabilityDistributionName.name)
+    }
+  }
+
   implicit val valueListWrites: Writes[Option[ValueList]] = new Writes[Option[ValueList]] {
     override def writes(valueList: Option[ValueList]): JsValue = valueList match {
       case None                => EMPTY
@@ -53,8 +60,10 @@ object TranslatorJsonWriting {
         "authorityURL" -> group.authorityURL,
         "asInput" -> group.asInput,
         "asOutput" -> group.asOutput,
+        "groupDistribution" -> group.groupDistribution,
         "groupType" -> group.valueType,
-        "groupValue" -> group.groupValue
+        "groupValue" -> group.groupValue,
+        "modelVariable" -> group.modelVariable
       ): _*)
   }
 

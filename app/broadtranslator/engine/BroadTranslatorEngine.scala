@@ -56,12 +56,12 @@ class BroadTranslatorEngine extends TranslatorEngine {
 
   override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult = {
     val (ioMap, varMap) = loadModelSignature(modelId)
-    val group = createVariableMap(modelId.string, groupId.string, ioMap(groupId.string), varMap(groupId.string))
+    //val group = createVariableMap(modelId.string, groupId.string, ioMap(groupId.string), varMap(groupId.string))
     val uriMap = uniqueValueMap(varMap(groupId.string).values.map(_.uri))(VariableURI(_))
     val typeMap = uniqueValueMap(varMap(groupId.string).values.map(_.valueType))
     val valuesMap = uniqueValueMap(varMap(groupId.string).values.map(_.values))
     val variables = for ((variable, properties) <- varMap(groupId.string)) yield 
-      ModelVariableSignature(VariableId(variable), uriMap(properties.uri), typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
+      ModelVariableSignature(VariableId(variable), uriMap(properties.uri), None, typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
     return GroupSignatureResult(modelId, groupId, variables.toSeq.sorted)
   }
     
@@ -151,7 +151,11 @@ class BroadTranslatorEngine extends TranslatorEngine {
       case None => None
       case Some(valueType) => valuesString.map(valueList(valueType))
     }
-    return GroupSignature(ModelId(modelId), VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, valueType, values)
+    val variableSignatures = getVariablesByGroup(ModelId(modelId), VariableGroupId(groupId))
+        //val variableSignatures = for ((variable, properties) <- variables) yield 
+      //ModelVariableSignature(VariableId(variable), uriMap(properties.uri), None, typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
+
+    return GroupSignature(ModelId(modelId), VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, Some(ProbabilityDistributionName.discrete), valueType, values, variableSignatures.modelVariable)
   }
 
   
@@ -287,4 +291,28 @@ class BroadTranslatorEngine extends TranslatorEngine {
   
   private case class VariableSig(uri: String, valueType: ValueType, values: String)
   
+}
+
+object BroadTranslatorEngine {
+
+  import broadtranslator.json.TranslatorJsonWriting.modelSignatureResultWrites
+  import play.api.libs.json.Json
+
+  def main(args: Array[String]) {
+    val folder = new java.io.File("models")
+    for (modelId <- folder.list()) {
+      println(modelId)
+      signatureToJson(modelId)
+    }
+    //signatureToJson("GoodModel")
+  }
+
+  def signatureToJson(modelID: String) {
+    val engine = new BroadTranslatorEngine
+    val signature = engine.getModelSignature(ModelId(modelID))
+    println(Json.prettyPrint(Json.toJson(signature)))
+    val out = new PrintWriter(new FileWriter("models/" + modelID + "/modelSignature.json"))
+    out.println(Json.prettyPrint(Json.toJson(signature)))
+    out.close()
+  }
 }

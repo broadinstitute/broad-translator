@@ -10,8 +10,10 @@ case class GroupSignature(
     authorityURL: Option[VariableURI],
     asInput: Boolean, 
     asOutput: Boolean, 
+    groupDistribution: Option[ProbabilityDistributionName],
     valueType: Option[ValueType],
-    groupValue: Option[ValueList]) {
+    groupValue: Option[ValueList], 
+    modelVariable: Seq[ModelVariableSignature]) {
 
 }
 

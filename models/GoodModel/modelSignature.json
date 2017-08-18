@@ -1,0 +1,47 @@
+{
+  "modelID" : "GoodModel",
+  "variableGroup" : [ {
+    "variableGroupID" : "apples",
+    "asInput" : true,
+    "asOutput" : false,
+    "groupDistribution" : "discrete",
+    "modelVariable" : [ {
+      "variableID" : "Fuji",
+      "authorityURI" : "http://www.apple.com/fuji",
+      "variableType" : "Number",
+      "variableValue" : [ 0, 1, 2, 3, 4, 5 ]
+    }, {
+      "variableID" : "Gala",
+      "authorityURI" : "http://www.apple.com/gala",
+      "variableType" : "String",
+      "variableValue" : [ "red", "yellow", "green" ]
+    }, {
+      "variableID" : "Granny Smith",
+      "authorityURI" : "http://www.apple.com/granny_smith",
+      "variableType" : "Boolean",
+      "variableValue" : [ 0, 1 ]
+    }, {
+      "variableID" : "Pink Lady",
+      "authorityURI" : "http://www.apple.com/pink_lady",
+      "variableType" : "String",
+      "variableValue" : [ "red", "yellow", "green" ]
+    } ]
+  }, {
+    "variableGroupID" : "oranges",
+    "asInput" : false,
+    "asOutput" : true,
+    "groupDistribution" : "discrete",
+    "groupType" : "String",
+    "groupValue" : [ "seedless", "natural" ],
+    "modelVariable" : [ {
+      "variableID" : "Clementine",
+      "authorityURI" : "http://www.orange.com/clementine"
+    }, {
+      "variableID" : "Navel",
+      "authorityURI" : "http://www.orange.com/navel"
+    }, {
+      "variableID" : "Tangerine",
+      "authorityURI" : "http://www.orange.com/tangerine"
+    } ]
+  } ]
+}

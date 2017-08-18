@@ -1,0 +1,41 @@
+{
+  "modelID" : "BadModel",
+  "variableGroup" : [ {
+    "variableGroupID" : "apples",
+    "asInput" : true,
+    "asOutput" : false,
+    "groupDistribution" : "discrete",
+    "groupType" : "String",
+    "groupValue" : [ "red", "yellow", "green" ],
+    "modelVariable" : [ {
+      "variableID" : "Fuji",
+      "authorityURI" : "http://www.apple.com/fuji"
+    }, {
+      "variableID" : "Gala",
+      "authorityURI" : "http://www.apple.com/gala"
+    }, {
+      "variableID" : "Granny Smith",
+      "authorityURI" : "http://www.apple.com/granny_smith"
+    }, {
+      "variableID" : "Pink Lady",
+      "authorityURI" : "http://www.apple.com/pink_lady"
+    } ]
+  }, {
+    "variableGroupID" : "oranges",
+    "asInput" : true,
+    "asOutput" : true,
+    "groupDistribution" : "discrete",
+    "groupType" : "String",
+    "groupValue" : [ "seedless", "natural" ],
+    "modelVariable" : [ {
+      "variableID" : "Clementine",
+      "authorityURI" : "http://www.orange.com/clementine"
+    }, {
+      "variableID" : "Navel",
+      "authorityURI" : "http://www.orange.com/navel"
+    }, {
+      "variableID" : "Tangerine",
+      "authorityURI" : "http://www.orange.com/tangerine"
+    } ]
+  } ]
+}

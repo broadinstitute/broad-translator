@@ -31,8 +31,8 @@ class MockTranslatorEngine extends TranslatorEngine {
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
-      applesGroup -> GroupSignature(modelId, applesGroup, None, asInput = true, asOutput = false, Some(StringType), Some(applesList)),
-      orangesGroup -> GroupSignature(modelId, orangesGroup, None, asInput = false, asOutput = true, Some(StringType), Some(orangesList))
+      applesGroup -> GroupSignature(modelId, applesGroup, None, asInput = true, asOutput = false, Some(ProbabilityDistributionName.discrete), Some(StringType), Some(applesList), Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar))),
+      orangesGroup -> GroupSignature(modelId, orangesGroup, None, asInput = false, asOutput = true, Some(ProbabilityDistributionName.discrete), Some(StringType), Some(orangesList), Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar)))
     ))
 
   override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult =
