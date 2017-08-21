@@ -297,7 +297,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
 
 object BroadTranslatorEngine {
 
-  import broadtranslator.json.TranslatorJsonWriting.modelSignatureResultWrites
+  import broadtranslator.json.SignatureJsonWriting.modelSignatureResultWrites
   import play.api.libs.json.Json
 
   def main(args: Array[String]) {
@@ -306,7 +306,6 @@ object BroadTranslatorEngine {
       println(modelId)
       signatureToJson(modelId)
     }
-    //signatureToJson("GoodModel")
   }
 
   def signatureToJson(modelID: String) {

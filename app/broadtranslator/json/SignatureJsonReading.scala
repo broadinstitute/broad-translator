@@ -66,16 +66,5 @@ object SignatureJsonReading {
       (JsPath \ "variableGroup").read[Seq[GroupSignature]])(ModelSignatureResult(_, _))
   }
 
-  def main(args: Array[String]) {
-    val folder = new java.io.File("models")
-    for (modelId <- folder.list()) {
-      print(modelId)
-      val json = Json.parse(new java.io.FileInputStream("models/" + modelId + "/modelSignature.json"))
-      json.validate[ModelSignatureResult] match {
-        case JsSuccess(_, _) => println(" => Success")
-        case JsError(_)      => println(" => FAIL")
-      }
-    }
-  }
 }
 
