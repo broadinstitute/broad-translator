@@ -157,7 +157,7 @@ class BroadTranslatorEngine extends TranslatorEngine {
         //val variableSignatures = for ((variable, properties) <- variables) yield 
       //ModelVariableSignature(VariableId(variable), uriMap(properties.uri), None, typeMap(properties.valueType), valuesMap(properties.values).map(valueList(properties.valueType)))
 
-    return GroupSignature(ModelId(modelId), VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, Some(ProbabilityDistributionName.discrete), valueType, values, variableSignatures.modelVariable)
+    return GroupSignature(VariableGroupId(groupId), VariableURI(uri), asInput, asOutput, Some(ProbabilityDistributionName.discrete), valueType, values, variableSignatures.modelVariable)
   }
 
   
