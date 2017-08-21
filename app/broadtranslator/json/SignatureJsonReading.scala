@@ -6,8 +6,12 @@ import broadtranslator.engine.api.signature.ValueList.{ NumberList, StringList }
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json._
 import TranslatorIdsJsonReading.{ variableIdReads, groupIdReads, modelIdReads }
+import scala.util.{Try, Success, Failure}
+import play.api.Logger
 
 object SignatureJsonReading {
+
+  private val logger = Logger(getClass)
 
   implicit val probabilityDistributionNameReads: Reads[ProbabilityDistributionName] = implicitly[Reads[String]].map(ProbabilityDistributionName.apply)
   implicit val variableUriReads: Reads[VariableURI] = implicitly[Reads[String]].map(VariableURI.apply)
@@ -66,5 +70,13 @@ object SignatureJsonReading {
       (JsPath \ "variableGroup").read[Seq[GroupSignature]])(ModelSignatureResult(_, _))
   }
 
+  def loadModelSignature(file: String): Option[ModelSignatureResult] = {
+    val json = Json.parse(new java.io.FileInputStream(file))
+    json.validate[ModelSignatureResult] match {
+      case JsSuccess(modelSignature, _) => Some(modelSignature)
+      case JsError(error) => logger.error("Failed to parse " + file + ":\n" ++ error.toString); None
+    }
+  }
+  
 }
 
