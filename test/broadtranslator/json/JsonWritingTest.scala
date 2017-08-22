@@ -17,7 +17,8 @@ class JsonWritingTest extends FlatSpec with Matchers {
   "modelID": "ModelThree",
   "modelOutput": [ 
     { "variableGroupID": "oranges",
-     "variableID": ["Navel","Clementine", "Tangerine"]
+     "variableID": ["Navel","Clementine", "Tangerine"],
+     "rawOutput": false
     }
   ],
   "modelInput": [

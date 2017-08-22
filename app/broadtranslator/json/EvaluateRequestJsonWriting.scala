@@ -44,7 +44,8 @@ object EvaluateRequestJsonWriting {
   implicit val outputGroupWrites: Writes[OutputGroup] = new Writes[OutputGroup] {
     override def writes(group: OutputGroup): JsValue = Json.obj(
       "variableGroupID" -> group.groupId,
-      "variableID" -> group.variableId)
+      "variableID" -> group.variableId,
+      "rawOutput" -> group.rawOutput)
   }
 
   implicit val evaluateRequestWrites: Writes[EvaluateModelRequest] = new Writes[EvaluateModelRequest] {

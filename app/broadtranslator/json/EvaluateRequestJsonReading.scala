@@ -14,7 +14,8 @@ object EvaluateRequestJsonReading {
 
   implicit val outputGroupReads: Reads[OutputGroup] =
     ((JsPath \ "variableGroupID").read[VariableGroupId] and
-      (JsPath \ "variableID").read[Seq[VariableId]])(OutputGroup)
+      (JsPath \ "variableID").read[Seq[VariableId]] and 
+      (JsPath \ "rawOutput").read[Boolean])(OutputGroup)
 
   implicit val variableValueReads: Reads[VariableValue] = new Reads[VariableValue] {
     override def reads(json: JsValue): JsResult[VariableValue] = json match {
