@@ -1,26 +1,21 @@
 package broadtranslator.json
 
 import broadtranslator.engine.api.id._
-
 import broadtranslator.engine.api.evaluate._
-import play.api.libs.json.{ JsBoolean, JsNumber, JsObject, JsString, JsArray, JsValue, Json, Writes }
-import util.MatchNumber
+import broadtranslator.json.TranslatorIdsJsonWriting.entityIdWrites
+import play.api.libs.json.{ JsNumber, JsString, JsArray, JsValue, Json, Writes }
 
 /**
  * broadtranslator
  * Created by oliverr on 4/5/2017.
  */
-object TranslatorJsonWriting {
+object EvaluateResultJsonWriting {
 
-  implicit val entityIdWrites: Writes[EntityId] = new Writes[EntityId] {
-    override def writes(entityId: EntityId): JsString = JsString(entityId.string)
-  }
-
-  implicit val variableWithProbabilitiesWrites: Writes[ModelVariable] =
+  implicit val modelVariableWrites: Writes[ModelVariable] =
     new Writes[ModelVariable] {
-      override def writes(varWithProbs: ModelVariable): JsValue = {
-        val varJson = Json.obj("variableID" -> varWithProbs.variableId)
-        val probJson = varWithProbs.probabilityDistribution match {
+      override def writes(modelVariable: ModelVariable): JsValue = {
+        val varJson = Json.obj("variableID" -> modelVariable.variableId)
+        val probJson = modelVariable.probabilityDistribution match {
           case ProbabilityDistribution.Discrete(probabilities) =>
             val probsJson = probabilities.map({
               case (value, probability) =>
@@ -44,10 +39,10 @@ object TranslatorJsonWriting {
       }
     }
 
-  implicit val groupWithProbabilitiesWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
-    override def writes(groupWithProbs: VariableGroup): JsValue = Json.obj(
-      "variableGroupID" -> groupWithProbs.groupId,
-      "modelVariable" -> groupWithProbs.modelVariable)
+  implicit val variableGroupWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
+    override def writes(group: VariableGroup): JsValue = Json.obj(
+      "variableGroupID" -> group.groupId,
+      "modelVariable" -> group.modelVariable)
   }
 
   implicit val evaluateResultWrites: Writes[EvaluateModelResult] = new Writes[EvaluateModelResult] {

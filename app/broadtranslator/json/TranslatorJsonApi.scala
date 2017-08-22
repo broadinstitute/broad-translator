@@ -3,8 +3,8 @@ package broadtranslator.json
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api.evaluate.{ EvaluateModelRequest, EvaluateModelResult }
 import broadtranslator.engine.api.id.{ ModelId, VariableGroupId }
-import broadtranslator.json.TranslatorJsonReading.evaluateRequestReads
-import broadtranslator.json.TranslatorJsonWriting.evaluateResultWrites
+import broadtranslator.json.EvaluateRequestJsonReading.evaluateRequestReads
+import broadtranslator.json.EvaluateResultJsonWriting.evaluateResultWrites
 import broadtranslator.json.SignatureJsonWriting.{ modelListResultWrites, modelSignatureResultWrites, variablesByGroupResultWrites }
 import play.api.libs.json.{ JsError, JsSuccess, JsValue, Json, Reads, Writes }
 

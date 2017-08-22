@@ -2,8 +2,9 @@ package broadtranslator.json
 
 import play.api.libs.json._
 import broadtranslator.engine.api.signature._
+import broadtranslator.engine.api.evaluate.EvaluateModelResult
 import broadtranslator.json.SignatureJsonReading._
-
+import broadtranslator.json.EvaluateResultJsonReading.evaluateResultReads
 import org.scalatest.Matchers
 import org.scalatest.FlatSpec
 
@@ -45,5 +46,53 @@ class JsonReadingTest extends FlatSpec with Matchers {
       json.validate[ModelSignatureResult] shouldBe a[JsSuccess[_]]
       info("OK")
     }
+  }
+  
+  "Evaluate result JSON Reader" should 
+  "read mock result" in {
+  
+  val jsonStr = """
+    {
+    "posteriorProbabilities": [
+        {
+            "variableGroupID": "oranges",
+            "modelVariable": [
+                {
+                    "variableID": "Clementine",
+                    "posteriorDistribution": [
+                        {
+                            "variableValue": 1,
+                            "posteriorProbability": 0.355908860685304
+                        }
+                    ]
+                },
+                {
+                    "variableID": "Navel",
+                    "posteriorDistribution": [
+                        {
+                            "variableValue": 1,
+                            "posteriorProbability": 0.456433548592031
+                        }
+                    ]
+                },
+                {
+                    "variableID": "Tangerine",
+                    "posteriorDistribution": [
+                        {
+                            "variableValue": 1,
+                            "posteriorProbability": 0.81842381763272
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    }
+    """
+  
+    val json = Json.parse(jsonStr)
+    val obj = json.validate[EvaluateModelResult]
+    obj shouldBe a[JsSuccess[_]]
+    info("OK")
   }
 }
