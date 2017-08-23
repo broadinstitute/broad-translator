@@ -1,0 +1,3373 @@
+{
+    "posteriorProbability": [
+        {
+            "variableGroupID": "GeneExpression",
+            "modelVariable": [
+                {
+                    "variableID": "ENSG00000070495",
+                    "posteriorDistribution": {
+                        "discreteDistribution": [
+                            {
+                                "variableValue": "1",
+                                "posteriorProbability": 0.037
+                            },
+                            {
+                                "variableValue": "2",
+                                "posteriorProbability": 0.95
+                            },
+                            {
+                                "variableValue": "3",
+                                "posteriorProbability": 0.013
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "variableGroupID": "GeneKnockdown",
+            "modelVariable": [
+                {
+                    "variableID": "gene_knockdown",
+                    "posteriorDistribution": {
+                        "discreteDistribution": [
+                            {
+                                "variableValue": "10",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "14",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "15",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "19",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "22",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "27",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "32",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "40",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "41",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "44",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "45",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "47",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "50",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "53",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "56",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "60",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "74",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "89",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "90",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "97",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "99",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "115",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "118",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "133",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "134",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "136",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "146",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "149",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "155",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "157",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "159",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "166",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "170",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "173",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "174",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "176",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "181",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "183",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "189",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "191",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "193",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "197",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "201",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "205",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "208",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "209",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "213",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "215",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "224",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "227",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "228",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "229",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "230",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "233",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "235",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "236",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "237",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "238",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "243",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "244",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "253",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "254",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "255",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "257",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "260",
+                                "posteriorProbability": 0.021
+                            },
+                            {
+                                "variableValue": "267",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "271",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "272",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "273",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "275",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "276",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "278",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "288",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "289",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "290",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "291",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "294",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "302",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "305",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "307",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "316",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "317",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "324",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "325",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "326",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "327",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "330",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "332",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "333",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "340",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "341",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "342",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "351",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "352",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "355",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "356",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "363",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "364",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "372",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "376",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "384",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "385",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "390",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "393",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "400",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "406",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "408",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "412",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "414",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "417",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "421",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "427",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "429",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "430",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "446",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "447",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "451",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "456",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "459",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "462",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "463",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "467",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "480",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "481",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "485",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "493",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "501",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "503",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "516",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "519",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "521",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "525",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "527",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "535",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "539",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "548",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "549",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "551",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "557",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "564",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "565",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "566",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "571",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "575",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "584",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "587",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "594",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "595",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "599",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "605",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "607",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "609",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "616",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "625",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "630",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "638",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "642",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "644",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "646",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "647",
+                                "posteriorProbability": 0.021
+                            },
+                            {
+                                "variableValue": "648",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "651",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "654",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "658",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "660",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "675",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "680",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "688",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "695",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "696",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "698",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "699",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "700",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "702",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "709",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "720",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "726",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "735",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "737",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "738",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "740",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "741",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "748",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "750",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "765",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "769",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "772",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "774",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "779",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "787",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "797",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "803",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "810",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "811",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "812",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "815",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "818",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "828",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "830",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "839",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "841",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "845",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "846",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "847",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "849",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "850",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "853",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "855",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "856",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "865",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "872",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "874",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "880",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "881",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "889",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "890",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "895",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "897",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "905",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "908",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "909",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "919",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "925",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "945",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "960",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "962",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "967",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "978",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "982",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "986",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "995",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "997",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1008",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1009",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1019",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1020",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1030",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1035",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1039",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1041",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1045",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1047",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1050",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1051",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1057",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1058",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1062",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1069",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1071",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1077",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1083",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1086",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1090",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1091",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1094",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1096",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1112",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1113",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1115",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1118",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1120",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1139",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1142",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1144",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1147",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1151",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1157",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1159",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1161",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1166",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1175",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1180",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1186",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1187",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1189",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1194",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1195",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1206",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1207",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1209",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1214",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1217",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1220",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1225",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1229",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1230",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1232",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1239",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1240",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1241",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1244",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1248",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1249",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1255",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1260",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1271",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1274",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1277",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1278",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1285",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1291",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1292",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1296",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1309",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1311",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1312",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1313",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1316",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1317",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1318",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1319",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1322",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1325",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1328",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1329",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1331",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1333",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1334",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1345",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1346",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "1351",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1352",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1355",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1362",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1365",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1366",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1368",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1370",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1380",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1383",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1384",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1385",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1394",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1401",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1405",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1406",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1411",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1412",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1416",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1422",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1427",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1433",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1439",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1443",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1445",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1451",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1458",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1459",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1461",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1471",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1476",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1477",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1478",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "1480",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1481",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1497",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1498",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1503",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1504",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1507",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1511",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1512",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1515",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1519",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1521",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1536",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1539",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1543",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1556",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1559",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1560",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1561",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1563",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1564",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1565",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1570",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1572",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1580",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1582",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1585",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1586",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1587",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1593",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1599",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1605",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1607",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1608",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1610",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1611",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1614",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1615",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1617",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1620",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1621",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1631",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1632",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1634",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1642",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1657",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1658",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1659",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1663",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1665",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1666",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1668",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1673",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1675",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1679",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1680",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1684",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1689",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1703",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1711",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1715",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1730",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1734",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1735",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1736",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "1738",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1741",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1749",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1754",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1755",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1760",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1767",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1772",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1775",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1779",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1782",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1790",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1796",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1799",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1800",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "1806",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1812",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1815",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1821",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1822",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1829",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1831",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1835",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1842",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1843",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1855",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1857",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1859",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1861",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1862",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1863",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1867",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1869",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1872",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1873",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1880",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1882",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1883",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1885",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1901",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1902",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1904",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1908",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1914",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1915",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1918",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1922",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1923",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "1927",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1928",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1941",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1958",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1959",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1960",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1961",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1967",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1975",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "1978",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1985",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1989",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1991",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1996",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "1997",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2015",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2016",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2018",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2021",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2022",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2026",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2038",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2050",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2052",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2072",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2073",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2075",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2081",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2084",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2095",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2096",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2097",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2102",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2104",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2111",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2115",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2126",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2133",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2135",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2147",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2149",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2150",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2151",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2152",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2160",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2167",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2177",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2178",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2181",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2183",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2184",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2187",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2196",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2208",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2214",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2217",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2218",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2221",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2236",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2240",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2263",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2268",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2269",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2272",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2274",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2281",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2283",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2284",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2285",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2287",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2289",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2295",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2296",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2300",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2302",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2307",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2312",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2316",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2317",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2319",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2321",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2322",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2326",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2327",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2342",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2344",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2349",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2350",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2360",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2364",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2377",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2383",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2386",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2390",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2395",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2401",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2404",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2407",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2410",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2413",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2414",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2419",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2423",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2424",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2426",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2432",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2446",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2449",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2457",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2463",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2464",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2476",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2477",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2478",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2482",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2484",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2487",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2491",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2492",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2497",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2498",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2499",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2506",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2507",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2509",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2511",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2514",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2522",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2524",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2529",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2530",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2533",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2534",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2538",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2543",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2547",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2548",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2549",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2553",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2560",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2567",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2568",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2571",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2573",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2586",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2588",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2590",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2595",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2597",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2607",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2611",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2612",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2620",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2627",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2634",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2635",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2637",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2650",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2653",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2661",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2665",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2666",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2668",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2673",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2674",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2676",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2693",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2694",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2700",
+                                "posteriorProbability": 0.004
+                            },
+                            {
+                                "variableValue": "2709",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2717",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2718",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2721",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2737",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2739",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2742",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2743",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2751",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2752",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2754",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2760",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2776",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2779",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2782",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2789",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2791",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2807",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2808",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2811",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2813",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2819",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2828",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2832",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2836",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2860",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2877",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2884",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2887",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2890",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2894",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2896",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2898",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2899",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2900",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2905",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2906",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2907",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2917",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2918",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2920",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2929",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2932",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2938",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2940",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2944",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2945",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2951",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2954",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2958",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2959",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2961",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2963",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "2965",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2967",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2978",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2979",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2980",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2985",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2986",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "2997",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3002",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3005",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3007",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3008",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3009",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3010",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3018",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3022",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3025",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3027",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3041",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3046",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3047",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3048",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3053",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3056",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3057",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3058",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3062",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3063",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3071",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "3079",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3084",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3086",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3088",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3090",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3110",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3113",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3114",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3117",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3119",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3137",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3138",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3143",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3144",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3150",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3155",
+                                "posteriorProbability": 0.003
+                            },
+                            {
+                                "variableValue": "3159",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3160",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3163",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3165",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3166",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3167",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3173",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3174",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3176",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3181",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3184",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3188",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3190",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3194",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3197",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3200",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3206",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3208",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3211",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3219",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3221",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3223",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3230",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3231",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3232",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3234",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3237",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3238",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3245",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3247",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3253",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3254",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3255",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3256",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3265",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3267",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3280",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3286",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3295",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3297",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3303",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3308",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3310",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3311",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3313",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3314",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3331",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3335",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3336",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3337",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3343",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3345",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3349",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3350",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3356",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3368",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3374",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3383",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3390",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3394",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3396",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3398",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3406",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3409",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3411",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3414",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3417",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3419",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3428",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3436",
+                                "posteriorProbability": 0.026
+                            },
+                            {
+                                "variableValue": "3437",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3447",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3448",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3452",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3455",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3460",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3473",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3475",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3479",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3486",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3493",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3495",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3499",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3500",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3501",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3503",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3504",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3506",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3510",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3515",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3523",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3524",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3526",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3532",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3537",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3540",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3543",
+                                "posteriorProbability": 0.002
+                            },
+                            {
+                                "variableValue": "3548",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3550",
+                                "posteriorProbability": 0.001
+                            },
+                            {
+                                "variableValue": "3551",
+                                "posteriorProbability": 0.001
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
+

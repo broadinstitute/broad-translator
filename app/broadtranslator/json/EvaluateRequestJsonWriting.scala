@@ -1,9 +1,12 @@
 package broadtranslator.json
 
-import broadtranslator.engine.api.id._
+
 import broadtranslator.engine.api.evaluate._
 import broadtranslator.json.TranslatorIdsJsonWriting.entityIdWrites
 import play.api.libs.json.{ JsNumber, JsString, JsArray, JsValue, Json, Writes }
+import java.io.File
+import java.io.PrintWriter
+import java.io.FileWriter
 
 object EvaluateRequestJsonWriting {
 
@@ -75,4 +78,9 @@ object EvaluateRequestJsonWriting {
       "modelOutput" -> request.modelOutput)
   }
 
+  def saveEvaluateRequest(request: EvaluateModelRequest, file: File): Unit = {
+    val out = new PrintWriter(new FileWriter(file))
+    out.println(Json.prettyPrint(Json.toJson(request)))
+    out.close()
+  }
 }
