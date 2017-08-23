@@ -11,8 +11,3 @@ case class ModelVariable(variableId: VariableId, probabilityDistribution: Probab
   def compare(that: ModelVariable) = this.variableId.string.compare(that.variableId.string)
 }
 
-object ModelVariable {
-  def apply(variableId: VariableId, probabilityDistribution: Seq[ValueProbability]): ModelVariable =
-    ModelVariable(variableId, ProbabilityDistribution(probabilityDistribution))
-
-}

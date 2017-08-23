@@ -7,33 +7,53 @@ import play.api.libs.json.{ JsNumber, JsString, JsArray, JsValue, Json, Writes }
 
 object EvaluateRequestJsonWriting {
 
-  implicit val modelVariableWrites: Writes[ModelVariable] =
-    new Writes[ModelVariable] {
-      override def writes(modelVariable: ModelVariable): JsValue = {
-        val varJson = Json.obj("variableID" -> modelVariable.variableId)
-        val probJson = modelVariable.probabilityDistribution match {
-          case ProbabilityDistribution.Discrete(probabilities) =>
-            val probsJson = probabilities.map({
-              case (value, probability) =>
-                val valueJson = value match {
-                  case string: String => JsString(string)
-                  case double: Double => JsNumber(double)
-                  case true           => JsNumber(1)
-                  case false          => JsNumber(0)
-                  case other          => JsString(other.toString)
-                }
-                Json.obj(
-                  "variableValue" -> valueJson,
-                  "priorProbability" -> probability)
-            })
-            Json.obj("priorDistribution" -> probsJson)
-          case ProbabilityDistribution.Gaussian(mean, sigma) => Json.obj(
-            "mean" -> mean,
-            "sigma" -> sigma)
-        }
-        varJson ++ probJson
-      }
+  private[json] def valueToJson(value: Any): JsValue = value match {
+    case string: String => JsString(string)
+    case double: Double => JsNumber(double)
+    case true           => JsNumber(1)
+    case false          => JsNumber(0)
+    case other          => JsString(other.toString)
+  }
+
+  implicit val discreteDistributionWrites: Writes[(Any, Double)] = new Writes[(Any, Double)] {
+    override def writes(probability: (Any, Double)): JsValue = Json.obj(
+      "variableValue" -> valueToJson(probability._1),
+      "priorProbability" -> probability._2)
+  }
+
+  implicit val gaussianDistributionWrites: Writes[ProbabilityDistribution.Gaussian] = new Writes[ProbabilityDistribution.Gaussian] {
+    override def writes(distribution: ProbabilityDistribution.Gaussian): JsValue = Json.obj(
+      "distributionMean" -> distribution.mean,
+      "distributionStDev" -> distribution.sigma)
+  }
+
+  implicit val poissonDistributionWrites: Writes[ProbabilityDistribution.Poisson] = new Writes[ProbabilityDistribution.Poisson] {
+    override def writes(distribution: ProbabilityDistribution.Poisson): JsValue = Json.obj(
+      "lambdaParameter" -> distribution.lambda)
+  }
+
+  implicit val empiricalDistributionWrites: Writes[ProbabilityDistribution.Empirical] = new Writes[ProbabilityDistribution.Empirical] {
+    override def writes(distribution: ProbabilityDistribution.Empirical): JsValue = Json.obj(
+      "distributionMean" -> distribution.mean,
+      "distributionStDev" -> distribution.sigma,
+      "distributionPercentile" -> distribution.percentile)
+  }
+
+  implicit val probabilityDistributionWrites: Writes[ProbabilityDistribution] = new Writes[ProbabilityDistribution] {
+    override def writes(distribution: ProbabilityDistribution): JsValue = distribution match {
+      case ProbabilityDistribution.Discrete(probabilities) => Json.obj("discreteDistribution" -> probabilities)
+      case gaussian: ProbabilityDistribution.Gaussian => Json.obj("GaussianDistribution" -> gaussianDistributionWrites.writes(gaussian))
+      case poisson: ProbabilityDistribution.Poisson => Json.obj("PoissonDistribution" -> poissonDistributionWrites.writes(poisson))
+      case empirical: ProbabilityDistribution.Empirical => Json.obj("empiricalDistribution" -> empiricalDistributionWrites.writes(empirical))
+      case _ => Json.obj()
     }
+  }
+
+  implicit val modelVariableWrites: Writes[ModelVariable] = new Writes[ModelVariable] {
+    override def writes(modelVariable: ModelVariable): JsValue = Json.obj(
+      "variableID" -> modelVariable.variableId,
+      "priorDistribution" -> modelVariable.probabilityDistribution)
+  }
 
   implicit val variableGroupWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
     override def writes(variableGroup: VariableGroup): JsValue = Json.obj(

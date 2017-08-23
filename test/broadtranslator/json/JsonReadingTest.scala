@@ -2,9 +2,10 @@ package broadtranslator.json
 
 import play.api.libs.json._
 import broadtranslator.engine.api.signature._
-import broadtranslator.engine.api.evaluate.EvaluateModelResult
+import broadtranslator.engine.api.evaluate.{ EvaluateModelRequest, EvaluateModelResult }
 import broadtranslator.json.SignatureJsonReading._
 import broadtranslator.json.EvaluateResultJsonReading.evaluateResultReads
+import broadtranslator.json.EvaluateRequestJsonReading.evaluateRequestReads
 import org.scalatest.Matchers
 import org.scalatest.FlatSpec
 
@@ -47,52 +48,189 @@ class JsonReadingTest extends FlatSpec with Matchers {
       info("OK")
     }
   }
-  
-  "Evaluate result JSON Reader" should 
-  "read mock result" in {
-  
-  val jsonStr = """
+
+  "Evaluate result JSON Reader" should
+    "read mock result" in {
+
+      val jsonStr = """
+{
+  "posteriorProbability": [
     {
-    "posteriorProbabilities": [
+      "variableGroupID": "GeneExpression",
+      "modelVariable": [
         {
-            "variableGroupID": "oranges",
-            "modelVariable": [
-                {
-                    "variableID": "Clementine",
-                    "posteriorDistribution": [
-                        {
-                            "variableValue": 1,
-                            "posteriorProbability": 0.355908860685304
-                        }
-                    ]
-                },
-                {
-                    "variableID": "Navel",
-                    "posteriorDistribution": [
-                        {
-                            "variableValue": 1,
-                            "posteriorProbability": 0.456433548592031
-                        }
-                    ]
-                },
-                {
-                    "variableID": "Tangerine",
-                    "posteriorDistribution": [
-                        {
-                            "variableValue": 1,
-                            "posteriorProbability": 0.81842381763272
-                        }
-                    ]
-                }
+          "variableID": "ENSG00000070495",
+          "posteriorDistribution": {
+            "discreteDistribution": [
+              {
+                "variableValue": "1",
+                "posteriorProbability": 0.037
+              },
+              {
+                "variableValue": "2",
+                "posteriorProbability": 0.95
+              },
+              {
+                "variableValue": "3",
+                "posteriorProbability": 0.013
+              }
             ]
+          }
+        },
+        {
+          "variableID": "ENSG00000070495",
+          "posteriorDistribution": {
+            "GaussianDistribution": { "distributionMean": 0.25, "distributionStDev": 0.1}
+          }
+        },
+        {
+          "variableID": "ENSG00000070495",
+          "posteriorDistribution": {
+            "PoissonDistribution":
+              { "lambdaParameter": 1.0}            
+          }
+        },
+        {
+          "variableID": "ENSG00000070495",
+          "posteriorDistribution": {
+            "empiricalDistribution":  { "distributionMean": 0.25, "distributionStDev": 0.1,
+            "distributionPercentile": [1,2,3,4,5,6,7,8,9,10]}            
+          }
+        },
+        {
+          "variableID": "ENSG00000070495",
+          "posteriorDistribution": {
+            "rawDistribution": [1,2,3,4,5,6,7,8,9,10]
+          }
         }
-    ]
+      ]
+    },
+    {
+      "variableGroupID": "GeneKnockdown",
+      "modelVariable": [
+        {
+          "variableID": "gene_knockdown",
+          "posteriorDistribution": {
+            "discreteDistribution": [
+              {
+                "variableValue": "10",
+                "posteriorProbability": 0.001
+              },
+              {
+                "variableValue": "14",
+                "posteriorProbability": 0.001
+              },
+              {
+                "variableValue": "15",
+                "posteriorProbability": 0.001
+              },
+              {
+                "variableValue": "19",
+                "posteriorProbability": 0.002
+              },
+              {
+                "variableValue": "22",
+                "posteriorProbability": 0.001
+              },
+              {
+                "variableValue": "27",
+                "posteriorProbability": 0.001
+              },
+              {
+                "variableValue": "3551",
+                "posteriorProbability": 0.001
+              }
+            ]
+          }
+        }
+      ]
     }
+  ]
+}
     """
-  
+
+      val json = Json.parse(jsonStr)
+      val obj = json.validate[EvaluateModelResult]
+      obj shouldBe a[JsSuccess[_]]
+      println(obj)
+      info("OK")
+    }
+
+  it should
+    "read json file" in {
+
+      val filename = "test/broadtranslator/json/api_test_query1_result.json"
+      println(filename)
+      val json = Json.parse(new java.io.FileInputStream(filename))
+      val obj = json.validate[EvaluateModelResult] 
+      obj shouldBe a[JsSuccess[_]]
+      println(obj)
+      info("OK file")
+
+    }
+
+  "Evaluate request JSON reader" should "read request" in {
+    val jsonStr = """
+      {
+   "modelID": "GeneExpressionAndGeneKnockdown",
+   "modelInput": [
+       {
+       "variableGroupID": "GeneExpression",
+       "modelVariable": [
+         {
+           "variableID": "ENSG00000163902",
+           "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": "UP", "priorProbability": 1.0},
+              { "variableValue": "NC", "priorProbability": 0.0},
+              { "variableValue": "DN", "priorProbability": 0.0}
+            ]
+           }
+         },
+         {
+           "variableID": "ENSG00000163903",
+           "priorDistribution": {
+            "GaussianDistribution": { "distributionMean": 0.25, "distributionStDev": 0.1}
+           }
+         },
+         {
+           "variableID": "ENSG00000163902",
+           "priorDistribution": {
+            "PoissonDistribution":
+              { "lambdaParameter": 1.0}
+           }
+         },
+         {
+           "variableID": "ENSG00000213190",
+           "priorDistribution": {
+            "empiricalDistribution":  { "distributionMean": 0.25, "distributionStDev": 0.1,
+            "distributionPercentile": [1,2,3,4,5,6,7,8,9,10]}
+           }
+         }
+       ]
+     }
+   ],
+   "modelOutput": [
+     {
+       "variableGroupID": "GeneExpression",
+       "variableID": ["ENSG00000070495"],
+       "rawOutput": false
+     },
+     {
+       "variableGroupID": "GeneKnockdown",
+       "variableID": ["gene knockdown"],
+       "rawOutput": false
+     }
+   ]
+   }      
+      """
+
     val json = Json.parse(jsonStr)
-    val obj = json.validate[EvaluateModelResult]
+    val obj = json.validate[EvaluateModelRequest]
     obj shouldBe a[JsSuccess[_]]
+    println(obj)
     info("OK")
+
   }
+
 }

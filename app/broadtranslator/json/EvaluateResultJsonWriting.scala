@@ -3,7 +3,8 @@ package broadtranslator.json
 import broadtranslator.engine.api.id._
 import broadtranslator.engine.api.evaluate._
 import broadtranslator.json.TranslatorIdsJsonWriting.entityIdWrites
-import play.api.libs.json.{ JsNumber, JsString, JsArray, JsValue, Json, Writes }
+import broadtranslator.json.EvaluateRequestJsonWriting.{ poissonDistributionWrites, gaussianDistributionWrites, empiricalDistributionWrites, valueToJson }
+import play.api.libs.json.{ JsValue, Json, Writes }
 
 /**
  * broadtranslator
@@ -11,33 +12,27 @@ import play.api.libs.json.{ JsNumber, JsString, JsArray, JsValue, Json, Writes }
  */
 object EvaluateResultJsonWriting {
 
-  implicit val modelVariableWrites: Writes[ModelVariable] =
-    new Writes[ModelVariable] {
-      override def writes(modelVariable: ModelVariable): JsValue = {
-        val varJson = Json.obj("variableID" -> modelVariable.variableId)
-        val probJson = modelVariable.probabilityDistribution match {
-          case ProbabilityDistribution.Discrete(probabilities) =>
-            val probsJson = probabilities.map({
-              case (value, probability) =>
-                val valueJson = value match {
-                  case string: String => JsString(string)
-                  case double: Double => JsNumber(double)
-                  case true           => JsNumber(1)
-                  case false          => JsNumber(0)
-                  case other          => JsString(other.toString)
-                }
-                Json.obj(
-                  "variableValue" -> valueJson,
-                  "posteriorProbability" -> probability)
-            })
-            Json.obj("posteriorDistribution" -> probsJson)
-          case ProbabilityDistribution.Gaussian(mean, sigma) => Json.obj(
-            "mean" -> mean,
-            "sigma" -> sigma)
-        }
-        varJson ++ probJson
-      }
+  implicit val discreteDistributionWrites: Writes[(Any, Double)] = new Writes[(Any, Double)] {
+    override def writes(probability: (Any, Double)): JsValue = Json.obj(
+      "variableValue" -> valueToJson(probability._1),
+      "posteriorProbability" -> probability._2)
+  }
+
+  implicit val probabilityDistributionWrites: Writes[ProbabilityDistribution] = new Writes[ProbabilityDistribution] {
+    override def writes(distribution: ProbabilityDistribution): JsValue = distribution match {
+      case ProbabilityDistribution.Discrete(probabilities) => Json.obj("discreteDistribution" -> probabilities)
+      case gaussian: ProbabilityDistribution.Gaussian      => Json.obj("GaussianDistribution" -> gaussianDistributionWrites.writes(gaussian))
+      case poisson: ProbabilityDistribution.Poisson        => Json.obj("PoissonDistribution" -> poissonDistributionWrites.writes(poisson))
+      case empirical: ProbabilityDistribution.Empirical    => Json.obj("empiricalDistribution" -> empiricalDistributionWrites.writes(empirical))
+      case raw: ProbabilityDistribution.Raw                => Json.obj("rawDistribution" -> raw.distribution)
     }
+  }
+
+  implicit val modelVariableWrites: Writes[ModelVariable] = new Writes[ModelVariable] {
+    override def writes(modelVariable: ModelVariable): JsValue = Json.obj(
+      "variableID" -> modelVariable.variableId,
+      "posteriorDistribution" -> modelVariable.probabilityDistribution)
+  }
 
   implicit val variableGroupWrites: Writes[VariableGroup] = new Writes[VariableGroup] {
     override def writes(group: VariableGroup): JsValue = Json.obj(
@@ -47,7 +42,7 @@ object EvaluateResultJsonWriting {
 
   implicit val evaluateResultWrites: Writes[EvaluateModelResult] = new Writes[EvaluateModelResult] {
     override def writes(result: EvaluateModelResult): JsValue = Json.obj(
-      "posteriorProbabilities" -> result.posteriorProbabilities)
+      "posteriorProbability" -> result.posteriorProbabilities)
   }
 
 }
