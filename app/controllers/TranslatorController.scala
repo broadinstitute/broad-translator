@@ -1,21 +1,21 @@
 package controllers
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.{ Inject, Singleton }
 
 import broadtranslator.AppWiring
-import broadtranslator.engine.api.id.{ModelId, VariableGroupId}
+import broadtranslator.engine.api.id.ModelId
 import broadtranslator.json.TranslatorJsonApi
 import broadtranslator.json.smart.TranslatorSmartApi
 import play.api.Logger
 import play.api.libs.json.JsValue
-import play.api.mvc.{Action, AnyContent, Controller, Request}
+import play.api.mvc.{ Action, AnyContent, Controller, Request }
 import util.HttpContentTypes
 import util.rdf.Rdf4jUtils
 
 /**
-  * broadtranslator
-  * Created by oliverr on 3/30/2017.
-  */
+ * broadtranslator
+ * Created by oliverr on 3/30/2017.
+ */
 @Singleton
 class TranslatorController @Inject() extends Controller {
 
@@ -29,12 +29,12 @@ class TranslatorController @Inject() extends Controller {
   }
 
   /**
-    * Get the list of available models in JSON
-    *
-    * The configuration in the `routes` file means that this method
-    * will be called when the application receives a `GET` request with
-    * a path of `/`.
-    */
+   * Get the list of available models in JSON
+   *
+   * The configuration in the `routes` file means that this method
+   * will be called when the application receives a `GET` request with
+   * a path of `/`.
+   */
   def getModelList: Action[AnyContent] = Action { implicit request =>
     logRequest
     Ok(jsonApi.getModelList)
@@ -43,11 +43,6 @@ class TranslatorController @Inject() extends Controller {
   def getModelSignature(modelId: String): Action[AnyContent] = Action { implicit request =>
     logRequest
     Ok(jsonApi.getModelSignature(ModelId(modelId)))
-  }
-
-  def getVariablesByGroup(modelId: String, groupId: String): Action[AnyContent] = Action { implicit request =>
-    logRequest
-    Ok(jsonApi.getVariablesByGroup(ModelId(modelId), VariableGroupId(groupId)))
   }
 
   def evaluate: Action[JsValue] = Action(parse.json) { implicit request =>
@@ -61,6 +56,5 @@ class TranslatorController @Inject() extends Controller {
     val jsonLdString = Rdf4jUtils.getContentAsString(repo)
     Ok(jsonLdString).as(HttpContentTypes.json) // Switch to JSON-LD
   }
-
 
 }

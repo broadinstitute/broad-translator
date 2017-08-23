@@ -18,9 +18,6 @@ class TranslatorJsonApi(engine: TranslatorEngine) {
 
   def getModelSignature(modelId: ModelId): JsValue = Json.toJson(engine.getModelSignature(modelId))
 
-  def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): JsValue =
-    Json.toJson(engine.getVariablesByGroup(modelId, groupId))
-
   def evaluate(request: JsValue): JsValue =
     callWrapperJson[EvaluateModelRequest, EvaluateModelResult](request, engine.evaluate)
 

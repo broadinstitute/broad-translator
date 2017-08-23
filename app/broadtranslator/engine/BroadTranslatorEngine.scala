@@ -8,12 +8,9 @@ import java.net.URI
 import java.io.FileReader
 import java.io.BufferedReader
 
-
-
-import broadtranslator.engine.api.id._
+import broadtranslator.engine.api.id.ModelId
 import broadtranslator.engine.api.signature.ModelListResult
 import broadtranslator.engine.api.signature.ModelSignatureResult
-import broadtranslator.engine.api.signature.GroupSignatureResult
 import broadtranslator.engine.api.evaluate.EvaluateModelRequest
 import broadtranslator.engine.api.evaluate.EvaluateModelResult
 import broadtranslator.engine.api.smart.SmartSpecs
@@ -62,15 +59,6 @@ class BroadTranslatorEngine extends TranslatorEngine {
   }
 
 
-  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult = {
-    val group = loadModelSignature(modelId) match {
-      case Some(modelSignature) => modelSignature.variableGroup(groupId)
-      case None => throw new java.io.IOException("failed to load model signature for "+modelId.string)
-    }
-    GroupSignatureResult(modelId, groupId, group.modelVariable)
-  }
-    
-  
   override def evaluate(request: EvaluateModelRequest): EvaluateModelResult = {
     val inputFile = File.createTempFile("translatorRequest", ".json")
     val outputFile = File.createTempFile("translatorResponse", ".json")

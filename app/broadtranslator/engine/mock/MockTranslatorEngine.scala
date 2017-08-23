@@ -38,9 +38,6 @@ class MockTranslatorEngine extends TranslatorEngine {
       orangesGroup -> GroupSignature(orangesGroup, None, asInput = false, asOutput = true, Some(ProbabilityDistributionName.discrete), Some(StringType), Some(orangesList), Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar)))
     ))
 
-  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult =
-    GroupSignatureResult(modelId, groupId, Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar)))
-
   override def evaluate(request: EvaluateModelRequest): EvaluateModelResult =
     EvaluateModelResult(Seq(
       VariableGroup(orangesGroup, Seq(
