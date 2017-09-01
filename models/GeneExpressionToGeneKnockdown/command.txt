@@ -1,1 +1,1 @@
-Rscript main_GeneExpressionToGeneKnockdown.R
+Rscript main.R
