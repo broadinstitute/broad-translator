@@ -1,7 +1,7 @@
 package broadtranslator.json.smart
 
 import broadtranslator.engine.TranslatorEngine
-import broadtranslator.engine.api.ModelId
+import broadtranslator.engine.api.id.ModelId
 import org.eclipse.rdf4j.model.IRI
 import org.eclipse.rdf4j.model.vocabulary.XMLSchema
 import org.eclipse.rdf4j.repository.Repository

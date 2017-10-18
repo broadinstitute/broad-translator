@@ -4,6 +4,9 @@ import java.net.URI
 
 import broadtranslator.engine.TranslatorEngine
 import broadtranslator.engine.api._
+import broadtranslator.engine.api.id._
+import broadtranslator.engine.api.signature._
+import broadtranslator.engine.api.evaluate._
 import broadtranslator.engine.api.smart.SmartSpecs
 
 /**
@@ -31,12 +34,9 @@ class MockTranslatorEngine extends TranslatorEngine {
 
   override def getModelSignature(modelId: ModelId): ModelSignatureResult =
     ModelSignatureResult(modelId, Map(
-      applesGroup -> GroupSignature(modelId, applesGroup, None, asInput = true, asOutput = false, Some(StringType), Some(applesList)),
-      orangesGroup -> GroupSignature(modelId, orangesGroup, None, asInput = false, asOutput = true, Some(StringType), Some(orangesList))
+      applesGroup -> GroupSignature(applesGroup, None, asInput = true, asOutput = false, Some(ProbabilityDistributionName.discrete), Some(StringType), Some(applesList), Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar))),
+      orangesGroup -> GroupSignature(orangesGroup, None, asInput = false, asOutput = true, Some(ProbabilityDistributionName.discrete), Some(StringType), Some(orangesList), Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar)))
     ))
-
-  override def getVariablesByGroup(modelId: ModelId, groupId: VariableGroupId): GroupSignatureResult =
-    GroupSignatureResult(modelId, groupId, Seq(new ModelVariableSignature(appleOneVar), new ModelVariableSignature(appleTwoVar)))
 
   override def evaluate(request: EvaluateModelRequest): EvaluateModelResult =
     EvaluateModelResult(Seq(

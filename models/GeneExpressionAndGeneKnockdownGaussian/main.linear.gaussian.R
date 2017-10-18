@@ -26,12 +26,6 @@ parse_input <- function(json_string){
   return(input)
 }
 
-encode_input <- function(input, vmap){
-  input <- input %>% group_by(variableGroupID) %>%
-    mutate(variableValue = as.integer(factor(variableValue, levels = vmap[[unique(variableGroupID)]])))
-  return(input)
-}
-
 parse_output_spec <- function(json_string){
   # parse output specification
   output_spec <- json_string %>%
@@ -46,7 +40,7 @@ parse_output_spec <- function(json_string){
   return(output_spec)
 }
 
-process_query_results <- function(query_dist, output_spec, vmap){
+process_query_results_gaussian <- function(query_dist, output_spec){
   ### process query results
   ## create list form results that can be written to JSON
   uGroup <- unique(output_spec$variableGroupID)
@@ -58,17 +52,25 @@ process_query_results <- function(query_dist, output_spec, vmap){
     output$posteriorProbability[[i]]$modelVariable <- vector(mode = "list", length = nrow(os_sub))
     
     for(j in 1:nrow(os_sub)){
-      var_dist <- table(query_dist[[1]][, os_sub$variableID[j]])/nrow(query_dist[[1]])
-      
-      ## decode output variables
-      names(var_dist) <- vmap[[uGroup[i]]][as.numeric(names(var_dist))]
-      
-      output$posteriorProbability[[i]]$modelVariable[[j]]$variableID = os_sub$variableID[j]
-      output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution <- list("discreteDistribution" = vector(mode = "list", length = length(var_dist)))
-      
-      for(k in 1:length(var_dist)){
-        output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$variableValue <- names(var_dist)[k]
-        output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$posteriorProbability <- var_dist[[k]]
+      if(uGroup[i] == "GeneExpression"){
+        var_mean <- mean(query_dist[[1]][, os_sub$variableID[j]])
+        var_sd <- sd(query_dist[[1]][, os_sub$variableID[j]])
+        
+        output$posteriorProbability[[i]]$modelVariable[[j]]$variableID = sub("^p_|^m_", "", os_sub$variableID[j])
+        output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$GaussianDistribution$distributionMean <- var_mean
+        output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$GaussianDistribution$distributionStDev <- var_sd
+      } else if(uGroup[i] == "GeneKnockdown"){
+        var_dist <- table(query_dist[[1]][, os_sub$variableID[j]])/nrow(query_dist[[1]])
+        
+        output$posteriorProbability[[i]]$modelVariable[[j]]$variableID = sub("^p_|^m_", "", os_sub$variableID[j])
+        output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution <- list("discreteDistribution" = vector(mode = "list", length = length(var_dist)))
+        
+        for(k in 1:length(var_dist)){
+          output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$variableValue <- as.numeric(names(var_dist)[k])
+          output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$posteriorProbability <- var_dist[[k]]
+        }
+      } else {
+        stop(paste("Unknown variable group:", uGroup[i]))
       }
     }
   }
@@ -83,7 +85,7 @@ query_file <- args[1]
 output_file <- args[2]
 
 ## read model file
-pgm_file <- "jags.discrete.cmap.kd.a375.96h.Rdata"
+pgm_file <- "jags.linear.gaussian.cmap.kd.a375.96h.Rdata"
 
 # read JSON with jsonlite
 json_string <- read_file(query_file)
@@ -92,30 +94,28 @@ json_string <- read_file(query_file)
 input <- parse_input(json_string)
 output_spec <- parse_output_spec(json_string)
 
-# # separate input specification for two graph layers
-# input_pert <- input %>% filter(variableGroupID == "GeneKnockdown" & priorProbability > 0)
-# input_meas <- input %>% filter(variableGroupID == "GeneExpression" & priorProbability > 0) %>% mutate(variableValue = as.integer(factor(variableValue, levels = c("DN", "NC", "UP"))))
+# add prefix
+input <- input %>% mutate(variableID = ifelse(variableGroupID == "GeneExpression", paste0("m_", variableID), variableID)) %>%
+  mutate(variableID = ifelse(variableGroupID == "GeneKnockdown", paste0("p_", variableID), variableID))
 
+output_spec <- output_spec %>% mutate(variableID = ifelse(variableGroupID == "GeneExpression", paste0("m_", variableID), variableID)) %>%
+  mutate(variableID = ifelse(variableGroupID == "GeneKnockdown", paste0("p_", variableID), variableID))
 
 ### calculate posterior distribution
 ## load model
 load(pgm_file)
 
-## encode input
-input_enc <- encode_input(input, vmap)
-input_enc[input_enc$variableID == "gene knockdown", "variableID"] <- "gene_knockdown"
-
-## run query (lw)
+## run query
 # prepare evidence
 meas_obs <- list()
-if(nrow(input_enc) > 0){
-  for(i in 1:nrow(input_enc)){
-    meas_obs[[input_enc$variableID[i]]] <- input_enc$variableValue[i]
+if(nrow(input) > 0){
+  for(i in 1:nrow(input)){
+    meas_obs[[input$variableID[i]]] <- input$variableValue[i]
   }
 }
 
 # set data
-data <- c(list(meas = meas, p_gene_knockdown = p_gene_knockdown), meas_obs)
+data <- meas_obs
 
 # set model
 model <- jags.model(textConnection(modelstring), data=data)
@@ -128,7 +128,7 @@ query_dist <- coda.samples(model=model,variable.names=output_spec$variableID, n.
 
 
 ## process query results
-output <- process_query_results(query_dist, output_spec, vmap)
+output <- process_query_results_gaussian(query_dist, output_spec)
 
 ## write JSON
 write(prettify(rjson::toJSON(output)), file = output_file)

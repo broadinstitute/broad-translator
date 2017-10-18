@@ -1,0 +1,1 @@
+Rscript main.linear.gaussian.R

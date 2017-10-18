@@ -2,7 +2,7 @@ package util.rdf
 
 import java.net.URLEncoder
 
-import broadtranslator.engine.api.ModelId
+import broadtranslator.engine.api.id.ModelId
 import org.eclipse.rdf4j.model.IRI
 
 /**
