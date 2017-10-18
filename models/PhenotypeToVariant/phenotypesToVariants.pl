@@ -1,7 +1,8 @@
 #!/usr/bin/perl -w
 
-die "Usage $0 inputFile.txt outputFile.txt\n" if @ARGV!=2;
+die "Usage: perl $0 inputFile.json outputFile.json\n" if @ARGV!=2;
 
+use JSON;
 use IPC::Open3;
 use Cwd 'abs_path';
 use File::Basename;
@@ -27,12 +28,26 @@ $ph2fn{"BIP"} = "$path/GWAS/GWAS_PGC_dv1.BIP.1000GP_AF.txt";
 $ph2fn{"MDD"} = "$path/GWAS/GWAS_PGC_dv1.MDD.1000GP_AF.txt";
 $ph2fn{"SCZ"} = "$path/GWAS/GWAS_PGC_dv1.SCZ.1000GP_AF.txt";
 
-#read var IDs from input
-open(IN, "grep ^output $inputFileName | cut -f3 |") || die "Cannot read variants IDs from input file: $inputFileName\n";
+#open input json file, read it, and put data into jsonInputData
+open(IN, $inputFileName) || die "Cannot read input file: $inputFileName\n";
+my $jsonInputString = "";
 while(<IN>) {
 	chomp;
-	$vid2prob{$_} = "";
+	$jsonInputString .= $_;	
 }
+my $jsonInputData = decode_json($jsonInputString);
+
+#Analyze modelOutput definition in jsonInputData
+die "No modelOutput definition in JSON input file\n"  if !exists   $jsonInputData->{"modelOutput"};
+foreach(@{$jsonInputData->{"modelOutput"}}) {
+	next if !exists $_->{"variableID"};
+	foreach(@{$_->{"variableID"}}) {
+		push @vars, $_;
+		$vid2prob{$_} = "";
+	}
+}
+$varsN = @vars;
+die "No variant ID found in modelOutput definition in in JSON input file\n" if $varsN == 0;
 
 #read EAFs
 $files="";
@@ -45,46 +60,28 @@ while(<IN>) {
 	$vid2eaf{$vid} = $eaf;
 }
 
-#open input/output files for reading and writing
-open(IN,   $inputFileName ) || die "Cannot open  input file: $ARGV[0]\n";
-open(OT,">$outputFileName") || die "Cannot open output file: $ARGV[1]\n";
-
-#read/validate/write header
-chomp($header=<IN>);
-die "Header format error: $header" if $header ne "io\tvariableGroup\tvariableName\tvariableValue\tprobability";
-print OT $header,"\n";
-
-#read input file and start generating output file
-while(<IN>) {
-
-	next if /^#/;
-	chomp($line = $_);
-	$line=~s/\t$//;
-	$line=~s/\t$//;
-	@data = split /\t/, $line;
-
-	if($data[0] eq "input" && $data[1] eq "Phenotype") {
-		die "Input format error for: $line" if @data != 5;
-		die "No phenotype translation found in phenotype dictionary for: $data[2]\n" if !exists $name2phid{$data[2]};
-		$phid = $name2phid{$data[2]};
-		die "No data file found for  henotype: $data[2]\n" if !exists $ph2fn{$phid};
-		die "Multiple input records for phenotype: $data[2]" if exists $pheno2prob{$phid};
-		$pheno2prob{$phid} = $data[4];
+#Analyze modelInput definition in jsonInputData
+die "No modelInput definition in JSON input file\n"  if !exists   $jsonInputData->{"modelInput"};
+foreach(@{$jsonInputData->{"modelInput"}}) {
+	next if !exists $_->{"modelVariable"};
+	foreach my $phenoJson (@{$_->{"modelVariable"}}) {
+		die "modelVariable format error: missing variableID\n"           if !exists $phenoJson->{"variableID"};
+		die "modelVariable format error: missing priorDistribution\n"    if !exists $phenoJson->{"priorDistribution"};
+		die "modelVariable format error: missing discreteDistribution\n" if !exists $phenoJson->{"priorDistribution"}->{"discreteDistribution"};
+		die "modelVariable format error: number of discrete <> 1\n"      if  1 != @{$phenoJson->{"priorDistribution"}->{"discreteDistribution"}};
+		die "modelVariable format error: missing variableValue\n"        if !exists $phenoJson->{"priorDistribution"}->{"discreteDistribution"}[0]->{"variableValue"};
+		die "modelVariable format error: missing priorProbability\n"     if !exists $phenoJson->{"priorDistribution"}->{"discreteDistribution"}[0]->{"priorProbability"};
+		die "modelVariable format error: variableValue should be = 1\n"  if  1 !=   $phenoJson->{"priorDistribution"}->{"discreteDistribution"}[0]->{"variableValue"};
+		my $phenoName = $phenoJson->{"variableID"}; 
+		die "No phenotype translation found in phenotype dictionary for: $phenoName\n" if !exists $name2phid{$phenoName};
+		$phid = $name2phid{$phenoName};	
+		die "No data file found for henotype: $phenoName\n" if !exists $ph2fn{$phid};
+		die "Multiple input records for phenotype: $phenoName" if exists $pheno2prob{$phid};
+		$pheno2prob{$phid} = $phenoJson->{"priorDistribution"}->{"discreteDistribution"}[0]->{"priorProbability"};
 		push @phenos, $phid;
-		print OT $line,"\n";
-	}
-	elsif($data[0] eq "output" && $data[1] eq "Variant") {
-		die "Input format error for: $line" if @data != 3;
-		die "Unrecognized variant ID: $data[2]\n" if !exists $vid2eaf{$data[2]};
-		push @vars, $data[2];
-		push @output, $line;
-	}
-	else {
-		die "Input file format error in line: $line\n";
 	}
 }
 $phenosN = @phenos;
-$varsN   = @vars;
 
 #read Betas for all phenotypes
 foreach $ph (@phenos) {
@@ -127,8 +124,8 @@ beta <- matrix(c($betas), nrow=N, ncol=M, byrow=TRUE)
 
 data <- list('M'=M, 'prev'=prev, 'N'=N, 'freq'=freq, 'beta'=beta)
 
-burnin <-  100
-steps  <- 1000
+burnin <-  500
+steps  <- 5000
 
 model = "model {
 	for(i in 1:N) {
@@ -159,8 +156,14 @@ if(!defined $probs) {
 $probs =~ s/^\s+//;
 @probs = split / /, $probs;
 
-#print the main (rest) part of the output
-$i=0;
-foreach(@output) { 
-	print OT $_,"\t1\t",(sprintf "%1.1e",$probs[$i++]),"\n"
+$jsonOutputData->{"posteriorProbability"}[0]->{"variableGroupID"} = "Variants";
+for($i=0; $i<@vars; $i++) {
+	$jsonOutputData->{"posteriorProbability"}[0]->{"modelVariable"}[$i]->{"variableID"} = $vars[$i];
+	$jsonOutputData->{"posteriorProbability"}[0]->{"modelVariable"}[$i]->{"posteriorDistribution"}->{"discreteDistribution"}[0]->{"variableValue"} = 1;
+	$jsonOutputData->{"posteriorProbability"}[0]->{"modelVariable"}[$i]->{"posteriorDistribution"}->{"discreteDistribution"}[0]->{"posteriorProbability"} = 0 + sprintf "%.1e", $probs[$i];
 }
+
+#open output file and and right the jsonOutput
+open(OT,">$outputFileName") || die "Cannot open output file: $outputFileName\n";
+my $json = JSON->new->ascii->pretty->allow_nonref;
+print OT $json->encode($jsonOutputData);

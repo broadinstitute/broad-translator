@@ -1,1 +1,1 @@
-./phenotypesToVariants.pl
+perl phenotypesToVariants.pl
