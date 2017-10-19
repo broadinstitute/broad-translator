@@ -178,6 +178,18 @@ class JsonReadingTest extends FlatSpec with Matchers {
        "variableGroupID": "GeneExpression",
        "modelVariable": [
          {
+           "variableID": "ENSG00000163913",
+           "priorDistribution": {
+            "scalarValue": { "variableValue": 0.1}
+           }
+         },
+         {
+           "variableID": "ENSG00000163914",
+           "priorDistribution": {
+            "scalarValue": { "variableValue": "M"}
+           }
+         },
+         {
            "variableID": "ENSG00000163902",
            "priorDistribution": {
             "discreteDistribution": [

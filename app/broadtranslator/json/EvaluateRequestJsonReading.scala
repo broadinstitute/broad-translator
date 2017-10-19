@@ -24,6 +24,9 @@ object EvaluateRequestJsonReading {
   implicit val valueProbabilityReads: Reads[ValueProbability] =
     ((JsPath \ "variableValue").read[VariableValue] and
       (JsPath \ "priorProbability").read[Double])(ValueProbability)
+      
+  implicit val scalarValueReads: Reads[ProbabilityDistribution.Scalar[_]] = 
+    (JsPath \ "variableValue").read[VariableValue].map(ProbabilityDistribution.Scalar(_))
 
   implicit val discreteDistributionReads: Reads[ProbabilityDistribution.Discrete[_]] =
     JsPath.read[Seq[ValueProbability]].map(ProbabilityDistribution.Discrete(_))
@@ -41,10 +44,11 @@ object EvaluateRequestJsonReading {
       (JsPath \ "distributionPercentile").read[Seq[Double]])(ProbabilityDistribution.Empirical)
 
   implicit val probabilityDistributionReads: Reads[ProbabilityDistribution] =
-    ((JsPath \ "discreteDistribution").readNullable[ProbabilityDistribution.Discrete[_]] and
+    ((JsPath \ "scalarValue").readNullable[ProbabilityDistribution.Scalar[_]] and
+      (JsPath \ "discreteDistribution").readNullable[ProbabilityDistribution.Discrete[_]] and
       (JsPath \ "GaussianDistribution").readNullable[ProbabilityDistribution.Gaussian] and
       (JsPath \ "PoissonDistribution").readNullable[ProbabilityDistribution.Poisson] and
-      (JsPath \ "empiricalDistribution").readNullable[ProbabilityDistribution.Empirical])(ProbabilityDistribution(_, _, _, _))
+      (JsPath \ "empiricalDistribution").readNullable[ProbabilityDistribution.Empirical])(ProbabilityDistribution(_,_, _, _, _))
 
   implicit val modelVariableReads: Reads[ModelVariable] =
     ((JsPath \ "variableID").read[VariableId] and

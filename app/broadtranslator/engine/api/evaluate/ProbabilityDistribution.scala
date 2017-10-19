@@ -13,6 +13,8 @@ sealed trait ProbabilityDistribution {
 object ProbabilityDistribution {
 
   sealed trait Typed[T] extends ProbabilityDistribution
+  
+  case class Scalar[T](value: T)  extends Typed[T]
 
   case class Discrete[T](probabilities: Map[T, Double]) extends Typed[T]
 
@@ -24,6 +26,16 @@ object ProbabilityDistribution {
 
   case class Raw(distribution: Seq[Double]) extends ProbabilityDistribution
 
+  object Scalar {
+    def apply(value: VariableValue): Scalar[_] ={
+      println(value);
+      value match {
+        case VariableValue.StringValue(string) => new Scalar(string)
+        case VariableValue.NumberValue(double) => new Scalar(double)
+        case VariableValue.BooleanValue(boolean) => new Scalar(boolean)
+      }
+    }
+  }
   object Discrete {
     def apply(probabilities: Iterable[ValueProbability]): Discrete[_] = {
       val probsMap = probabilities.map(valueProbability => (valueProbability.value, valueProbability.probability)).toMap
@@ -41,11 +53,11 @@ object ProbabilityDistribution {
     }
   }
   
-  def apply(discrete: Option[Discrete[_]], gaussian: Option[Gaussian], poisson: Option[Poisson], empirical: Option[Empirical]): ProbabilityDistribution =
-    apply(discrete, gaussian, poisson, empirical, None)
+  def apply(scalar: Option[Scalar[_]], discrete: Option[Discrete[_]], gaussian: Option[Gaussian], poisson: Option[Poisson], empirical: Option[Empirical]): ProbabilityDistribution =
+    apply(scalar, discrete, gaussian, poisson, empirical, None)
 
-  def apply(discrete: Option[Discrete[_]], gaussian: Option[Gaussian], poisson: Option[Poisson], empirical: Option[Empirical], raw: Option[Raw]): ProbabilityDistribution = {
-    add(add(add(add(add(Seq(), discrete), gaussian), poisson), empirical), raw).head
+  def apply(scalar: Option[Scalar[_]], discrete: Option[Discrete[_]], gaussian: Option[Gaussian], poisson: Option[Poisson], empirical: Option[Empirical], raw: Option[Raw]): ProbabilityDistribution = {
+    add(add(add(add(add(add(Seq(), scalar), discrete), gaussian), poisson), empirical), raw).head
   }
 
   private def add(distributions: Seq[ProbabilityDistribution], dist: Option[ProbabilityDistribution]): Seq[ProbabilityDistribution] = dist match {
