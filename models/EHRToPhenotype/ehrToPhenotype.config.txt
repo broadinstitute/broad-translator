@@ -1,0 +1,7 @@
+EHR	Controls-mean	Cases-mean	Controls-stdev	Cases-stdev
+Gender	4.65e-01	6.25e-01
+Age	6.20e+01	6.81e+01	1.29e+01	1.11e+01
+BMI	2.76e+01	3.23e+01	5.58e+00	6.84e+00
+HDL	6.09e+01	4.53e+01	1.98e+01	1.43e+01
+TRIG	1.14e+02	1.64e+02	6.70e+01	1.16e+02
+eGFR	5.86e+01	4.78e+01	2.07e+01	1.87e+01

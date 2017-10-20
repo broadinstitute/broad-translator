@@ -1,0 +1,56 @@
+{
+    "modelID": "EHRToPhenotype",
+    "variableGroup": [
+        {
+            "variableGroupID": "EHR",
+            "asInput": true,
+            "asOutput": false,
+            "groupDistribution": "scalar",
+            "modelVariable": [
+                {
+                    "variableID": "Gender",
+                    "variableType": "String",
+                    "variableValue": [
+                        "M",
+                        "F"
+                    ]
+                },
+                {
+                    "variableID": "Age",
+                    "variableType": "Number"
+                },
+                {
+                    "variableID": "BMI",
+                    "variableType": "Number"
+                },
+                {
+                    "variableID": "HDL",
+                    "variableType": "Number"
+                },
+                {
+                    "variableID": "TRIG",
+                    "variableType": "Number"
+                },
+                {
+                    "variableID": "eGFR",
+                    "variableType": "Number"
+                }
+            ]
+        },
+        {
+            "variableGroupID": "Phenotype",
+            "asInput": false,
+            "asOutput": true,
+            "groupDistribution": "discrete",
+            "groupValue": [
+                1
+            ],
+            "modelVariable": [
+                {
+                    "variableID": "type-2 diabetes",
+                    "authorityURI": "http://disease-ontology.org/term/DOID:9352"
+                }
+            ]
+        }
+    ]
+}
