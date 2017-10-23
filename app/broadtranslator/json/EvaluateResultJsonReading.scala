@@ -26,7 +26,7 @@ object EvaluateResultJsonReading {
       (JsPath \ "GaussianDistribution").readNullable[ProbabilityDistribution.Gaussian] and
       (JsPath \ "PoissonDistribution").readNullable[ProbabilityDistribution.Poisson] and
       (JsPath \ "empiricalDistribution").readNullable[ProbabilityDistribution.Empirical] and
-      (JsPath \ "rawDistribution").readNullable[ProbabilityDistribution.Raw])(ProbabilityDistribution(_, _, _, _, _))
+      (JsPath \ "rawDistribution").readNullable[ProbabilityDistribution.Raw])(ProbabilityDistribution(None, _, _, _, _, _))
 
   implicit val modelVariableReads: Reads[ModelVariable] =
     ((JsPath \ "variableID").read[VariableId] and

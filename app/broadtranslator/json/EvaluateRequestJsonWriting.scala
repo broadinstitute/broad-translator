@@ -44,6 +44,7 @@ object EvaluateRequestJsonWriting {
 
   implicit val probabilityDistributionWrites: Writes[ProbabilityDistribution] = new Writes[ProbabilityDistribution] {
     override def writes(distribution: ProbabilityDistribution): JsValue = distribution match {
+      case ProbabilityDistribution.Scalar(value) => Json.obj("scalarValue" -> Json.obj("variableValue" -> valueToJson(value)))
       case ProbabilityDistribution.Discrete(probabilities) => Json.obj("discreteDistribution" -> probabilities)
       case gaussian: ProbabilityDistribution.Gaussian => Json.obj("GaussianDistribution" -> gaussianDistributionWrites.writes(gaussian))
       case poisson: ProbabilityDistribution.Poisson => Json.obj("PoissonDistribution" -> poissonDistributionWrites.writes(poisson))

@@ -34,6 +34,12 @@ class JsonWritingTest extends FlatSpec with Matchers {
            { "variableValue": "yellow","priorProbability": 0.40}
          ]}
        },
+       {
+         "variableID": "McIntosh",
+         "priorDistribution":  
+         {"scalarValue":{ "variableValue": "M"}
+         }
+       },
        { "variableID": "Granny Smith",
          "priorDistribution":{
             "empiricalDistribution":  { "distributionMean": 5.5, "distributionStDev": 2.5,
@@ -53,14 +59,15 @@ class JsonWritingTest extends FlatSpec with Matchers {
       val json = Json.parse(jsonStr)
       val obj = json.validate[EvaluateModelRequest]
       obj shouldBe a[JsSuccess[_]]
-      info("OK")
+      info("OK1")
       val request = obj.asInstanceOf[JsSuccess[EvaluateModelRequest]].value
       val jsonStr1 = Json.prettyPrint(Json.toJson(request))
       println(jsonStr1)
+      info("OK2")
       val json1 = Json.parse(jsonStr1)
-      val obj1 = json1.validate[EvaluateModelResult]
+      val obj1 = json1.validate[EvaluateModelRequest]
       obj1 shouldBe a[JsSuccess[_]]
-      info("OK")
+      info("OK3")
     }
 
   "Evaluate response JSON writer" should
