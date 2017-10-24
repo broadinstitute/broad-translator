@@ -1,0 +1,1 @@
+Rscript main.R jags.linear.discrete.cmap.cp.a375.6h.Rdata

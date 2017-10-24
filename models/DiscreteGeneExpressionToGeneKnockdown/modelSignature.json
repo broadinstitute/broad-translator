@@ -1,10 +1,10 @@
 {
-    "modelID": "GeneKnockdownToGeneExpression",
+    "modelID": "DiscreteGeneExpressionToGeneKnockdown",
     "variableGroup": [
         {
             "variableGroupID": "GeneKnockdown",
-            "asInput": true,
-            "asOutput": false,
+            "asInput": false,
+            "asOutput": true,
             "groupDistribution": "discrete",
             "groupType": "boolean",
             "groupValue": [
@@ -14228,9 +14228,15 @@
         },
         {
             "variableGroupID": "GeneExpression",
-            "asInput": false,
-            "asOutput": true,
-            "groupDistribution": "Gaussian",
+            "asInput": true,
+            "asOutput": false,
+            "groupDistribution": "discrete",
+            "groupType": "string",
+            "groupValue": [
+                "DN",
+                "NC",
+                "UP"
+            ],
             "modelVariable": [
                 {
                     "variableID": "ENSG00000092010",
