@@ -68,16 +68,24 @@ process_query_results <- function(query_dist, output_spec, vmap = NULL, discrete
       } else if(uGroup[i] == "GeneKnockdown" | uGroup[i] == "CompoundTreatment" | discrete == T){
         var_dist <- table(query_dist[[1]][, os_sub$variableID[j]])/nrow(query_dist[[1]])
         
-        # if(!is.null(vmap)){
-        #   ## decode output variables
-        #   names(var_dist) <- vmap[[uGroup[i]]][as.numeric(names(var_dist))]
-        # }
+        ## decode output variables
+        if(!is.null(vmap)){
+          if(uGroup[i] %in% names(vmap)){
+            names(var_dist) <- vmap[[uGroup[i]]][as.numeric(names(var_dist))]
+          }
+        }
         
-        output$posteriorProbability[[i]]$modelVariable[[j]]$variableID = sub("^p_|^m_", "", os_sub$variableID[j])
+        if(os_sub$variableID[j] %in% c("gene_knockdown", "compound_treatment")){
+          tmp_var_id <- sub("_", " ", os_sub$variableID[j])
+        } else {
+          tmp_var_id <- sub("^p_|^m_", "", os_sub$variableID[j])
+        }
+        
+        output$posteriorProbability[[i]]$modelVariable[[j]]$variableID = tmp_var_id
         output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution <- list("discreteDistribution" = vector(mode = "list", length = length(var_dist)))
         
         for(k in 1:length(var_dist)){
-          output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$variableValue <- as.numeric(names(var_dist)[k])
+          output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$variableValue <- names(var_dist)[k]
           output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$posteriorProbability <- var_dist[[k]]
         }
       } else {
@@ -92,7 +100,7 @@ process_query_results <- function(query_dist, output_spec, vmap = NULL, discrete
 encode_input <- function(input, vmap){
   for(vgroup in names(vmap)){
     if(vgroup %in% input$variableGroupID){
-      input <- input %>% mutate(variableValue = ifelse(variableGroupID == vgroup, as.integer(factor(variableValue, levels = vmap[[unique(variableGroupID)]])), variableValue))
+      input <- input %>% mutate(variableValue = ifelse(variableGroupID == vgroup, as.integer(factor(variableValue, levels = vmap[[vgroup]])), variableValue))
     }
   }
   return(input)
@@ -137,6 +145,10 @@ if(str_detect(model_id, "DiscreteGeneExpression")){
   input <- encode_input(input, vmap)
   input[input$variableID == "gene knockdown", "variableID"] <- "gene_knockdown"
   input[input$variableID == "compound treatment", "variableID"] <- "compound_treatment"
+  
+  # encode output
+  output_spec[output_spec$variableID == "gene knockdown", "variableID"] <- "gene_knockdown"
+  output_spec[output_spec$variableID == "compound treatment", "variableID"] <- "compound_treatment"
 }
 
 meas_obs <- list()
@@ -167,9 +179,9 @@ query_dist <- coda.samples(model=model,variable.names=output_spec$variableID, n.
 
 
 ## process query results
-if(model_id %in% c("SingleGeneKnockdownAndDiscreteGeneExpression", "SingleGeneKnockdownToDiscreteGeneExpression", "DiscreteGeneExpressionToSingleGeneKnockdown")){
+if(str_detect(model_id, "Single")){
   output <- process_query_results(query_dist, output_spec, vmap, discrete = T)
-}else if (model_id %in% c("GeneKnockdownAndDiscreteGeneExpression", "GeneKnockdownToDiscreteGeneExpression", "DiscreteGeneExpressionToGeneKnockdown")){
+} else if (str_detect(model_id, "Discrete")){
   output <- process_query_results(query_dist, output_spec, discrete = T)
 } else {
   output <- process_query_results(query_dist, output_spec)

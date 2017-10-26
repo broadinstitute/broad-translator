@@ -85,7 +85,7 @@ process_query_results <- function(query_dist, output_spec, vmap = NULL, discrete
         output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution <- list("discreteDistribution" = vector(mode = "list", length = length(var_dist)))
         
         for(k in 1:length(var_dist)){
-          output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$variableValue <- as.numeric(names(var_dist)[k])
+          output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$variableValue <- names(var_dist)[k]
           output$posteriorProbability[[i]]$modelVariable[[j]]$posteriorDistribution$discreteDistribution[[k]]$posteriorProbability <- var_dist[[k]]
         }
       } else {
@@ -100,7 +100,7 @@ process_query_results <- function(query_dist, output_spec, vmap = NULL, discrete
 encode_input <- function(input, vmap){
   for(vgroup in names(vmap)){
     if(vgroup %in% input$variableGroupID){
-      input <- input %>% mutate(variableValue = ifelse(variableGroupID == vgroup, as.integer(factor(variableValue, levels = vmap[[unique(variableGroupID)]])), variableValue))
+      input <- input %>% mutate(variableValue = ifelse(variableGroupID == vgroup, as.integer(factor(variableValue, levels = vmap[[vgroup]])), variableValue))
     }
   }
   return(input)
