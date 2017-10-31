@@ -8,8 +8,8 @@
             "groupDistribution": "discrete",
             "groupType": "boolean",
             "groupValue": [
-                "true",
-                "false"
+                true,
+                false
             ],
             "modelVariable": [
                 {

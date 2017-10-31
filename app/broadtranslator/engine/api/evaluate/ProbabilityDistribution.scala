@@ -28,7 +28,6 @@ object ProbabilityDistribution {
 
   object Scalar {
     def apply(value: VariableValue): Scalar[_] ={
-      println(value);
       value match {
         case VariableValue.StringValue(string) => new Scalar(string)
         case VariableValue.NumberValue(double) => new Scalar(double)
