@@ -40,7 +40,7 @@ object SignatureJsonWriting {
       case None                               => EMPTY
       case Some(ValueList.StringList(values)) => JsArray(values.map(JsString(_)))
       case Some(ValueList.NumberList(values)) => JsArray(values.map(JsNumber(_)))
-      case Some(unmatched)                    => println("value list not matched: " + unmatched); EMPTY
+      case Some(ValueList.BooleanList(values)) => JsArray(values.map(JsBoolean(_)))
     }
   }
 

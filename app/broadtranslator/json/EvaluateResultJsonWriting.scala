@@ -25,6 +25,7 @@ object EvaluateResultJsonWriting {
       case poisson: ProbabilityDistribution.Poisson        => Json.obj("PoissonDistribution" -> poissonDistributionWrites.writes(poisson))
       case empirical: ProbabilityDistribution.Empirical    => Json.obj("empiricalDistribution" -> empiricalDistributionWrites.writes(empirical))
       case raw: ProbabilityDistribution.Raw                => Json.obj("rawDistribution" -> raw.distribution)
+      case ProbabilityDistribution.Scalar(value)           => Json.obj("scalarValue" -> ???)
     }
   }
 

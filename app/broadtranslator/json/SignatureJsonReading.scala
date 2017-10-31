@@ -2,7 +2,7 @@ package broadtranslator.json
 
 import broadtranslator.engine.api.id._
 import broadtranslator.engine.api.signature._
-import broadtranslator.engine.api.signature.ValueList.{ NumberList, StringList }
+import broadtranslator.engine.api.signature.ValueList.{ NumberList, StringList, BooleanList }
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json._
 import TranslatorIdsJsonReading.{ variableIdReads, groupIdReads, modelIdReads }
@@ -38,10 +38,15 @@ object SignatureJsonReading {
     case JsString(value) => value
   }
 
+  private def jsonToBoolean(json: JsValue): Boolean = (json: @unchecked) match {
+    case JsBoolean(value) => value
+  }
+
   implicit val valueListReads: Reads[ValueList] = new Reads[ValueList] {
     override def reads(json: JsValue): JsResult[ValueList] = json match {
       case JsArray(members) if all(members.map(_.isInstanceOf[JsNumber])) => JsSuccess(NumberList(members.map(jsonToNumber)))
       case JsArray(members) if all(members.map(_.isInstanceOf[JsString])) => JsSuccess(StringList(members.map(jsonToString)))
+      case JsArray(members) if all(members.map(_.isInstanceOf[JsBoolean])) => JsSuccess(BooleanList(members.map(jsonToBoolean)))
       case _ => JsError(s"Expected array of Boolean, Number or String, but got $json.")
     }
   }

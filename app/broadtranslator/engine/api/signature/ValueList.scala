@@ -13,5 +13,7 @@ object ValueList {
   case class StringList(values: Seq[String]) extends Typed[String]
 
   case class NumberList(values: Seq[Double]) extends Typed[Double]
+  
+  case class BooleanList(values: Seq[Boolean]) extends Typed[Boolean]
 
 }

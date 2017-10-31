@@ -32,16 +32,41 @@ class JsonReadingTest extends FlatSpec with Matchers {
          ]
        }
        """
+    
+    val jsonStrB = """
+
+        {
+            "variableGroupID": "CompoundTreatment",
+            "asInput": true,
+            "asOutput": true,
+            "groupDistribution": "discrete",
+            "groupType": "boolean",
+            "groupValue": [
+                true,
+                false
+            ],
+            "modelVariable": [
+                {
+                    "variableID": "BRD_A81541225_001_02_7"
+                }
+            ]
+         }
+       """
 
     val json = Json.parse(jsonStr)
     val obj = json.validate[GroupSignature]
     obj shouldBe a[JsSuccess[_]]
-    info("OK")
-  }
+    info("OK A")
+
+    val jsonB = Json.parse(jsonStrB)
+    val objB = jsonB.validate[GroupSignature]
+    objB shouldBe a[JsSuccess[_]]
+    info("OK B")
+}
 
   it should "read signature json for all models" in {
     val folder = new java.io.File("models")
-    for (modelId <- folder.list()) {
+    for (modelId <- folder.list() if modelId.charAt(0) != '.') {
       info(modelId)
       val json = Json.parse(new java.io.FileInputStream("models/" + modelId + "/modelSignature.json"))
       json.validate[ModelSignatureResult] shouldBe a[JsSuccess[_]]
