@@ -1,0 +1,137 @@
+{
+  "modelID": "VariantToGene",
+  "modelInput": [
+    { 
+      "variableGroupID": "Variants",
+      "modelVariable": [
+        {
+          "variableID": "20_39832628_T_C",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.20 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_39743905_G_A",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.18 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_33078103_C_T",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.53 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_33008905_T_C",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.47 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_39889730_G_A",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.18 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_32998654_T_C",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.48 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_39734003_C_A",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.17 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_39806772_A_G",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.18 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_39714228_A_G",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.17 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_32994715_A_G",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.47 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_33793159_C_A",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.29 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_33409350_G_A",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.44 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_33220070_T_C",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.51 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_33294353_A_G",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.46 }
+            ]
+          }
+        },
+        {
+          "variableID": "20_39901282_C_T",
+          "priorDistribution": {
+            "discreteDistribution": [
+              { "variableValue": 1, "priorProbability": 0.18 }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "modelOutput": [
+    { 
+      "variableGroupID": "Genes",
+      "variableID": ["ACSS2", "AHCY", "ASIP", "CEP250", "CHD6", "DYNLRB1", "EDEM2", "EIF6", "EMILIN3", "FAM83C", "GDF5", "GDF5OS", "GGT7", "GSS", "ITCH", "LPIN3", "MAP1LC3A", "MMP24", "MYH7B", "NCOA6", "PIGU", "PLCG1", "PROCR", "TOP1", "TP53INP2", "TRPC4AP", "ZHX3"],
+          "rawOutput": false
+    }
+  ]
+}
